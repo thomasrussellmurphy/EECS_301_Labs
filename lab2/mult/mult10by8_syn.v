@@ -47,7 +47,7 @@ module mult10by8_mult
        (
            dataa,
            datab,
-           result )   /* synthesis synthesis_clearbox=1 */;
+           result )     /* synthesis synthesis_clearbox=1 */;
 input [ 9: 0 ] dataa;
 input [ 7: 0 ] datab;
 output [ 17: 0 ] result;
@@ -122,7 +122,7 @@ endmodule //mult10by8_mult
           module mult10by8 (
               dataa,
               datab,
-              result )  /* synthesis synthesis_clearbox = 1 */;
+              result )    /* synthesis synthesis_clearbox = 1 */;
 
 input	[ 9: 0 ] dataa;
 input	[ 7: 0 ] datab;

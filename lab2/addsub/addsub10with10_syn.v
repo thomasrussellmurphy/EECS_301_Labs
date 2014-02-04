@@ -48,7 +48,7 @@ module addsub10with10_add_sub
            add_sub,
            dataa,
            datab,
-           result )   /* synthesis synthesis_clearbox=1 */;
+           result )     /* synthesis synthesis_clearbox=1 */;
 input add_sub;
 input [ 9: 0 ] dataa;
 input [ 9: 0 ] datab;
@@ -85,7 +85,7 @@ endmodule //addsub10with10_add_sub
               add_sub,
               dataa,
               datab,
-              result )  /* synthesis synthesis_clearbox = 1 */;
+              result )    /* synthesis synthesis_clearbox = 1 */;
 
 input	add_sub;
 input	[ 9: 0 ] dataa;
