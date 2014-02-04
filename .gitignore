@@ -23,6 +23,7 @@
 # design.
 
 # ignore hdl source files in top level directory
+# Nope. Get all the HDL source files and keep them around
 # *.vhd
 # *.v
 
@@ -51,7 +52,7 @@
 *.sopc_builder
 *example*
 *~
-*.sdc
+# *.sdc # I want those timing files
 *.tcl
 *.pin
 *.mif
