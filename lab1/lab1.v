@@ -12,26 +12,26 @@
 
 
 module lab1
-	(
-		////////////////////	Clock Input	 	////////////////////	 
-		CLOCK_50,						//	50 MHz
-		CLOCK_50_2,						//	50 MHz
-		////////////////////	Push Button		////////////////////
-		BUTTON,							//	Pushbutton[2:0]
-		////////////////////	DPDT Switch		////////////////////
-		SW,								//	Toggle Switch[9:0]
-		////////////////////	7-SEG Dispaly	////////////////////
-		HEX0_D,							//	Seven Segment Digit 0
-		HEX0_DP,						//	Seven Segment Digit DP 0
-		HEX1_D,							//	Seven Segment Digit 1
-		HEX1_DP,						//	Seven Segment Digit DP 1
-		HEX2_D,							//	Seven Segment Digit 2
-		HEX2_DP,						//	Seven Segment Digit DP 2
-		HEX3_D,							//	Seven Segment Digit 3
-		HEX3_DP,						//	Seven Segment Digit DP 3
-		////////////////////////	LED		////////////////////////
-		LEDG,							//	LED Green[9:0]
-	);
+       (
+           ////////////////////	Clock Input	 	////////////////////
+           CLOCK_50,						//	50 MHz
+           CLOCK_50_2,						//	50 MHz
+           ////////////////////	Push Button		////////////////////
+           BUTTON,							//	Pushbutton[2:0]
+           ////////////////////	DPDT Switch		////////////////////
+           SW,								//	Toggle Switch[9:0]
+           ////////////////////	7-SEG Dispaly	////////////////////
+           HEX0_D,							//	Seven Segment Digit 0
+           HEX0_DP,						//	Seven Segment Digit DP 0
+           HEX1_D,							//	Seven Segment Digit 1
+           HEX1_DP,						//	Seven Segment Digit DP 1
+           HEX2_D,							//	Seven Segment Digit 2
+           HEX2_DP,						//	Seven Segment Digit DP 2
+           HEX3_D,							//	Seven Segment Digit 3
+           HEX3_DP,						//	Seven Segment Digit DP 3
+           ////////////////////////	LED		////////////////////////
+           LEDG,							//	LED Green[9:0]
+       );
 
 ////////////////////////	Clock Input	 	////////////////////////
 input			CLOCK_50;				//	50 MHz
@@ -85,11 +85,11 @@ wire [2:0] BUTTON_AH;
 //  Structural coding
 //=======================================================
 
-	always@(posedge CLOCK_50)		Cont	<=	Cont+1'b1;
-	
-	assign LEDG[9] = Cont[22];
-	assign BUTTON_AH[2:0] = ~BUTTON[2:0];
-	
-	conditionalstatemachine STATE (.clk(Cont[25]), .reset(SW[0]), .w1(BUTTON_AH[1]), .w2(BUTTON_AH[2]), .z1(LEDG[0]), .z2(LEDG[1]));
-	
+always@(posedge CLOCK_50)		Cont	<=	Cont+1'b1;
+
+assign LEDG[9] = Cont[22];
+assign BUTTON_AH[2:0] = ~BUTTON[2:0];
+
+conditionalstatemachine STATE (.clk(Cont[25]), .reset(SW[0]), .w1(BUTTON_AH[1]), .w2(BUTTON_AH[2]), .z1(LEDG[0]), .z2(LEDG[1]));
+
 endmodule
