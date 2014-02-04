@@ -1,12 +1,12 @@
-module SEG7_LUT	(	oSEG,oSEG_DP,iDIG	);
-input	[3:0]	iDIG;
-output	[6:0]	oSEG;
-output			oSEG_DP;
-reg		[6:0]	oSEG;
-reg				oSEG_DP;
+module SEG7_LUT	( oSEG, oSEG_DP, iDIG	);
+input	[ 3: 0 ] iDIG;
+output	[ 6: 0 ] oSEG;
+output	oSEG_DP;
+reg	[ 6: 0 ] oSEG;
+reg	oSEG_DP;
 
-always @(iDIG) begin
-    case(iDIG)
+always @( iDIG ) begin
+    case ( iDIG )
         4'h1:
             oSEG = 7'b1111001;	// ---t----
         4'h2:
@@ -42,8 +42,8 @@ always @(iDIG) begin
     endcase
 end
 
-always @(iDIG) begin
-    case(iDIG)
+always @( iDIG ) begin
+    case ( iDIG )
         4'h1:
             oSEG_DP = 1'b0;
         4'h2:

@@ -1,7 +1,7 @@
 // megafunction wizard: %LPM_ADD_SUB%
 // GENERATION: STANDARD
 // VERSION: WM1.0
-// MODULE: LPM_ADD_SUB 
+// MODULE: LPM_ADD_SUB
 
 // ============================================================
 // File Name: addsub10with10.v
@@ -19,17 +19,17 @@
 
 
 //Copyright (C) 1991-2013 Altera Corporation
-//Your use of Altera Corporation's design tools, logic functions 
-//and other software and tools, and its AMPP partner logic 
-//functions, and any output files from any of the foregoing 
-//(including device programming or simulation files), and any 
-//associated documentation or information are expressly subject 
-//to the terms and conditions of the Altera Program License 
-//Subscription Agreement, Altera MegaCore Function License 
-//Agreement, or other applicable license agreement, including, 
-//without limitation, that your use is for the sole purpose of 
-//programming logic devices manufactured by Altera and sold by 
-//Altera or its authorized distributors.  Please refer to the 
+//Your use of Altera Corporation's design tools, logic functions
+//and other software and tools, and its AMPP partner logic
+//functions, and any output files from any of the foregoing
+//(including device programming or simulation files), and any
+//associated documentation or information are expressly subject
+//to the terms and conditions of the Altera Program License
+//Subscription Agreement, Altera MegaCore Function License
+//Agreement, or other applicable license agreement, including,
+//without limitation, that your use is for the sole purpose of
+//programming logic devices manufactured by Altera and sold by
+//Altera or its authorized distributors.  Please refer to the
 //applicable agreement for further details.
 
 
@@ -39,108 +39,112 @@
 // altera message_off 10463
 
 
-//synthesis_resources = lut 20 
+//synthesis_resources = lut 20
 //synopsys translate_off
-`timescale 1 ps / 1 ps
+`timescale 1 ps / 1 ps 
 //synopsys translate_on
-module  addsub10with10_add_sub
-	( 
-	add_sub,
-	dataa,
-	datab,
-	result) /* synthesis synthesis_clearbox=1 */;
-	input   add_sub;
-	input   [9:0]  dataa;
-	input   [9:0]  datab;
-	output   [9:0]  result;
+module addsub10with10_add_sub
+       (
+           add_sub,
+           dataa,
+           datab,
+           result )   /* synthesis synthesis_clearbox=1 */;
+input add_sub;
+input [ 9: 0 ] dataa;
+input [ 9: 0 ] datab;
+output [ 9: 0 ] result;
 `ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
+        // synopsys translate_off
 `endif
-	tri1   add_sub;
-	tri0   [9:0]  dataa;
-	tri0   [9:0]  datab;
+        tri1 add_sub;
+tri0 [ 9: 0 ] dataa;
+tri0 [ 9: 0 ] datab;
 `ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
+        // synopsys translate_on
 `endif
 
-	reg	[9:0]	wire_result_int;
+        reg	[ 9: 0 ] wire_result_int;
 
-	always @(add_sub or dataa or datab)
-		if (add_sub == 1'b1) wire_result_int = dataa + datab;
-		else wire_result_int = dataa - datab;
-	assign
-		result = wire_result_int;
+always @( add_sub or dataa or datab )
+    if ( add_sub == 1'b1 ) begin
+        wire_result_int = dataa + datab;
+    end
+    else begin
+        wire_result_int = dataa - datab;
+    end
+assign
+    result = wire_result_int;
 endmodule //addsub10with10_add_sub
-//VALID FILE
+          //VALID FILE
 
 
-// synopsys translate_off
+          // synopsys translate_off
 `timescale 1 ps / 1 ps
-// synopsys translate_on
-module addsub10with10 (
-	add_sub,
-	dataa,
-	datab,
-	result)/* synthesis synthesis_clearbox = 1 */;
+          // synopsys translate_on
+          module addsub10with10 (
+              add_sub,
+              dataa,
+              datab,
+              result )  /* synthesis synthesis_clearbox = 1 */;
 
-	input	  add_sub;
-	input	[9:0]  dataa;
-	input	[9:0]  datab;
-	output	[9:0]  result;
+input	add_sub;
+input	[ 9: 0 ] dataa;
+input	[ 9: 0 ] datab;
+output	[ 9: 0 ] result;
 
-	wire [9:0] sub_wire0;
-	wire [9:0] result = sub_wire0[9:0];
+wire [ 9: 0 ] sub_wire0;
+wire [ 9: 0 ] result = sub_wire0[ 9: 0 ];
 
-	addsub10with10_add_sub	addsub10with10_add_sub_component (
-				.add_sub (add_sub),
-				.dataa (dataa),
-				.datab (datab),
-				.result (sub_wire0));
+addsub10with10_add_sub	addsub10with10_add_sub_component (
+                           .add_sub ( add_sub ),
+                           .dataa ( dataa ),
+                           .datab ( datab ),
+                           .result ( sub_wire0 ) );
 
 endmodule
 
-// ============================================================
-// CNX file retrieval info
-// ============================================================
-// Retrieval info: PRIVATE: CarryIn NUMERIC "0"
-// Retrieval info: PRIVATE: CarryOut NUMERIC "0"
-// Retrieval info: PRIVATE: ConstantA NUMERIC "0"
-// Retrieval info: PRIVATE: ConstantB NUMERIC "0"
-// Retrieval info: PRIVATE: Function NUMERIC "2"
-// Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone III"
-// Retrieval info: PRIVATE: LPM_PIPELINE NUMERIC "0"
-// Retrieval info: PRIVATE: Latency NUMERIC "0"
-// Retrieval info: PRIVATE: Overflow NUMERIC "0"
-// Retrieval info: PRIVATE: RadixA NUMERIC "10"
-// Retrieval info: PRIVATE: RadixB NUMERIC "10"
-// Retrieval info: PRIVATE: Representation NUMERIC "0"
-// Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
-// Retrieval info: PRIVATE: ValidCtA NUMERIC "0"
-// Retrieval info: PRIVATE: ValidCtB NUMERIC "0"
-// Retrieval info: PRIVATE: WhichConstant NUMERIC "0"
-// Retrieval info: PRIVATE: aclr NUMERIC "0"
-// Retrieval info: PRIVATE: clken NUMERIC "0"
-// Retrieval info: PRIVATE: nBit NUMERIC "10"
-// Retrieval info: PRIVATE: new_diagram STRING "1"
-// Retrieval info: LIBRARY: lpm lpm.lpm_components.all
-// Retrieval info: CONSTANT: LPM_DIRECTION STRING "UNUSED"
-// Retrieval info: CONSTANT: LPM_HINT STRING "ONE_INPUT_IS_CONSTANT=NO,CIN_USED=NO"
-// Retrieval info: CONSTANT: LPM_REPRESENTATION STRING "SIGNED"
-// Retrieval info: CONSTANT: LPM_TYPE STRING "LPM_ADD_SUB"
-// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "10"
-// Retrieval info: USED_PORT: add_sub 0 0 0 0 INPUT NODEFVAL "add_sub"
-// Retrieval info: USED_PORT: dataa 0 0 10 0 INPUT NODEFVAL "dataa[9..0]"
-// Retrieval info: USED_PORT: datab 0 0 10 0 INPUT NODEFVAL "datab[9..0]"
-// Retrieval info: USED_PORT: result 0 0 10 0 OUTPUT NODEFVAL "result[9..0]"
-// Retrieval info: CONNECT: @add_sub 0 0 0 0 add_sub 0 0 0 0
-// Retrieval info: CONNECT: @dataa 0 0 10 0 dataa 0 0 10 0
-// Retrieval info: CONNECT: @datab 0 0 10 0 datab 0 0 10 0
-// Retrieval info: CONNECT: result 0 0 10 0 @result 0 0 10 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.bsf TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10_inst.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10_bb.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10_syn.v TRUE
-// Retrieval info: LIB_FILE: lpm
+    // ============================================================
+    // CNX file retrieval info
+    // ============================================================
+    // Retrieval info: PRIVATE: CarryIn NUMERIC "0"
+    // Retrieval info: PRIVATE: CarryOut NUMERIC "0"
+    // Retrieval info: PRIVATE: ConstantA NUMERIC "0"
+    // Retrieval info: PRIVATE: ConstantB NUMERIC "0"
+    // Retrieval info: PRIVATE: Function NUMERIC "2"
+    // Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone III"
+    // Retrieval info: PRIVATE: LPM_PIPELINE NUMERIC "0"
+    // Retrieval info: PRIVATE: Latency NUMERIC "0"
+    // Retrieval info: PRIVATE: Overflow NUMERIC "0"
+    // Retrieval info: PRIVATE: RadixA NUMERIC "10"
+    // Retrieval info: PRIVATE: RadixB NUMERIC "10"
+    // Retrieval info: PRIVATE: Representation NUMERIC "0"
+    // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
+    // Retrieval info: PRIVATE: ValidCtA NUMERIC "0"
+    // Retrieval info: PRIVATE: ValidCtB NUMERIC "0"
+    // Retrieval info: PRIVATE: WhichConstant NUMERIC "0"
+    // Retrieval info: PRIVATE: aclr NUMERIC "0"
+    // Retrieval info: PRIVATE: clken NUMERIC "0"
+    // Retrieval info: PRIVATE: nBit NUMERIC "10"
+    // Retrieval info: PRIVATE: new_diagram STRING "1"
+    // Retrieval info: LIBRARY: lpm lpm.lpm_components.all
+    // Retrieval info: CONSTANT: LPM_DIRECTION STRING "UNUSED"
+    // Retrieval info: CONSTANT: LPM_HINT STRING "ONE_INPUT_IS_CONSTANT=NO,CIN_USED=NO"
+    // Retrieval info: CONSTANT: LPM_REPRESENTATION STRING "SIGNED"
+    // Retrieval info: CONSTANT: LPM_TYPE STRING "LPM_ADD_SUB"
+    // Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "10"
+    // Retrieval info: USED_PORT: add_sub 0 0 0 0 INPUT NODEFVAL "add_sub"
+    // Retrieval info: USED_PORT: dataa 0 0 10 0 INPUT NODEFVAL "dataa[9..0]"
+    // Retrieval info: USED_PORT: datab 0 0 10 0 INPUT NODEFVAL "datab[9..0]"
+    // Retrieval info: USED_PORT: result 0 0 10 0 OUTPUT NODEFVAL "result[9..0]"
+    // Retrieval info: CONNECT: @add_sub 0 0 0 0 add_sub 0 0 0 0
+    // Retrieval info: CONNECT: @dataa 0 0 10 0 dataa 0 0 10 0
+    // Retrieval info: CONNECT: @datab 0 0 10 0 datab 0 0 10 0
+    // Retrieval info: CONNECT: result 0 0 10 0 @result 0 0 10 0
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.v TRUE
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.inc FALSE
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.cmp FALSE
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10.bsf TRUE
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10_inst.v TRUE
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10_bb.v TRUE
+    // Retrieval info: GEN_FILE: TYPE_NORMAL addsub10with10_syn.v TRUE
+    // Retrieval info: LIB_FILE: lpm
