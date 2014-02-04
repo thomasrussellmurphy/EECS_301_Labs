@@ -13,7 +13,6 @@ always@( posedge clk ) begin
         out <= 0;
     end
     else begin
-        out <= out + 1'b1; // What does this do??? The code worked...
         // TODO: make this an appropriately hinted U/D counter?
         if ( ina & ~lasta ) begin // detect edge, count up or down
             if ( inb ) begin
