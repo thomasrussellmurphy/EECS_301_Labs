@@ -21,7 +21,7 @@ mult10by9 mult ( .dataa( error ), .datab( posgain ), .result( gainerror ) );
 
 always @( posedge clk ) begin
     // divide to normalize to 0<=gain<1, loose msb (non-sign) of gainerror
-    // because it doesn't seem to get used
+    // because it is extra from the conversion to 2's complement
     correction <= { gainerror[ 18 ], gainerror[ 16: 8 ] };
     pwmset <= correction + NORMALIZATION; // then go all unsigned on us
 end

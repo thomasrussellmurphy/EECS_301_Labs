@@ -1,25 +1,26 @@
 // The fantastic motor controller
 // Structure primarily based on block diagram given in lecture 20140124
-module motorcontrol( clk, ina, inb, up, down, gain, enin, en, motorsignal );
+module motorcontrol( clk, ina, inb, up, down, gain, enin, en, motorsignal, rotgoal );
 input wire clk;
 input wire ina, inb, up, down, enin;
 input wire [ 7: 0 ] gain;
 output wire en;
 output wire [ 1: 0 ] motorsignal;
+output wire [ 9: 0 ] rotgoal; // 2's complement
 
 wire sA, sB; // synced encoder signals
 wire differentiation_pulse; // pulse to activate differentiator and reset positioncounter
 wire [ 9: 0 ] rotcount; // 2's complement
 wire [ 9: 0 ] rotrate; // 2's complement
-wire [ 9: 0 ] rotgoal; // 2's complement
 wire [ 9: 0 ] pwmset; // unsigned
-wire pwmout; // output signal from pwm
+wire pwmouth; // output active high signal from pwm
+wire pwmoutl; // output active low signal from pwm
 
 wire uppulse, downpulse; // count indicators for speed goal
 wire enresetgoal; // signal to reset the speed goal
 wire [ 7: 0 ] sgain; // synchronized gain
 
-assign motorsignal[ 1: 0 ] = { ~pwmout, pwmout }; // locked anti-phase
+assign motorsignal[ 1: 0 ] = { pwmoutl, pwmouth }; // locked anti-phase
 assign enresetgoal = ~en;
 
 // Synchronize all incoming signals
@@ -42,6 +43,6 @@ differentiator diff ( .clk( clk ), .load( differentiation_pulse ), .in( rotcount
 
 speedgoalanalysis analysis ( .clk( clk ), .speed( rotrate ), .goal( rotgoal ), .gainin( sgain ), .pwmset( pwmset ) );
 
-pwmsignal pwm ( .clk( clk ), .set( pwmset ), .out( pwmout ) );
+pwmsignal pwm ( .clk( clk ), .set( pwmset ), .outh( pwmouth ), .outl( pwmoutl ) );
 
 endmodule

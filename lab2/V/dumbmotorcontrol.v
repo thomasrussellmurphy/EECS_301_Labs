@@ -1,13 +1,12 @@
 // A simple motor controller that only sets a rotation rate goal
-module dumbmotorcontrol ( clk, ina, inb, up, down, gain, enin, en, motorsignal );
+module dumbmotorcontrol ( clk, ina, inb, up, down, enin, en, motorsignal, rotgoal );
 input wire clk;
 input wire ina, inb, up, down, enin;
-input wire [ 7: 0 ] gain; // unused
 output wire en;
 output wire [ 1: 0 ] motorsignal;
+output wire [ 9: 0 ] rotgoal; // 2's complement
 
 wire sA, sB; // synced encoder signals
-wire [ 9: 0 ] rotgoal; // 2's complement
 wire [ 9: 0 ] pwmset; // unsigned
 wire pwmout;
 
