@@ -44,81 +44,81 @@
 module DE0_TOP
        (
            ////////////////////	Clock Input	 	////////////////////
-           CLOCK_50,      						//	50 MHz
-           CLOCK_50_2,      						//	50 MHz
+           CLOCK_50,       						//	50 MHz
+           CLOCK_50_2,       						//	50 MHz
            ////////////////////	Push Button		////////////////////
-           BUTTON,      							//	Pushbutton[2:0]
+           BUTTON,       							//	Pushbutton[2:0]
            ////////////////////	DPDT Switch		////////////////////
-           SW,      								//	Toggle Switch[9:0]
+           SW,       								//	Toggle Switch[9:0]
            ////////////////////	7-SEG Dispaly	////////////////////
-           HEX0_D,      							//	Seven Segment Digit 0
-           HEX0_DP,      						//	Seven Segment Digit DP 0
-           HEX1_D,      							//	Seven Segment Digit 1
-           HEX1_DP,      						//	Seven Segment Digit DP 1
-           HEX2_D,      							//	Seven Segment Digit 2
-           HEX2_DP,      						//	Seven Segment Digit DP 2
-           HEX3_D,      							//	Seven Segment Digit 3
-           HEX3_DP,      						//	Seven Segment Digit DP 3
+           HEX0_D,       							//	Seven Segment Digit 0
+           HEX0_DP,       						//	Seven Segment Digit DP 0
+           HEX1_D,       							//	Seven Segment Digit 1
+           HEX1_DP,       						//	Seven Segment Digit DP 1
+           HEX2_D,       							//	Seven Segment Digit 2
+           HEX2_DP,       						//	Seven Segment Digit DP 2
+           HEX3_D,       							//	Seven Segment Digit 3
+           HEX3_DP,       						//	Seven Segment Digit DP 3
            ////////////////////////	LED		////////////////////////
-           LEDG,      							//	LED Green[9:0]
+           LEDG,       							//	LED Green[9:0]
            ////////////////////////	UART	////////////////////////
-           UART_TXD,      						//	UART Transmitter
-           UART_RXD,      						//	UART Receiver
-           UART_CTS,      						//	UART Clear To Send
-           UART_RTS,      						//	UART Request To Send
+           UART_TXD,       						//	UART Transmitter
+           UART_RXD,       						//	UART Receiver
+           UART_CTS,       						//	UART Clear To Send
+           UART_RTS,       						//	UART Request To Send
            /////////////////////	SDRAM Interface		////////////////
-           DRAM_DQ,      						//	SDRAM Data bus 16 Bits
-           DRAM_ADDR,      						//	SDRAM Address bus 13 Bits
-           DRAM_LDQM,      						//	SDRAM Low-byte Data Mask
-           DRAM_UDQM,      						//	SDRAM High-byte Data Mask
-           DRAM_WE_N,      						//	SDRAM Write Enable
-           DRAM_CAS_N,      						//	SDRAM Column Address Strobe
-           DRAM_RAS_N,      						//	SDRAM Row Address Strobe
-           DRAM_CS_N,      						//	SDRAM Chip Select
-           DRAM_BA_0,      						//	SDRAM Bank Address 0
-           DRAM_BA_1,      						//	SDRAM Bank Address 1
-           DRAM_CLK,      						//	SDRAM Clock
-           DRAM_CKE,      						//	SDRAM Clock Enable
+           DRAM_DQ,       						//	SDRAM Data bus 16 Bits
+           DRAM_ADDR,       						//	SDRAM Address bus 13 Bits
+           DRAM_LDQM,       						//	SDRAM Low-byte Data Mask
+           DRAM_UDQM,       						//	SDRAM High-byte Data Mask
+           DRAM_WE_N,       						//	SDRAM Write Enable
+           DRAM_CAS_N,       						//	SDRAM Column Address Strobe
+           DRAM_RAS_N,       						//	SDRAM Row Address Strobe
+           DRAM_CS_N,       						//	SDRAM Chip Select
+           DRAM_BA_0,       						//	SDRAM Bank Address 0
+           DRAM_BA_1,       						//	SDRAM Bank Address 1
+           DRAM_CLK,       						//	SDRAM Clock
+           DRAM_CKE,       						//	SDRAM Clock Enable
            ////////////////////	Flash Interface		////////////////
-           FL_DQ,      							//	FLASH Data bus 15 Bits
-           FL_DQ15_AM1,      					//	FLASH Data bus Bit 15 or Address A-1
-           FL_ADDR,      						//	FLASH Address bus 22 Bits
-           FL_WE_N,      						//	FLASH Write Enable
-           FL_RST_N,      						//	FLASH Reset
-           FL_OE_N,      						//	FLASH Output Enable
-           FL_CE_N,      						//	FLASH Chip Enable
-           FL_WP_N,      						//	FLASH Hardware Write Protect
-           FL_BYTE_N,      						//	FLASH Selects 8/16-bit mode
-           FL_RY,      							//	FLASH Ready/Busy
+           FL_DQ,       							//	FLASH Data bus 15 Bits
+           FL_DQ15_AM1,       					//	FLASH Data bus Bit 15 or Address A-1
+           FL_ADDR,       						//	FLASH Address bus 22 Bits
+           FL_WE_N,       						//	FLASH Write Enable
+           FL_RST_N,       						//	FLASH Reset
+           FL_OE_N,       						//	FLASH Output Enable
+           FL_CE_N,       						//	FLASH Chip Enable
+           FL_WP_N,       						//	FLASH Hardware Write Protect
+           FL_BYTE_N,       						//	FLASH Selects 8/16-bit mode
+           FL_RY,       							//	FLASH Ready/Busy
            ////////////////////	LCD Module 16X2		////////////////
-           LCD_BLON,      						//	LCD Back Light ON/OFF
-           LCD_RW,      							//	LCD Read/Write Select, 0 = Write, 1 = Read
-           LCD_EN,      							//	LCD Enable
-           LCD_RS,      							//	LCD Command/Data Select, 0 = Command, 1 = Data
-           LCD_DATA,      						//	LCD Data bus 8 bits
+           LCD_BLON,       						//	LCD Back Light ON/OFF
+           LCD_RW,       							//	LCD Read/Write Select, 0 = Write, 1 = Read
+           LCD_EN,       							//	LCD Enable
+           LCD_RS,       							//	LCD Command/Data Select, 0 = Command, 1 = Data
+           LCD_DATA,       						//	LCD Data bus 8 bits
            ////////////////////	SD_Card Interface	////////////////
-           SD_DAT0,      						//	SD Card Data 0
-           SD_DAT3,      						//	SD Card Data 3
-           SD_CMD,      							//	SD Card Command Signal
-           SD_CLK,      							//	SD Card Clock
-           SD_WP_N,      						//	SD Card Write Protect
+           SD_DAT0,       						//	SD Card Data 0
+           SD_DAT3,       						//	SD Card Data 3
+           SD_CMD,       							//	SD Card Command Signal
+           SD_CLK,       							//	SD Card Clock
+           SD_WP_N,       						//	SD Card Write Protect
            ////////////////////	PS2		////////////////////////////
-           PS2_KBDAT,      						//	PS2 Keyboard Data
-           PS2_KBCLK,      						//	PS2 Keyboard Clock
-           PS2_MSDAT,      						//	PS2 Mouse Data
-           PS2_MSCLK,      						//	PS2 Mouse Clock
+           PS2_KBDAT,       						//	PS2 Keyboard Data
+           PS2_KBCLK,       						//	PS2 Keyboard Clock
+           PS2_MSDAT,       						//	PS2 Mouse Data
+           PS2_MSCLK,       						//	PS2 Mouse Clock
            ////////////////////	VGA		////////////////////////////
-           VGA_HS,      							//	VGA H_SYNC
-           VGA_VS,      							//	VGA V_SYNC
-           VGA_R,         						//	VGA Red[3:0]
-           VGA_G,      	 						//	VGA Green[3:0]
-           VGA_B,        						//	VGA Blue[3:0]
+           VGA_HS,       							//	VGA H_SYNC
+           VGA_VS,       							//	VGA V_SYNC
+           VGA_R,          						//	VGA Red[3:0]
+           VGA_G,       	 						//	VGA Green[3:0]
+           VGA_B,         						//	VGA Blue[3:0]
            ////////////////////	GPIO	////////////////////////////
-           GPIO0_CLKIN,      					//	GPIO Connection 0 Clock In Bus
-           GPIO0_CLKOUT,      					//	GPIO Connection 0 Clock Out Bus
-           GPIO0_D,      						//	GPIO Connection 0 Data Bus
-           GPIO1_CLKIN,      					//	GPIO Connection 1 Clock In Bus
-           GPIO1_CLKOUT,      					//	GPIO Connection 1 Clock Out Bus
+           GPIO0_CLKIN,       					//	GPIO Connection 0 Clock In Bus
+           GPIO0_CLKOUT,       					//	GPIO Connection 0 Clock Out Bus
+           GPIO0_D,       						//	GPIO Connection 0 Data Bus
+           GPIO1_CLKIN,       					//	GPIO Connection 1 Clock In Bus
+           GPIO1_CLKOUT,       					//	GPIO Connection 1 Clock Out Bus
            GPIO1_D							//	GPIO Connection 1 Data Bus
        );
 
