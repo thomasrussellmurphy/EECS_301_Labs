@@ -6,55 +6,55 @@
 //
 // Revision History :
 // --------------------------------------------------------------------
-//	Ver  :| Author			:| Mod. Date :| Changes Made:
-//	1		Thomas Murphy			20140124		Initial Rev for submission
+// Ver  :| Author			:| Mod. Date :| Changes Made:
+// 1		Thomas Murphy			20140124		Initial Rev for submission
 // --------------------------------------------------------------------
 
 
 module lab1
        (
-           //////////////////// Clock Input		////////////////////
-           CLOCK_50,       									//	50 MHz
-           CLOCK_50_2,       										//	50 MHz
-           //////////////////// Push Button		////////////////////
-           BUTTON,       											//	Pushbutton[2:0]
-           //////////////////// DPDT Switch		////////////////////
-           SW,       												//	Toggle Switch[9:0]
-           //////////////////// 7-SEG Dispaly	////////////////////
-           HEX0_D,       											//	Seven Segment Digit 0
-           HEX0_DP,       										//	Seven Segment Digit DP 0
-           HEX1_D,       											//	Seven Segment Digit 1
-           HEX1_DP,       										//	Seven Segment Digit DP 1
-           HEX2_D,       											//	Seven Segment Digit 2
-           HEX2_DP,       										//	Seven Segment Digit DP 2
-           HEX3_D,       											//	Seven Segment Digit 3
-           HEX3_DP,       										//	Seven Segment Digit DP 3
-           //////////////////////// LED		////////////////////////
-           LEDG,       										//	LED Green[9:0]
+           //////////////////// Clock Input ////////////////////
+           CLOCK_50,    // 50 MHz
+           CLOCK_50_2,    // 50 MHz
+           //////////////////// Push Button ////////////////////
+           BUTTON,    // Pushbutton[2:0]
+           //////////////////// DPDT Switch ////////////////////
+           SW,    // Toggle Switch[9:0]
+           //////////////////// 7-SEG Dispaly ////////////////////
+           HEX0_D,    // Seven Segment Digit 0
+           HEX0_DP,    // Seven Segment Digit DP 0
+           HEX1_D,    // Seven Segment Digit 1
+           HEX1_DP,    // Seven Segment Digit DP 1
+           HEX2_D,    // Seven Segment Digit 2
+           HEX2_DP,    // Seven Segment Digit DP 2
+           HEX3_D,    // Seven Segment Digit 3
+           HEX3_DP,    // Seven Segment Digit DP 3
+           //////////////////////// LED ////////////////////////
+           LEDG,    // LED Green[9:0]
        );
 
-////////////////////////	Clock Input		////////////////////////
-input	CLOCK_50;				//	50 MHz
-input	CLOCK_50_2;				//	50 MHz
-////////////////////////	Push Button		////////////////////////
-input	[ 2: 0 ] BUTTON;					//	Pushbutton[2:0]
-////////////////////////	DPDT Switch		////////////////////////
-input	[ 9: 0 ] SW;						//	Toggle Switch[9:0]
-////////////////////////	7-SEG Dispaly	////////////////////////
-output	[ 6: 0 ] HEX0_D;					//	Seven Segment Digit 0
-output	HEX0_DP;				//	Seven Segment Digit DP 0
-output	[ 6: 0 ] HEX1_D;					//	Seven Segment Digit 1
-output	HEX1_DP;				//	Seven Segment Digit DP 1
-output	[ 6: 0 ] HEX2_D;					//	Seven Segment Digit 2
-output	HEX2_DP;				//	Seven Segment Digit DP 2
-output	[ 6: 0 ] HEX3_D;					//	Seven Segment Digit 3
-output	HEX3_DP;				//	Seven Segment Digit DP 3
-////////////////////////////	LED		////////////////////////////
-output	[ 9: 0 ] LEDG;					//	LED Green[9:0]
+//////////////////////// Clock Input ////////////////////////
+input	CLOCK_50; // 50 MHz
+input	CLOCK_50_2; // 50 MHz
+//////////////////////// Push Button ////////////////////////
+input	[ 2: 0 ] BUTTON; // Pushbutton[2:0]
+//////////////////////// DPDT Switch ////////////////////////
+input	[ 9: 0 ] SW; // Toggle Switch[9:0]
+//////////////////////// 7-SEG Dispaly ////////////////////////
+output	[ 6: 0 ] HEX0_D; // Seven Segment Digit 0
+output	HEX0_DP; // Seven Segment Digit DP 0
+output	[ 6: 0 ] HEX1_D; // Seven Segment Digit 1
+output	HEX1_DP; // Seven Segment Digit DP 1
+output	[ 6: 0 ] HEX2_D; // Seven Segment Digit 2
+output	HEX2_DP; // Seven Segment Digit DP 2
+output	[ 6: 0 ] HEX3_D; // Seven Segment Digit 3
+output	HEX3_DP; // Seven Segment Digit DP 3
+//////////////////////////// LED ////////////////////////////
+output	[ 9: 0 ] LEDG; // LED Green[9:0]
 
 
 //=======================================================
-//	REG/WIRE declarations
+// REG/WIRE declarations
 //=======================================================
 
 // Turn off the hex digits and decimal points
@@ -82,7 +82,7 @@ wire [ 2: 0 ] BUTTON_AH;
 
 
 //=======================================================
-//	Structural coding
+// Structural coding
 //=======================================================
 
 always@( posedge CLOCK_50 ) Cont	<= Cont + 1'b1;

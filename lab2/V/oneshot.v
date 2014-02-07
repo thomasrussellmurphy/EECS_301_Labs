@@ -4,7 +4,7 @@ input wire clk;
 input wire ina;
 output reg outpulse;
 
-parameter DELAY_BITS = 23; // constant gives 6 pps @50MHz clock
+parameter DELAY_BITS = 21; // constant gives 24 pps @50MHz clock
 
 reg [ DELAY_BITS - 1: 0 ] count;
 reg triggered;
