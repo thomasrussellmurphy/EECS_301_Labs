@@ -6,29 +6,29 @@
 module lab2
        (
            //////////////////// Clock Input ////////////////////
-           CLOCK_50,    // 50 MHz
-           CLOCK_50_2,    // 50 MHz
+           CLOCK_50,        // 50 MHz
+           CLOCK_50_2,        // 50 MHz
            //////////////////// Push Button ////////////////////
-           BUTTON,    // Pushbutton[2:0]
+           BUTTON,        // Pushbutton[2:0]
            //////////////////// DPDT Switch ////////////////////
-           SW,      // Toggle Switch[9:0]
+           SW,          // Toggle Switch[9:0]
            //////////////////// 7-SEG Dispaly ////////////////////
-           HEX0_D,    // Seven Segment Digit 0
-           HEX0_DP,    // Seven Segment Digit DP 0
-           HEX1_D,    // Seven Segment Digit 1
-           HEX1_DP,    // Seven Segment Digit DP 1
-           HEX2_D,    // Seven Segment Digit 2
-           HEX2_DP,    // Seven Segment Digit DP 2
-           HEX3_D,    // Seven Segment Digit 3
-           HEX3_DP,    // Seven Segment Digit DP 3
+           HEX0_D,        // Seven Segment Digit 0
+           HEX0_DP,        // Seven Segment Digit DP 0
+           HEX1_D,        // Seven Segment Digit 1
+           HEX1_DP,        // Seven Segment Digit DP 1
+           HEX2_D,        // Seven Segment Digit 2
+           HEX2_DP,        // Seven Segment Digit DP 2
+           HEX3_D,        // Seven Segment Digit 3
+           HEX3_DP,        // Seven Segment Digit DP 3
            //////////////////////// LED ////////////////////////
-           LEDG,    // LED Green[9:0]
+           LEDG,        // LED Green[9:0]
            //////////////////// GPIO ////////////////////////////
-           GPIO0_CLKIN,    // GPIO Connection 0 Clock In Bus
-           GPIO0_CLKOUT,    // GPIO Connection 0 Clock Out Bus
-           GPIO0_D,    // GPIO Connection 0 Data Bus
-           GPIO1_CLKIN,    // GPIO Connection 1 Clock In Bus
-           GPIO1_CLKOUT,    // GPIO Connection 1 Clock Out Bus
+           GPIO0_CLKIN,        // GPIO Connection 0 Clock In Bus
+           GPIO0_CLKOUT,        // GPIO Connection 0 Clock Out Bus
+           GPIO0_D,        // GPIO Connection 0 Data Bus
+           GPIO1_CLKIN,        // GPIO Connection 1 Clock In Bus
+           GPIO1_CLKOUT,        // GPIO Connection 1 Clock Out Bus
            GPIO1_D // GPIO Connection 1 Data Bus
        );
 
@@ -128,7 +128,7 @@ assign HEX3_D = disprotgoal[ 20: 14 ];
 motorcontrol controller ( .clk( CLOCK_50 ), .ina( A ), .inb( B ), .up( up ), .down( down ), .enin( enswitch ), .en( en ), .gain( gainswitch ), .motorsignal( motorinput ), .rotgoal( rotgoal ) );
 // dumbmotorcontrol controller ( .clk( CLOCK_50 ), .ina( A ), .inb( B ), .up( up ), .down( down ), .enin( enswitch ), .en( en ), .motorsignal( motorinput ), .rotgoal( rotgoal ) );
 
-// Display gain in hex on remaning 7-seg
+// Display gain in hex on remaining 7-seg
 seg7hexdriver hex3driver ( .value( { 2'b0, signalrotgoal[ 9: 8 ] } ), .display( disprotgoal[ 20: 14 ] ) );
 seg7hexdriver hex2driver ( .value( signalrotgoal[ 7: 4 ] ), .display( disprotgoal[ 13: 7 ] ) );
 seg7hexdriver hex1driver ( .value( signalrotgoal[ 3: 0 ] ), .display( disprotgoal[ 6: 0 ] ) );
