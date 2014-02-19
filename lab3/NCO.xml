@@ -10,9 +10,11 @@
 <PRIVATE name = "MAX" value="256"  type="STRING"  enable="1" />
 <PRIVATE name = "rfs1" value="xxx.hex"  type="STRING"  enable="1" />
 <PRIVATE name = "devicefamily" value="Cyclone III"  type="STRING"  enable="1" />
-<PRIVATE name = "DPRI" value="5"  type="STRING"  enable="1" />
+<PRIVATE name = "DPRI" value="2"  type="STRING"  enable="1" />
+<PRIVATE name = "DEVICE" value="CycloneIII"  type="STRING"  enable="1" />
 <PRIVATE name = "ACCUM_SCLR" value="0"  type="STRING"  enable="1" />
 <PRIVATE name = "ARCH" value="TRIG_ARCH"  type="STRING"  enable="1" />
+<PRIVATE name = "TARGET" value="CycloneIII"  type="STRING"  enable="1" />
 <PRIVATE name = "WANT_DITHER" value="YES"  type="STRING"  enable="1" />
 <PRIVATE name = "APRP" value="16"  type="STRING"  enable="1" />
 <PRIVATE name = "APRF" value="32"  type="STRING"  enable="1" />
@@ -21,20 +23,18 @@
 <PRIVATE name = "CK_MULT" value="e-9"  type="STRING"  enable="1" />
 <PRIVATE name = "FSAMP_VALUE" value="100"  type="STRING"  enable="1" />
 <PRIVATE name = "FREQ_VALUE" value="1"  type="STRING"  enable="1" />
-<PRIVATE name = "MPR" value="18"  type="STRING"  enable="1" />
-<PRIVATE name = "APR" value="32"  type="STRING"  enable="1" />
-<PRIVATE name = "APRI" value="16"  type="STRING"  enable="1" />
-<PRIVATE name = "FSAMP_UNIT" value="MHz"  type="STRING"  enable="1" />
-<PRIVATE name = "FSAMP_MULT" value="1e6"  type="STRING"  enable="1" />
-<PRIVATE name = "FREQ_UNIT" value="MHz"  type="STRING"  enable="1" />
-<PRIVATE name = "FREQ_MULT" value="1e6"  type="STRING"  enable="1" />
+<PRIVATE name = "MPR" value="12"  type="STRING"  enable="1" />
+<PRIVATE name = "APR" value="18"  type="STRING"  enable="1" />
+<PRIVATE name = "APRI" value="14"  type="STRING"  enable="1" />
+<PRIVATE name = "FSAMP_UNIT" value="kHz"  type="STRING"  enable="1" />
+<PRIVATE name = "FSAMP_MULT" value="1e3"  type="STRING"  enable="1" />
+<PRIVATE name = "FREQ_UNIT" value="kHz"  type="STRING"  enable="1" />
+<PRIVATE name = "FREQ_MULT" value="1e3"  type="STRING"  enable="1" />
 <PRIVATE name = "WANT_PMOD" value="NO"  type="STRING"  enable="1" />
 <PRIVATE name = "WANT_FMOD" value="NO"  type="STRING"  enable="1" />
 <PRIVATE name = "DUAL_NOT_SGL_OP" value="WANT_SIN_AND_COS"  type="STRING"  enable="1" />
 <PRIVATE name = "FMOD_PIPELINE" value="1"  type="STRING"  enable="1" />
 <PRIVATE name = "PMOD_PIPELINE" value="1"  type="STRING"  enable="1" />
-<PRIVATE name = "TARGET" value="CycloneIII"  type="STRING"  enable="1" />
-<PRIVATE name = "DEVICE" value="CycloneIII"  type="STRING"  enable="1" />
 <PRIVATE name = "MULT_TYPE" value="DEDICATED"  type="STRING"  enable="1" />
 <PRIVATE name = "CORDIC_TYPE" value="PARALLEL"  type="STRING"  enable="1" />
 <PRIVATE name = "CORDIC_PIPE" value="2"  type="STRING"  enable="1" />
@@ -60,18 +60,18 @@
 <PRIVATE name = "RSFF" value="NCO_sin_f.mif"  type="STRING"  enable="1" />
 <PRIVATE name = "RSVF" value="NCO_sin_f.v"  type="STRING"  enable="1" />
 <PRIVATE name = "RSHF" value="NCO_sin_f.hex"  type="STRING"  enable="1" />
-<PRIVATE name = "MAXC" value="4608"  type="STRING"  enable="1" />
-<PRIVATE name = "MAXF" value="4608"  type="STRING"  enable="1" />
-<PRIVATE name = "RAWC" value="8"  type="STRING"  enable="1" />
-<PRIVATE name = "RAWF" value="8"  type="STRING"  enable="1" />
-<PRIVATE name = "RNWC" value="256"  type="STRING"  enable="1" />
-<PRIVATE name = "RNWF" value="256"  type="STRING"  enable="1" />
-<PRIVATE name = "RDW" value="18"  type="STRING"  enable="1" />
-<PRIVATE name = "NUM_LCELLS" value="2541"  type="STRING"  enable="1" />
-<PRIVATE name = "NUM_MEM_BITS" value="13824"  type="STRING"  enable="1" />
-<PRIVATE name = "NUM_EABS" value="2"  type="STRING"  enable="1" />
+<PRIVATE name = "MAXC" value="1536"  type="STRING"  enable="1" />
+<PRIVATE name = "MAXF" value="1536"  type="STRING"  enable="1" />
+<PRIVATE name = "RAWC" value="7"  type="STRING"  enable="1" />
+<PRIVATE name = "RAWF" value="7"  type="STRING"  enable="1" />
+<PRIVATE name = "RNWC" value="128"  type="STRING"  enable="1" />
+<PRIVATE name = "RNWF" value="128"  type="STRING"  enable="1" />
+<PRIVATE name = "RDW" value="12"  type="STRING"  enable="1" />
+<PRIVATE name = "NUM_LCELLS" value="1249"  type="STRING"  enable="1" />
+<PRIVATE name = "NUM_MEM_BITS" value="4608"  type="STRING"  enable="1" />
+<PRIVATE name = "NUM_EABS" value="1"  type="STRING"  enable="1" />
 <PRIVATE name = "NUM_DSP_BLOCKS" value="8"  type="STRING"  enable="1" />
-<PRIVATE name = "PHI_INC" value="42949673"  type="STRING"  enable="1" />
+<PRIVATE name = "PHI_INC" value="2621"  type="STRING"  enable="1" />
 </NAMESPACE>
 <NAMESPACE name = "simgen_enable">
 <PRIVATE name = "language" value="Verilog HDL"  type="STRING"  enable="1" />
@@ -90,9 +90,9 @@
 </PRIVATES>
 <FILES/>
 <PORTS>
-<PORT name = "phi_inc_i" direction="INPUT"  connect_to="phi_inc_i"  default="NODEFVAL"  high_width="31"  low_width="0"  description="" />
-<PORT name = "fsin_o" direction="OUTPUT"  connect_to="fsin_o"  default="NODEFVAL"  high_width="17"  low_width="0"  description="" />
-<PORT name = "fcos_o" direction="OUTPUT"  connect_to="fcos_o"  default="NODEFVAL"  high_width="17"  low_width="0"  description="" />
+<PORT name = "phi_inc_i" direction="INPUT"  connect_to="phi_inc_i"  default="NODEFVAL"  high_width="17"  low_width="0"  description="" />
+<PORT name = "fsin_o" direction="OUTPUT"  connect_to="fsin_o"  default="NODEFVAL"  high_width="11"  low_width="0"  description="" />
+<PORT name = "fcos_o" direction="OUTPUT"  connect_to="fcos_o"  default="NODEFVAL"  high_width="11"  low_width="0"  description="" />
 <PORT name = "clk" direction="INPUT"  connect_to="clk"  default="NODEFVAL"  width="1"  description="" />
 <PORT name = "reset_n" direction="INPUT"  connect_to="reset_n"  default="NODEFVAL"  width="1"  description="" />
 <PORT name = "clken" direction="INPUT"  connect_to="clken"  default="NODEFVAL"  width="1"  description="" />

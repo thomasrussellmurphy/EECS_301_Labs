@@ -6,7 +6,7 @@ input wire encA, encB, mode;
 output wire sclk, ssync, sdata;
 
 wire encAs, encBs; // synchronized encoder signals
-wire [ 13: 0 ] phaseinc;
+wire [ 14: 0 ] phaseinc;
 wire [ 8: 0 ] gain; // 2's complement gain, always positive
 
 wire [ 11: 0 ] sine; // original sine wave, 2's complement

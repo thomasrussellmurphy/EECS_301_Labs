@@ -31,8 +31,8 @@ reg reset_n;
 reg clken;
 reg clk;
 
-parameter CYCLE = 10000;
-parameter HALF_CYCLE = 5000;
+parameter CYCLE = 10000000;
+parameter HALF_CYCLE = 5000000;
 initial
   begin
     $dumpvars;

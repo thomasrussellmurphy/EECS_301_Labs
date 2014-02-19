@@ -13,7 +13,7 @@
 %      ehre M is the number of channels
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 N=2048*1;
-fs = 1.0E8;
+fs = 100000.0;
 % Input arrays
 
 % phi_inc_i : input phase increment : Length N (required)

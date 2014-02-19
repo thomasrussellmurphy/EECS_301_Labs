@@ -73,7 +73,7 @@ signal phi          : std_logic_vector (APR-1 downto 0);
 signal sel_phi      : std_logic_vector(2 downto 0);
 signal sel_output   : std_logic_vector(2 downto 0);
 signal out_valid    : std_logic;
-constant HALF_CYCLE  : time := 5000 ps;
+constant HALF_CYCLE  : time := 5000000 ps;
 constant CYCLE       : time := 2*HALF_CYCLE;
 
 
