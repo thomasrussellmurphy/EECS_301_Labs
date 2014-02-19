@@ -15,7 +15,7 @@ INPUTS clken;
 PATTERN
 0> 0
 90>  1 ;
-INPUTS phi_inc_i[14..0];
+INPUTS phi_inc_i[17..0];
 PATTERN
-0> 328;
+0> 2621;
 OUTPUTS fsin_o[11..0] fcos_o[11..0]; 

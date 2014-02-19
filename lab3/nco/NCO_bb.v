@@ -23,19 +23,19 @@
 // needed under any third party's intellectual property, are provided herein.
 
 module NCO (
-           phi_inc_i,
-           clk,
-           reset_n,
-           clken,
-           fsin_o,
-           fcos_o,
-           out_valid );
+	phi_inc_i,
+	clk,
+	reset_n,
+	clken,
+	fsin_o,
+	fcos_o,
+	out_valid);
 
-input	[ 14: 0 ] phi_inc_i;
-input	clk;
-input	reset_n;
-input	clken;
-output	[ 11: 0 ] fsin_o;
-output	[ 11: 0 ] fcos_o;
-output	out_valid;
+	input	[17:0]	phi_inc_i;
+	input		clk;
+	input		reset_n;
+	input		clken;
+	output	[11:0]	fsin_o;
+	output	[11:0]	fcos_o;
+	output		out_valid;
 endmodule

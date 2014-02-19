@@ -24,65 +24,66 @@
 module NCO_tb;
 
 wire out_valid;
-wire [ 11: 0 ] sin_val;
-wire [ 11: 0 ] cos_val;
-reg [ 14: 0 ] phi;
+wire [11:0] sin_val;
+wire [11:0] cos_val;
+reg [17:0] phi;
 reg reset_n;
 reg clken;
 reg clk;
 
-parameter CYCLE = 10000000;
-parameter HALF_CYCLE = 5000000;
-initial begin
+parameter CYCLE = 10000;
+parameter HALF_CYCLE = 5000;
+initial
+  begin
     $dumpvars;
     #0 clk = 1'b0;
     #0 reset_n = 1'b0;
     #0 clken = 1'b1;
-    #0 phi = 15'b000000101001000;
-    #( 14 * HALF_CYCLE ) reset_n = 1'b1;
-end
+    #0 phi = 18'b000000101000111101;
+    #(14*HALF_CYCLE) reset_n = 1'b1;
+  end
 
-always begin
+always
+  begin
     #HALF_CYCLE clk = 1;
     #HALF_CYCLE clk = 0;
-end
+  end
 
 integer sin_ch, sin_print;
 integer cos_ch, cos_print;
-initial begin
-    sin_ch = $fopen ( "fsin_o_ver_NCO.txt" );
-    cos_ch = $fopen ( "fcos_o_ver_NCO.txt" );
-end
+initial
+  begin
+    sin_ch = $fopen ("fsin_o_ver_NCO.txt");
+    cos_ch = $fopen ("fcos_o_ver_NCO.txt");
+  end
 
-always @( posedge clk ) begin
-    if ( reset_n == 1'b1 & out_valid == 1'b1 ) begin
-        if ( sin_val[ 11: 0 ] < ( 1 << 11 ) ) begin
-            sin_print = sin_val[ 11: 0 ];
-        end
-        else begin
-            sin_print = sin_val[ 11: 0 ] - ( 1 << 12 );
-        end
+always @(posedge clk)
+  begin
+    if(reset_n==1'b1 & out_valid==1'b1)
+      begin
+        if (sin_val[11:0] < (1<<11))
+          sin_print = sin_val[11:0];
+        else
+          sin_print =  sin_val[11:0] - (1<<12);
 
-        if ( cos_val[ 11: 0 ] < ( 1 << 11 ) ) begin
-            cos_print = cos_val[ 11: 0 ];
-        end
-        else begin
-            cos_print = cos_val[ 11: 0 ] - ( 1 << 12 );
-        end
+      if (cos_val[11:0] < (1<<11))
+        cos_print = cos_val[11:0];
+      else
+        cos_print =  cos_val[11:0] - (1<<12);
 
-        $fdisplay ( sin_ch, "%0d", sin_print );
-        $fdisplay ( cos_ch, "%0d", cos_print );
-    end
+    $fdisplay (sin_ch, "%0d", sin_print);
+    $fdisplay (cos_ch, "%0d", cos_print);
+      end
 end
 
 NCO i_NCO (
-        .out_valid( out_valid ),
-        .fsin_o( sin_val[ 11: 0 ] ),
-        .fcos_o( cos_val[ 11: 0 ] ),
-        .phi_inc_i( phi[ 14: 0 ] ),
-        .reset_n( reset_n ),
-        .clken( clken ),
-        .clk( clk )
+    .out_valid(out_valid),
+    .fsin_o(sin_val[11:0]),
+    .fcos_o(cos_val[11:0]),
+    .phi_inc_i(phi[17:0]),
+    .reset_n(reset_n),
+    .clken(clken),
+    .clk(clk)
     );
 
 endmodule

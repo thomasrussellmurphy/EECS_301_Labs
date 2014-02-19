@@ -30,12 +30,12 @@ else
 end
 N=length(phi_inc_i);
 numch = 1.0;
-apr = 15.0;
-apri = 9.0;
+apr = 18.0;
+apri = 14.0;
 mpr = 12.0;
 aprp = 16.0;
 aprf = 32.0;
-dpri = 0.0;
+dpri = 2.0;
 arch = 2.0;
 wantFmod = 0.0;
 wantPmod = 0.0;

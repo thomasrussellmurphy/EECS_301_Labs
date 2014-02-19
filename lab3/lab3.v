@@ -32,29 +32,29 @@
 module lab3
        (
            //////////////////// Clock Input ////////////////////
-           CLOCK_50,  // 50 MHz
-           CLOCK_50_2,  // 50 MHz
+           CLOCK_50,   // 50 MHz
+           CLOCK_50_2,   // 50 MHz
            //////////////////// Push Button ////////////////////
-           BUTTON,  // Pushbutton[2:0]
+           BUTTON,   // Pushbutton[2:0]
            //////////////////// DPDT Switch ////////////////////
-           SW,  // Toggle Switch[9:0]
+           SW,   // Toggle Switch[9:0]
            //////////////////// 7-SEG Dispaly ////////////////////
-           HEX0_D,  // Seven Segment Digit 0
-           HEX0_DP,  // Seven Segment Digit DP 0
-           HEX1_D,  // Seven Segment Digit 1
-           HEX1_DP,  // Seven Segment Digit DP 1
-           HEX2_D,  // Seven Segment Digit 2
-           HEX2_DP,  // Seven Segment Digit DP 2
-           HEX3_D,  // Seven Segment Digit 3
-           HEX3_DP,  // Seven Segment Digit DP 3
+           HEX0_D,   // Seven Segment Digit 0
+           HEX0_DP,   // Seven Segment Digit DP 0
+           HEX1_D,   // Seven Segment Digit 1
+           HEX1_DP,   // Seven Segment Digit DP 1
+           HEX2_D,   // Seven Segment Digit 2
+           HEX2_DP,   // Seven Segment Digit DP 2
+           HEX3_D,   // Seven Segment Digit 3
+           HEX3_DP,   // Seven Segment Digit DP 3
            //////////////////////// LED ////////////////////////
-           LEDG,  // LED Green[9:0]
+           LEDG,   // LED Green[9:0]
            //////////////////// GPIO ////////////////////////////
-           GPIO0_CLKIN,  // GPIO Connection 0 Clock In Bus
-           GPIO0_CLKOUT,  // GPIO Connection 0 Clock Out Bus
-           GPIO0_D,  // GPIO Connection 0 Data Bus
-           GPIO1_CLKIN,  // GPIO Connection 1 Clock In Bus
-           GPIO1_CLKOUT,  // GPIO Connection 1 Clock Out Bus
+           GPIO0_CLKIN,   // GPIO Connection 0 Clock In Bus
+           GPIO0_CLKOUT,   // GPIO Connection 0 Clock Out Bus
+           GPIO0_D,   // GPIO Connection 0 Data Bus
+           GPIO1_CLKIN,   // GPIO Connection 1 Clock In Bus
+           GPIO1_CLKOUT,   // GPIO Connection 1 Clock Out Bus
            GPIO1_D // GPIO Connection 1 Data Bus
        );
 
@@ -87,14 +87,36 @@ inout [ 31: 0 ] GPIO1_D; // GPIO Connection 1 Data Bus
 // =======================================================
 // REG/WIRE declarations
 // =======================================================
+wire enswitch, modeswitch, resetbutton;
+wire enswitchs, modeswitchs, resetbuttons;
+wire sclk, sdata, ssync; // 3-wire interface
+wire A, B;
+
+
 // All inout port turn to tri-state
-assign GPIO0_D = 32'hzzzzzzzz;
+assign { GPIO0_D[ 31: 6 ], GPIO0_D[ 3: 0 ] } = 32'hzzzzzzzz;
 assign GPIO1_D = 32'hzzzzzzzz;
 
+// Pull out GPIO for DAC serial communications
+
+// Motor encoder inputs
+assign A = GPIO0_D [ 5 ];
+assign B = GPIO0_D [ 4 ];
+
+assign enswitch = SW[ 0 ];
+assign modeswitch = SW[ 1 ];
+assign resetbutton = ~BUTTON[ 0 ]; // active-low button
 
 // =======================================================
 // Structural coding
 // =======================================================
 
+// Presynchronize important signals
+synchronizer syncen ( .clk( CLOCK_50 ), .ina( enswitch ), .outs( enswitchs ) );
+synchronizer syncreset ( .clk( CLOCK_50 ), .ina( resetbutton ), .outs( resetbuttons ) );
+synchronizer syncmode ( .clk( CLOCK_50 ), .ina( modeswitch ), .outs( modeswitchs ) );
+
+// Top level module
+ncotodac top ( .clk( CLOCK_50 ), .reset( resetbuttons ), .en( enswitchs ), .encA( A ), .encB( B ), .mode( modeswitchs ), .sclk( sclk ), .ssync( ssync ), .sdata( sdata ) );
 
 endmodule

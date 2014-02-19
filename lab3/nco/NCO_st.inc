@@ -21,7 +21,7 @@
 
 FUNCTION NCO_st
 (
- phi_inc_i[14..0],
+ phi_inc_i[17..0],
 	clk,
 	reset_n,
 	clken
