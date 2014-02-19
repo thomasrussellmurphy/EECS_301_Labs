@@ -43,9 +43,9 @@ set_global_assignment -name ORIGINAL_QUARTUS_VERSION "8.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
 set_global_assignment -name VERILOG_FILE DE0_TOP.v
-set_global_assignment -name VERILOG_FILE V/SEG7_LUT_4.v
-set_global_assignment -name VERILOG_FILE V/SEG7_LUT.v
-set_global_assignment -name VERILOG_FILE V/LEDG_Driver.v
+set_global_assignment -name VERILOG_FILE ../common-verilog/SEG7_LUT_4.v
+set_global_assignment -name VERILOG_FILE ../common-verilog/SEG7_LUT.v
+set_global_assignment -name VERILOG_FILE ../common-verilog/LEDG_Driver.v
 
 # Pin & Location Assignments
 # ==========================
