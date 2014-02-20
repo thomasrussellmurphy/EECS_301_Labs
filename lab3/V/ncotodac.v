@@ -29,7 +29,7 @@ mult12by9 gainmult( .dataa( sine ), .datab( gain ), .result( gainsine ) );
 
 assign outputsine = { gainsine[ 20 ], gainsine[ 18: 8 ] } + 12'b100000000000; // extract useful bits, normalize to unsigned
 
-// drop in serial output module here. Input: outputsine. Output: sampleclk, sclk, ssync, sdata.
-assign { ssync, sdata } = outputsine[ 11: 10 ];
+// drop in serial output module here. Input: outputsine, sclk, (?)sampleclk. Output: ssync, sdata.
+Parallel2Serial serialoutput ( .parallelDataIn( outputsine ), .syncClock( sclk ), .serialDataOut( sdata ), .syncOut( ssync ) ) ;
 
 endmodule
