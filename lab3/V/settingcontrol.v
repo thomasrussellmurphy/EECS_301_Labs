@@ -2,7 +2,7 @@ module settingcontrol( clk, reset, en, encA, encB, mode, phaseinc, gain );
 parameter MIDFREQ = 14'd1048;
 parameter DEFAULTGAIN = 9'b00100000; // set gain to ~0.5
 parameter MININCREMENT = 15'd21;
-parameter MAXINCREMENT = 15'd20971; 
+parameter MAXINCREMENT = 15'd20971;
 
 input wire clk;
 input wire reset;

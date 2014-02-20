@@ -14,6 +14,9 @@ wire [ 20: 0 ] gainsine; // sine * gain
 wire [ 11: 0 ] outputsine; // sine wave after volume adjustment, unsigned
 wire sampleclk; // sample clock: change data on rising edge, data valid on falling edge
 
+// PLLs for our clocks
+pll20mhz sclkpll ( .inclk0( clk ), .c0( sclk ), .locked() );
+pll250khz sampleclkpll ( .inclk0( clk ), .c0( sampleclk ), .locked() );
 
 synchronizer syncA ( .clk( clk ), .ina( encA ), .outs( encAs ) );
 synchronizer syncB ( .clk( clk ), .ina( encB ), .outs( encBs ) );
@@ -27,5 +30,6 @@ mult12by9 gainmult( .dataa( sine ), .datab( gain ), .result( gainsine ) );
 assign outputsine = { gainsine[ 20 ], gainsine[ 18: 8 ] } + 12'b100000000000; // extract useful bits, normalize to unsigned
 
 // drop in serial output module here. Input: outputsine. Output: sampleclk, sclk, ssync, sdata.
+assign { ssync, sdata } = outputsine[ 11: 10 ];
 
 endmodule

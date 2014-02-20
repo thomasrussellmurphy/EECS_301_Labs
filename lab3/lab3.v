@@ -94,10 +94,13 @@ wire A, B;
 
 
 // All inout port turn to tri-state
-assign { GPIO0_D[ 31: 6 ], GPIO0_D[ 3: 0 ] } = 32'hzzzzzzzz;
+assign { GPIO0_D[ 31: 14 ], GPIO0_D[ 12: 11 ], GPIO0_D[ 8: 6 ], GPIO0_D[ 3: 0 ] } = 32'hzzzzzzzz;
 assign GPIO1_D = 32'hzzzzzzzz;
 
 // Pull out GPIO for DAC serial communications
+assign GPIO0_D[ 13 ] = ssync; // active low
+assign GPIO0_D[ 9 ] = sclk;
+assign GPIO0_D[ 10 ] = sdata;
 
 // Motor encoder inputs
 assign A = GPIO0_D [ 5 ];
