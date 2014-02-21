@@ -28,7 +28,7 @@ always@( posedge clk ) begin
     else begin
         // Change volume
         if ( mode ) begin
-            if ( encA & ~lasta ) begin
+            if ( encA & ~lasta ) begin // Edge detect
                 // Limit gain to 8-bit range of positive 2's complement
                 if ( encB && gain != 9'b011111111 ) begin
                     gain <= gain + 1'b1;
@@ -40,7 +40,7 @@ always@( posedge clk ) begin
         end
         // Change frequency
         else begin
-            if ( encA & ~lasta ) begin
+            if ( encA & ~lasta ) begin // Edge detect
                 // TODO: Limit phase to create 20-20k Hz range correctly
                 if ( encB && phaseinc != MAXINCREMENT ) begin
                     phaseinc <= phaseinc + 1'b1;

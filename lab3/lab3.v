@@ -87,10 +87,10 @@ inout [ 31: 0 ] GPIO1_D; // GPIO Connection 1 Data Bus
 // =======================================================
 // REG/WIRE declarations
 // =======================================================
-wire enswitch, modeswitch, resetbutton;
-wire enswitchs, modeswitchs, resetbuttons;
+wire enswitch, modeswitch, resetbutton; // Async input signals
+wire enswitchs, modeswitchs, resetbuttons; // Synced input signals
 wire sclk, sdata, ssync; // 3-wire interface
-wire A, B;
+wire A, B; // Encoder data
 
 
 // All inout port turn to tri-state

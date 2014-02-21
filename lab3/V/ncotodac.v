@@ -18,7 +18,7 @@ reg [ 11: 0 ] out;
 
 // PLLs for our clocks
 pll20mhz sclkpll ( .inclk0( clk ), .c0( sclk ), .locked() );
-pll250khz sampleclkpll ( .inclk0( clk ), .c0( sampleclk ), .locked() );
+// pll250khz sampleclkpll ( .inclk0( clk ), .c0( sampleclk ), .locked() );
 
 synchronizer syncA ( .clk( clk ), .ina( encA ), .outs( encAs ) );
 synchronizer syncB ( .clk( clk ), .ina( encB ), .outs( encBs ) );
@@ -32,6 +32,6 @@ mult12by9 gainmult( .dataa( sine ), .datab( gain ), .result( gainsine ) );
 assign outputsine = { gainsine[ 20 ], gainsine[ 18: 8 ] } + 12'b100000000000; // extract useful bits, normalize to unsigned
 
 // drop in serial output module here. Input: outputsine, sclk, (?)sampleclk. Output: ssync, sdata.
-Parallel2Serial serialoutput ( .parallelDataIn( outputsine ), .sclk( sclk ), .sdo( sdata ), .syncOut( ssync ) ) ;
+Parallel2Serial serialoutput ( .parallelDataIn( outputsine ), .sclk( sclk ), .sdo( sdata ), .sync( ssync ) ) ;
 
 endmodule
