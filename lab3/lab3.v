@@ -94,21 +94,23 @@ wire A, B;
 
 
 // All inout port turn to tri-state
-assign { GPIO0_D[ 31: 14 ], GPIO0_D[ 12: 11 ], GPIO0_D[ 8: 6 ], GPIO0_D[ 3: 0 ] } = 32'hzzzzzzzz;
+assign { GPIO0_D[ 31: 9 ], GPIO0_D[ 3: 0 ] } = 32'hzzzzzzzz;
 assign GPIO1_D = 32'hzzzzzzzz;
 
 // Pull out GPIO for DAC serial communications
-assign GPIO0_D[ 13 ] = ssync; // active low
-assign GPIO0_D[ 9 ] = sclk;
-assign GPIO0_D[ 10 ] = sdata;
+assign GPIO0_D[ 8 ] = ssync; // active low
+assign GPIO0_D[ 6 ] = sclk;
+assign GPIO0_D[ 7 ] = sdata;
 
 // Motor encoder inputs
 assign A = GPIO0_D [ 5 ];
 assign B = GPIO0_D [ 4 ];
 
-assign enswitch = SW[ 0 ];
-assign modeswitch = SW[ 1 ];
+assign enswitch = SW[ 1 ];
+assign modeswitch = SW[ 0 ];
 assign resetbutton = ~BUTTON[ 0 ]; // active-low button
+
+assign LEDG[ 2: 0 ] = { enswitch, modeswitch, resetbutton };
 
 // =======================================================
 // Structural coding

@@ -12,48 +12,45 @@ output reg [ 14: 0 ] phaseinc;
 output reg [ 8: 0 ] gain; // 8-bit 2's complement
 
 reg lasta;
-reg inc, dec; // using these is pretty janky
+
+initial begin
+    phaseinc <= MIDFREQ;
+    gain <= DEFAULTGAIN;
+end
 
 always@( posedge clk ) begin
     lasta <= encA; // record A for edge detection
+
     if ( reset ) begin // reset and be done
         phaseinc <= MIDFREQ;
         gain <= DEFAULTGAIN;
     end
     else begin
-        if ( encA & ~lasta ) begin // detect edge, count up or down
-            if ( encB ) begin
-                inc <= 1'b1;
+        // Change volume
+        if ( mode ) begin
+            if ( encA & ~lasta ) begin
+                // Limit gain to 8-bit range of positive 2's complement
+                if ( encB && gain != 9'b011111111 ) begin
+                    gain <= gain + 1'b1;
+                end
+                else if ( gain != 9'b000000000 ) begin
+                    gain <= gain - 1'b1;
+                end
             end
-            else begin
-                dec <= 1'b1;
+        end
+        // Change frequency
+        else begin
+            if ( encA & ~lasta ) begin
+                // TODO: Limit phase to create 20-20k Hz range correctly
+                if ( encB && phaseinc != MAXINCREMENT ) begin
+                    phaseinc <= phaseinc + 1'b1;
+                end
+                else if ( phaseinc != MININCREMENT ) begin
+                    phaseinc <= phaseinc - 1'b1;
+                end
             end
         end
     end
 
-    // Act on mode, inc/dec flags
-    if ( mode & ( inc | dec ) ) begin
-        // Limit gain to 8-bit range of positive 2's complement
-        if ( inc && gain != 9'b011111111 ) begin
-            gain <= gain + 1'b1;
-        end
-        if ( dec && gain != 9'b000000000 ) begin
-            gain <= gain - 1'b1;
-        end
-        inc <= 1'b0;
-        dec <= 1'b0;
-    end
-    if ( ~mode & ( inc | dec ) ) begin
-        // TODO: Limit phase to create 20-20k Hz range correctly
-        if ( inc && phaseinc != MAXINCREMENT ) begin
-            phaseinc <= phaseinc + 1'b1;
-        end
-        if ( dec && phaseinc != MININCREMENT ) begin
-            phaseinc <= phaseinc - 1'b1;
-        end
-        inc <= 1'b0;
-        dec <= 1'b0;
-    end
 end
-
 endmodule

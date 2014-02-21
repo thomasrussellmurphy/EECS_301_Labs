@@ -18,7 +18,7 @@
 #
 # Quartus II 64-Bit
 # Version 13.1.1 Build 166 11/26/2013 SJ Full Version
-# Date created = 20:51:21  January 20, 2014
+# Date created = 22:13:50  February 20, 2014
 #
 # -------------------------------------------------------------------------- #
 #
@@ -42,6 +42,26 @@
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "8.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
+set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name VERILOG_FILE V/Parallel2Serial.v
+set_global_assignment -name SDC_FILE lab3.sdc
+set_global_assignment -name VERILOG_FILE mult/mult12by9.v
+set_global_assignment -name VERILOG_FILE lab3.v
+set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/LEDG_Driver.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/button_debouncer.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer8.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/seg7hexdriver.v"
+set_global_assignment -name QIP_FILE nco/NCO.qip
+set_global_assignment -name VERILOG_FILE V/ncotodac.v
+set_global_assignment -name VERILOG_FILE V/settingcontrol.v
+set_global_assignment -name QIP_FILE mult/mult12by9.qip
+set_global_assignment -name QIP_FILE pll/pll250khz.qip
+set_global_assignment -name QIP_FILE pll/pll20mhz.qip
+set_global_assignment -name SIGNALTAP_FILE stp1.stp
 
 # Pin & Location Assignments
 # ==========================
@@ -303,6 +323,7 @@ set_location_assignment PIN_C4 -to DRAM_ADDR[0]
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
 
 # Analysis & Synthesis Assignments
 # ================================
@@ -315,6 +336,11 @@ set_global_assignment -name DEVICE EP3C16F484C6
 set_global_assignment -name FORCE_CONFIGURATION_VCCIO ON
 set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
+
+# SignalTap II Assignments
+# ========================
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
 
 # Power Estimation Assignments
 # ============================
@@ -335,7 +361,16 @@ set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id e
 # end EDA_TOOL_SETTINGS(eda_palace)
 # ---------------------------------
 
-# ---------------------
+# start AUTO_INSERT_SLD_NODE_ENTITY(auto_signaltap_0)
+# ---------------------------------------------------
+
+	# SignalTap II Assignments
+	# ========================
+
+# end AUTO_INSERT_SLD_NODE_ENTITY(auto_signaltap_0)
+# -------------------------------------------------
+
+# ------------------
 # start ENTITY(lab3)
 
 	# Fitter Assignments
@@ -611,31 +646,11 @@ set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
 		# ===================================
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_COLOR 14622752 -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 
 	# end DESIGN_PARTITION(Top)
 	# -------------------------
 
 # end ENTITY(lab3)
-# -------------------
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
-set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
-set_global_assignment -name SMART_RECOMPILE ON
-set_global_assignment -name VERILOG_FILE V/Parallel2Serial.v
-set_global_assignment -name SDC_FILE lab3.sdc
-set_global_assignment -name VERILOG_FILE mult/mult12by9.v
-set_global_assignment -name VERILOG_FILE lab3.v
-set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/LEDG_Driver.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/button_debouncer.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer8.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/seg7hexdriver.v"
-set_global_assignment -name QIP_FILE nco/NCO.qip
-set_global_assignment -name VERILOG_FILE V/ncotodac.v
-set_global_assignment -name VERILOG_FILE V/settingcontrol.v
-set_global_assignment -name QIP_FILE mult/mult12by9.qip
-set_global_assignment -name QIP_FILE pll/pll250khz.qip
-set_global_assignment -name QIP_FILE pll/pll20mhz.qip
+# ----------------
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
