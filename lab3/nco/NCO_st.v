@@ -46,7 +46,7 @@ parameter rcff = "NCO_cos_f.hex";
 parameter nc = 1;
 parameter pl = nc;
 parameter log2nc =0;
-parameter outselinit = -1;
+parameter outselinit = 0;
 parameter paci0= 0;
 parameter paci1= 0;
 parameter paci2= 0;
@@ -83,10 +83,6 @@ wire [rawc-1:0] raxxx000m;
 wire [rawf-1:0] raxxx000l; 
 wire [rawc-1:0] raxxx001m; 
 wire [rawf-1:0] raxxx001l; 
-wire [aprid-1:0] phi_acc_w_d;
-wire [aprid-1:0] phi_acc_w_di;
-wire [dpri-1:0] rval_w_d;
-wire [dpri-1:0] rval_w;
 wire select_s;
 wire select_c;
 wire [opr:0] result_i;	
@@ -118,35 +114,10 @@ defparam ux000.paci5 = paci5 ;
 defparam ux000.paci6 = paci6 ;
 defparam ux000.paci7 = paci7 ;
 
-asj_dxx_g ux001(.clk(clk), 
-            .clken(clken), 
-              .reset(reset), 
-              .dxxrv(rval_w_d)
-              );
-defparam ux001.dpri = dpri;
-assign rval_w = rval_w_d;
-asj_dxx ux002(.clk(clk), 
-            .clken(clken), 
-	         .reset(reset), 
-            .dxxpdi(phi_acc_w_di), 
-            .rval(rval_w), 
-            .dxxpdo(phi_acc_w_d) 
-           );
-
-defparam ux002.aprid = aprid;
-defparam ux002.dpri = dpri;
-
-asj_nco_aprid_dxx ux0219(.pcc_w(phi_acc_w),
-                         .pcc_d(phi_acc_w_di)
-                         ); 
-defparam ux0219.apr = apr;    
-defparam ux0219.aprid = aprid;
-
-
 asj_gam_dp ux008( .clk(clk),
                    .reset(reset), 
                    .clken(clken), 
-                   .phi_acc_w(phi_acc_w_d[aprid-1:aprid-rawc-rawf]),
+                   .phi_acc_w(phi_acc_w[apr-1:apr-rawc-rawf]),
                    .rom_add_cs(raxxx001ms),
                    .rom_add_cc(raxxx001mc),
                    .rom_add_f(raxxx001l)
@@ -255,7 +226,7 @@ asj_nco_isdr ux710isdr(.clk(clk),
                     .clken(clken),                  
                     .data_ready(out_valid)          
                     );                                      
-defparam ux710isdr.ctc=10;                                       
+defparam ux710isdr.ctc=8;                                       
 defparam ux710isdr.cpr=4;                                   
                                                             
 

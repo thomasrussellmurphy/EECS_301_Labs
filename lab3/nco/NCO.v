@@ -83,7 +83,7 @@ endmodule
 // Retrieval info:      <PRIVATE name = "ACCUM_SCLR" value="0"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "ARCH" value="TRIG_ARCH"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "TARGET" value="CycloneIII"  type="STRING"  enable="1" />
-// Retrieval info:      <PRIVATE name = "WANT_DITHER" value="YES"  type="STRING"  enable="1" />
+// Retrieval info:      <PRIVATE name = "WANT_DITHER" value="NO"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "APRP" value="16"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "APRF" value="32"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "CK_VALUE" value="10"  type="STRING"  enable="1" />
@@ -135,11 +135,11 @@ endmodule
 // Retrieval info:      <PRIVATE name = "RNWC" value="128"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "RNWF" value="128"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "RDW" value="12"  type="STRING"  enable="1" />
-// Retrieval info:      <PRIVATE name = "NUM_LCELLS" value="1249"  type="STRING"  enable="1" />
+// Retrieval info:      <PRIVATE name = "NUM_LCELLS" value="1164"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "NUM_MEM_BITS" value="4608"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "NUM_EABS" value="1"  type="STRING"  enable="1" />
 // Retrieval info:      <PRIVATE name = "NUM_DSP_BLOCKS" value="8"  type="STRING"  enable="1" />
-// Retrieval info:      <PRIVATE name = "PHI_INC" value="2621"  type="STRING"  enable="1" />
+// Retrieval info:      <PRIVATE name = "PHI_INC" value="1049"  type="STRING"  enable="1" />
 // Retrieval info:     </NAMESPACE>
 // Retrieval info:     <NAMESPACE name = "simgen_enable">
 // Retrieval info:      <PRIVATE name = "language" value="Verilog HDL"  type="STRING"  enable="1" />

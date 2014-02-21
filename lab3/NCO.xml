@@ -21,7 +21,7 @@
 <PRIVATE name = "CK_VALUE" value="10"  type="STRING"  enable="1" />
 <PRIVATE name = "CK_UNIT" value="ns"  type="STRING"  enable="1" />
 <PRIVATE name = "CK_MULT" value="e-9"  type="STRING"  enable="1" />
-<PRIVATE name = "FSAMP_VALUE" value="100"  type="STRING"  enable="1" />
+<PRIVATE name = "FSAMP_VALUE" value="250"  type="STRING"  enable="1" />
 <PRIVATE name = "FREQ_VALUE" value="1"  type="STRING"  enable="1" />
 <PRIVATE name = "MPR" value="12"  type="STRING"  enable="1" />
 <PRIVATE name = "APR" value="18"  type="STRING"  enable="1" />

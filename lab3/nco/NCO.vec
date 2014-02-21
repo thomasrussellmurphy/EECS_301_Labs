@@ -17,5 +17,5 @@ PATTERN
 90>  1 ;
 INPUTS phi_inc_i[17..0];
 PATTERN
-0> 2621;
+0> 1049;
 OUTPUTS fsin_o[11..0] fcos_o[11..0]; 
