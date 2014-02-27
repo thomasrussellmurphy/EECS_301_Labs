@@ -18,7 +18,7 @@
 #
 # Quartus II 64-Bit
 # Version 13.1.1 Build 166 11/26/2013 SJ Full Version
-# Date created = 20:51:21  January 20, 2014
+# Date created = 17:54:38  February 26, 2014
 #
 # -------------------------------------------------------------------------- #
 #
@@ -39,17 +39,18 @@
 
 # Project-Wide Assignments
 # ========================
-set_global_assignment -name ORIGINAL_QUARTUS_VERSION "8.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009"
+set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
+set_global_assignment -name SMART_RECOMPILE ON
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
 set_global_assignment -name VERILOG_FILE DE0_TOP.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/SEG7_LUT_4.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/SEG7_LUT.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/LEDG_Driver.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/button_debouncer.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/synchronizer.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/synchronizer8.v
-set_global_assignment -name VERILOG_FILE ../common-verilog/seg7hexdriver.v
+set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/LEDG_Driver.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/button_debouncer.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer8.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/seg7hexdriver.v"
 
 # Pin & Location Assignments
 # ==========================
