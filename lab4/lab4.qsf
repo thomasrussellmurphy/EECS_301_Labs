@@ -18,7 +18,7 @@
 #
 # Quartus II 64-Bit
 # Version 13.1.1 Build 166 11/26/2013 SJ Full Version
-# Date created = 17:54:38  February 26, 2014
+# Date created = 18:39:17  February 28, 2014
 #
 # -------------------------------------------------------------------------- #
 #
@@ -43,6 +43,8 @@ set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009
 set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
 set_global_assignment -name SMART_RECOMPILE ON
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
+set_global_assignment -name VERILOG_FILE V/dac_serial.v
+set_global_assignment -name VERILOG_FILE V/ncotodac.v
 set_global_assignment -name VERILOG_FILE lab4.v
 set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
 set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT.v"
@@ -51,6 +53,7 @@ set_global_assignment -name VERILOG_FILE "../common-verilog/button_debouncer.v"
 set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer.v"
 set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer8.v"
 set_global_assignment -name VERILOG_FILE "../common-verilog/seg7hexdriver.v"
+set_global_assignment -name VERILOG_FILE V/wirewithfeatures.v
 
 # Pin & Location Assignments
 # ==========================
@@ -344,7 +347,7 @@ set_global_assignment -name ENABLE_ADVANCED_IO_TIMING ON
 # end EDA_TOOL_SETTINGS(eda_palace)
 # ---------------------------------
 
-# ---------------------
+# ------------------
 # start ENTITY(lab4)
 
 	# Fitter Assignments
@@ -626,4 +629,4 @@ set_global_assignment -name ENABLE_ADVANCED_IO_TIMING ON
 	# -------------------------
 
 # end ENTITY(lab4)
-# -------------------
+# ----------------

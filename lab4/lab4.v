@@ -205,10 +205,21 @@ assign PS2_MSCLK = 1'hz;
 assign GPIO0_D = 32'hzzzzzzzz;
 assign GPIO1_D = 32'hzzzzzzzz;
 
+// DAC Serial Connections
+
+
+// ADC Serial Connections
+
+
+// Switch Connections
+
+
+// Encoder Connections
 
 // =======================================================
 // Structural coding
 // =======================================================
 
+wirewithfeatures top (.clk(CLOCK_50), .sclk(), .reset(), .en(), .mode(), .encA(), .encB(), .sdo_dac(), .sdo_adc(), .sdi_adc(), .ssync_dac(), .ssync_adc());
 
 endmodule
