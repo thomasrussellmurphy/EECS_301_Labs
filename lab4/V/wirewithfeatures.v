@@ -1,4 +1,4 @@
-module wirewithfeatures (clk, sclk, reset, en, mode, encA, encB, sdo_dac, sdo_adc, sdi_adc, ssync_dac, ssync_adc);
+module wirewithfeatures ( clk, sclk, reset, en, mode, encA, encB, sdo_dac, sdo_adc, sdi_adc, ssync_dac, ssync_adc );
 input wire clk, sclk;
 input wire reset, en;
 input wire mode, encA, encB;
@@ -10,7 +10,7 @@ output wire ssync_dac, ssync_adc;
 
 // Check lab3's modules for organization over there
 
-wire [11:0] adc_wire, dac_wire; // The input and output wires
+wire [ 11: 0 ] adc_wire, dac_wire; // The input and output wires
 
 // PLL Module
 
