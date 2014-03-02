@@ -1,10 +1,11 @@
 module adc_serial( sclk, pdo, sample, sdo, sdi, cs );
 input wire sclk;
 input wire sample;
+input wire sdi;
 
 output wire cs;
 output reg [ 11: 0 ] pdo;
-output wire sdo, sdi;
+output wire sdo;
 
 parameter WRSEQX = 3'b10x; // write, no sequence, don't care
 parameter ADDRV0 = 3'b000; // select Vin0
