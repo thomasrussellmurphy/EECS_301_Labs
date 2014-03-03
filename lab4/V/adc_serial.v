@@ -10,13 +10,15 @@ output wire sdo;
 parameter WRSEQX = 3'b10x; // write, no sequence, don't care
 parameter ADDRV0 = 3'b000; // select Vin0
 parameter ADDRV1 = 3'b001; // select Vin1
-parameter PMSHDWXRGCD = 6'b110x00; // full power, no shadow, don't care, 0-2Vref range, 2's complement
+parameter ADDRV3 = 3'b011; // select Vin1
+parameter PMSHDWXRGCD = 6'b110x01; // full power, no shadow, don't care, 0-2Vref range, straight binary
 
 parameter SHIFTSIZE = 5'd16; // serial interface is in 16 bit words
 
 // Complete 16-bit words to feed the ADC
 parameter NEXTCHAN0 = { WRSEQX, ADDRV0, PMSHDWXRGCD, 4'bx };
 parameter NEXTCHAN1 = { WRSEQX, ADDRV1, PMSHDWXRGCD, 4'bx };
+parameter NEXTCHAN3 = { WRSEQX, ADDRV3, PMSHDWXRGCD, 4'bx };
 parameter STARTUPWORD = 16'b0;
 
 reg [ 1: 0 ] startup; // keep track of startup sequence
@@ -35,11 +37,12 @@ always @( posedge sclk ) begin
 
     if ( ~last_sample & sample ) begin
         // Deal with startup sequence of two dummy conversions
-        if ( startup <= 2'b1 ) begin
+        if ( startup < 2'b10 ) begin
             startup <= startup + 1'b1;
             current_command <= STARTUPWORD;
         end
         else begin
+	         startup <= 2'b10;
             // Just sampling channel 0 for now
             current_command <= NEXTCHAN0;
         end

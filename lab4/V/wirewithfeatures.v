@@ -8,7 +8,6 @@ output wire sclk;
 output wire sdo_dac, sdo_adc;
 output wire cs_dac, cs_adc;
 
-
 // Check lab3's modules for organization over there
 
 wire [ 11: 0 ] adc_wire, dac_wire; // The input and output wires

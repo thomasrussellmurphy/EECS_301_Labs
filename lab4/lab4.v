@@ -100,11 +100,11 @@ assign GPIO0_D[ 6 ] = sclk;
 
 // ADC Serial Connections
 wire cs_adc, sdo_adc, sdi_adc;
-assign GPIO0_D[ 14 ] = cs_adc;
-assign GPIO0_D[ 13 ] = sdo_adc;
+assign GPIO0_D[ 14 ] = cs_adc; // active low
+assign GPIO0_D[ 12 ] = sdo_adc;
 assign GPIO0_D[ 11 ] = sclk;
 
-assign sdi_adc = GPIO0_D[ 12 ];
+assign sdi_adc = GPIO0_D[ 13 ];
 
 // Switch and Button Connections
 wire enswitch, modeswitch, resetbutton;
