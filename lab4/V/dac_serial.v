@@ -18,7 +18,7 @@ always @( posedge sclk ) begin
     last_sample <= sample;
 
     if ( ~last_sample & sample ) begin
-        current_command = { 4'bx, COMMANDBITS, ADDRESSBITS, pdi, 8'bx }; // build 32 bit command
+        current_command <= { 4'bx, COMMANDBITS, ADDRESSBITS, pdi, 8'bx }; // build 32 bit command
     end
 
 end

@@ -42,7 +42,7 @@ always @( posedge sclk ) begin
 
     // continuing transmission
     if ( cs == 1'b0 ) begin
-        pdo <= { sdi, pdo[ 15: 1 ] }; // shifting data into storage
+        pdo <= { pdo[ 14: 0 ], sdi }; // shifting data into storage
         shift_out <= { shift_out[ 14: 0 ], 1'b0 }; // shifting data out
         sent_bit <= sent_bit - 1'b1;
     end
