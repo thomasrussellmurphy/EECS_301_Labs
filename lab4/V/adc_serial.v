@@ -12,7 +12,7 @@ parameter ADDRV0 = 3'b000; // select Vin0
 parameter ADDRV1 = 3'b001; // select Vin1
 parameter ADDRV3 = 3'b011; // select Vin3
 parameter ADDRV4 = 3'b100; // select Vin4
-parameter PMSHDWXRGCD = 6'b110x01; // full power, no shadow, don't care, 0-2Vref range, straight binary
+parameter PMSHDWXRGCD = 6'b110x00; // full power, no shadow, don't care, 0-2Vref range, 2's complement
 
 parameter SHIFTSIZE = 5'd16; // serial interface is in 16 bit words
 

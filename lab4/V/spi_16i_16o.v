@@ -37,7 +37,8 @@ always @( posedge sclk ) begin
         cs <= 1'b0;
         shift_out <= pdi;
         sent_bit <= 5'd15; // starting with msb
-        data_valid <= 1'b0;
+        data_valid <= 1'b0; // set data not-valid
+        pdo <= 1'b0; // zero internal storage register
     end
 
     // continuing transmission
