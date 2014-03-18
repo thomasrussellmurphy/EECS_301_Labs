@@ -28,7 +28,7 @@ NCO osc ( .phi_inc_i( phaseinc ), .clk( sample ), .reset_n( ~reset ), .clken( 1'
 
 mult12by9 gainmult ( .dataa( sine ), .datab( gain ), .result( gainsine ) );
 
-assign outputsine = { gainsine[ 20 ], gainsine[ 18: 11 ] }; // extract useful bits
+assign outputsine = { gainsine[ 20 ], 1'b0, gainsine[ 18: 12 ] }; // extract useful bits
 
 mult12by9 samplemult ( .dataa( sample_in ), .datab( sine ), .result( sinesample ) );
 
@@ -36,7 +36,7 @@ mult12by9 samplemult ( .dataa( sample_in ), .datab( sine ), .result( sinesample 
 always @( posedge clk ) begin
     if ( en ) begin
         // sample_out <= { outputsine, 3'b101 };
-        sample_out <= { sinesample[ 20 ], sinesample[ 18: 7 ] }; // extract useful bits
+        sample_out <= { sinesample[ 20 ], sinesample[ 18: 8 ] }; // extract useful bits
     end
     else begin
         sample_out <= sample_in; // No modification

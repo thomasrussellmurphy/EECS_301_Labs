@@ -15,8 +15,11 @@ wire sample;
 assign dac_wire = signed_output + 12'h800;
 
 // Synchronizers for async inputs
-synchronizer sync_A ( .clk( clk ), .ina( encA ), .outs( sA ) );
-synchronizer sync_B ( .clk( clk ), .ina( encB ), .outs( sB ) );
+synchronizer sync_A ( .clk( sclk ), .ina( encA ), .outs( sA ) );
+synchronizer sync_B ( .clk( sclk ), .ina( encB ), .outs( sB ) );
+synchronizer sync_reset (.clk(sclk), .ina(reset), .outs(s_reset));
+synchronizer sync_en (.clk(sclk), .ina(en), .outs(s_en));
+synchronizer sync_mode (.clk(sclk), .ina(mode), .outs(s_mode));
 
 // PLL Module
 pll16mhz pll ( .inclk0( clk ), .c0( sclk ), .c1( sample ), .locked() );
@@ -34,6 +37,6 @@ adc_serial adc ( .sclk( sclk ), .pdo( adc_wire ), .sample( sample ), .sdo( sdo_a
 // echo_chamber echoes( .clk( sclk ), .sample_w( ~sample ), .in_sample( adc_wire ), .sample_r( ~sample ), .out_sample( signed_output ) );
 
 // Multiplication by an NCO
-mult_by_nco sinemult( .clk( sclk ), .reset( reset ), .en( en ), .encA( encA ), .encB( encB ), .mode( mode ), .sample( sample ), .sample_in( adc_wire ), .sample_out( signed_output ) );
+mult_by_nco sinemult( .clk( sclk ), .reset( s_reset ), .en( s_en ), .encA( encA ), .encB( encB ), .mode( s_mode ), .sample( sample ), .sample_in( adc_wire ), .sample_out( signed_output ) );
 
 endmodule
