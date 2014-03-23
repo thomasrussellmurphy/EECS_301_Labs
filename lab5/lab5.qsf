@@ -620,6 +620,7 @@ set_global_assignment -name ENABLE_ADVANCED_IO_TIMING ON
 # -------------------
 
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name SDC_FILE lab5.sdc
 set_global_assignment -name VERILOG_FILE pll/pll9mhz.v
 set_global_assignment -name VERILOG_FILE lab5.v
 set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
