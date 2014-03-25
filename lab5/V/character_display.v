@@ -24,6 +24,7 @@ vga_controller controller ( .clk( clk ), .disp_clk( disp_clk ), .en( en ), .red_
                             .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
 
 always @( * ) begin
+
     if ( valid_draw ) begin
         next_red_int <= horz_pos[ 7: 0 ];
         next_green_int <= vert_pos[ 7: 0 ];

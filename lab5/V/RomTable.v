@@ -17,7 +17,7 @@ reg[ 5: 0 ] bitIndex;
 reg[ 63: 0 ] charCell;
 
 initial begin
-    $readmemb( "ROM_INIT.txt", rom );
+    $readmemb( "ROM_INIT.dat", rom );
 end
 
 always @( posedge clk ) begin

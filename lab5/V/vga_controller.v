@@ -11,8 +11,8 @@ output reg [ 7: 0 ] red_out, green_out, blue_out;
 output reg disp_hsync, disp_vsync;
 
 
-parameter HORZ_PIXELS = 10'd480; // max (2^9-1) - (front porch + back porch + low width)
-parameter VERT_PIXELS = 10'd272; // max (2^9-1) - (front porch + back porch + low width)
+parameter HORZ_PIXELS = 10'd480; // max (2^10-1) - (front porch + back porch + low width)
+parameter VERT_PIXELS = 10'd272; // max (2^10-1) - (front porch + back porch + low width)
 parameter HORZ_FRONT_PORCH = 10'd2; // pixels
 parameter HORZ_BACK_PORCH = 10'd2; // pixels
 parameter VERT_FRONT_PORCH = 10'd2; // horizontal lines
@@ -20,12 +20,14 @@ parameter VERT_BACK_PORCH = 10'd2; // horizontal lines
 parameter HORZ_LOW_WIDTH = 10'd41; // clock cycles
 parameter VERT_LOW_WIDTH = 10'd10; // horizontal lines
 
-parameter HORZ_MIN_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH;
-parameter HORZ_MAX_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH + HORZ_PIXELS;
+// Valid horizontal counts are offset by 3 from display observation
+parameter HORZ_MIN_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH - 10'd3;
+parameter HORZ_MAX_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH + HORZ_PIXELS - 10'd3;
 parameter HORZ_MAX_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH + HORZ_PIXELS + HORZ_BACK_PORCH;
 
-parameter VERT_MIN_VALID_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH;
-parameter VERT_MAX_VALID_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH + VERT_PIXELS;
+// Valid vertical counts are offset by 1 from display observation
+parameter VERT_MIN_VALID_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH - 10'd1;
+parameter VERT_MAX_VALID_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH + VERT_PIXELS - 10'd1;
 parameter VERT_MAX_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH + VERT_PIXELS + VERT_BACK_PORCH;
 
 // HSync pattern: 525 clock cycles period; 41 low, 2 front porch, 480 data, 2 back porch
@@ -35,39 +37,39 @@ reg [ 9: 0 ] h_count, v_count; // Counters for progression through real and non-
 reg [ 9: 0 ] next_h_count, next_v_count;
 wire h_valid, v_valid, next_valid_draw;
 
-assign h_valid = ( h_count > HORZ_MIN_VALID_COUNT ) && ( h_count < HORZ_MAX_COUNT );
-assign v_valid = ( v_count > VERT_MIN_VALID_COUNT ) && ( h_count < VERT_MAX_COUNT );
+assign h_valid = ( h_count > HORZ_MIN_VALID_COUNT ) && ( h_count < HORZ_MAX_VALID_COUNT );
+assign v_valid = ( v_count > VERT_MIN_VALID_COUNT ) && ( v_count < VERT_MAX_VALID_COUNT );
 assign next_valid_draw = h_valid && v_valid;
 
 reg next_hsync, next_vsync;
 
 // Excitation logic
 always @( * ) begin
-    if ( h_count == HORZ_MAX_COUNT ) begin
+    if ( h_count == HORZ_MAX_COUNT ) begin // Rollover at this count
         next_h_count <= 1'b0;
     end
     else begin
         next_h_count <= h_count + 1'b1; // Always count horizontal progress
     end
 
-    if ( v_count == VERT_MAX_COUNT ) begin
+    if ( v_count == VERT_MAX_COUNT ) begin // Rollover at this count
         next_v_count <= 1'b0;
     end
-    else if ( h_count == HORZ_MAX_COUNT ) begin
+    else if ( h_count == HORZ_MAX_COUNT ) begin // Starting next line
         next_v_count <= v_count + 1'b1;
     end
     else begin
         next_v_count <= v_count;
     end
 
-    if ( h_count < HORZ_LOW_WIDTH ) begin
+    if ( h_count < HORZ_LOW_WIDTH ) begin // hsync low pulse
         next_hsync <= 1'b0;
     end
     else begin
         next_hsync <= 1'b1;
     end
 
-    if ( v_count < VERT_LOW_WIDTH ) begin
+    if ( v_count < VERT_LOW_WIDTH ) begin // vsync low pulse
         next_vsync <= 1'b0;
     end
     else begin
@@ -92,7 +94,7 @@ always @( posedge disp_clk ) begin
         green_out <= green_in;
         blue_out <= blue_in;
     end
-    else begin
+    else begin // Disable state turns everything off
         valid_draw <= 1'b0;
         h_count <= 1'b0;
         v_count <= 1'b0;
