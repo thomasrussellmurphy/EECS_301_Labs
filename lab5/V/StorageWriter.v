@@ -25,6 +25,8 @@ end
 
 
 
+
+
 always @( posedge CLK ) begin
     if ( VSync == 1 ) begin
         Ram_Enable <= 0;
