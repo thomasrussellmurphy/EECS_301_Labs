@@ -1,4 +1,4 @@
-module StorageWriter(
+module storage_writer(
            input[ 3: 0 ] newChar,
            input[ 5: 0 ] address,
            input CLK,

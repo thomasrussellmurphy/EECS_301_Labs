@@ -1,4 +1,4 @@
-module RomTable(
+module rom_table(
            cellAddress,
            horizDisp,
            vertDisp,

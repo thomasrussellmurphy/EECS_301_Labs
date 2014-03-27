@@ -1,4 +1,4 @@
-module Storage(
+module storage(
            w_Address,
            w_Data,
            w_EN,
