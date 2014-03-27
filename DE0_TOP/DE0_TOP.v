@@ -38,7 +38,7 @@ module DE0_TOP
            BUTTON, // Pushbutton[2:0]
            //////////////////// DPDT Switch ////////////////////
            SW, // Toggle Switch[9:0]
-           //////////////////// 7-SEG Dispaly ////////////////////
+           //////////////////// 7-SEG Display ////////////////////
            HEX0_D, // Seven Segment Digit 0
            HEX0_DP, // Seven Segment Digit DP 0
            HEX1_D, // Seven Segment Digit 1
@@ -117,7 +117,7 @@ input CLOCK_50_2; // 50 MHz
 input [ 2: 0 ] BUTTON; // Pushbutton[2:0]
 //////////////////////// DPDT Switch ////////////////////////
 input [ 9: 0 ] SW; // Toggle Switch[9:0]
-//////////////////////// 7-SEG Dispaly ////////////////////////
+//////////////////////// 7-SEG Display ////////////////////////
 output [ 6: 0 ] HEX0_D; // Seven Segment Digit 0
 output HEX0_DP; // Seven Segment Digit DP 0
 output [ 6: 0 ] HEX1_D; // Seven Segment Digit 1
