@@ -25,9 +25,11 @@ vga_controller controller ( .clk( clk ), .disp_clk( disp_clk ), .en( en ), .red_
                             .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
 
 // font generation circuit instantiation
-font_test_gen font_gen_unit (.clk(clk), .video_on(valid_draw), .pixel_x(horz_pos), .pixel_y(vert_pos), .red_out(red_int), .green_out(green_int), .blue_out(blue_int)); 
+font_test_gen font_gen_unit ( .clk( clk ), .video_on( valid_draw ), .pixel_x( horz_pos ), .pixel_y( vert_pos ),
+                              .red_out( red_int ), .green_out( green_int ), .blue_out( blue_int ) );
 
-									 
+
+// Spare blocks for any logic we may want to do
 always @( * ) begin
 
 end

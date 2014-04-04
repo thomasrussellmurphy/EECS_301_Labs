@@ -20,9 +20,9 @@ parameter VERT_BACK_PORCH = 10'd2; // horizontal lines
 parameter HORZ_LOW_WIDTH = 10'd41; // clock cycles
 parameter VERT_LOW_WIDTH = 10'd10; // horizontal lines
 
-// Valid horizontal counts are offset by 3 from display observation
-parameter HORZ_MIN_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH - 10'd3;
-parameter HORZ_MAX_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH + HORZ_PIXELS - 10'd3;
+// Valid horizontal counts are offset by 2 from display observation
+parameter HORZ_MIN_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH - 10'd2;
+parameter HORZ_MAX_VALID_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH + HORZ_PIXELS - 10'd2;
 parameter HORZ_MAX_COUNT = HORZ_LOW_WIDTH + HORZ_FRONT_PORCH + HORZ_PIXELS + HORZ_BACK_PORCH;
 
 // Valid vertical counts are offset by 1 from display observation
