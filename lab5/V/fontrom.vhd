@@ -4,6 +4,7 @@
 --   - 128 (2^7) characters
 --   - ROM size: 512-by-8 (2^11-by-8) bits
 --               16K bits: 1 BRAM
+-- Code obtained from http://academic.csuohio.edu/chu_p/rtl/fpga_vhdl.html
 
 library ieee;
 use ieee.std_logic_1164.all;
