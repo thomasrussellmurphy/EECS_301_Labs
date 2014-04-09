@@ -49,11 +49,6 @@ module lab6
            HEX3_DP, // Seven Segment Digit DP 3
            //////////////////////// LED ////////////////////////
            LEDG, // LED Green[9:0]
-           //////////////////////// UART ////////////////////////
-           UART_TXD, // UART Transmitter
-           UART_RXD, // UART Receiver
-           UART_CTS, // UART Clear To Send
-           UART_RTS, // UART Request To Send
            //////////////////// / SDRAM Interface ////////////////
            DRAM_DQ, // SDRAM Data bus 16 Bits
            DRAM_ADDR, // SDRAM Address bus 13 Bits
@@ -67,40 +62,6 @@ module lab6
            DRAM_BA_1, // SDRAM Bank Address 1
            DRAM_CLK, // SDRAM Clock
            DRAM_CKE, // SDRAM Clock Enable
-           //////////////////// Flash Interface ////////////////
-           FL_DQ, // FLASH Data bus 15 Bits
-           FL_DQ15_AM1, // FLASH Data bus Bit 15 or Address A-1
-           FL_ADDR, // FLASH Address bus 22 Bits
-           FL_WE_N, // FLASH Write Enable
-           FL_RST_N, // FLASH Reset
-           FL_OE_N, // FLASH Output Enable
-           FL_CE_N, // FLASH Chip Enable
-           FL_WP_N, // FLASH Hardware Write Protect
-           FL_BYTE_N, // FLASH Selects 8/16-bit mode
-           FL_RY, // FLASH Ready/Busy
-           //////////////////// LCD Module 16X2 ////////////////
-           LCD_BLON, // LCD Back Light ON/OFF
-           LCD_RW, // LCD Read/Write Select, 0 = Write, 1 = Read
-           LCD_EN, // LCD Enable
-           LCD_RS, // LCD Command/Data Select, 0 = Command, 1 = Data
-           LCD_DATA, // LCD Data bus 8 bits
-           //////////////////// SD_Card Interface ////////////////
-           SD_DAT0, // SD Card Data 0
-           SD_DAT3, // SD Card Data 3
-           SD_CMD, // SD Card Command Signal
-           SD_CLK, // SD Card Clock
-           SD_WP_N, // SD Card Write Protect
-           //////////////////// PS2 ////////////////////////////
-           PS2_KBDAT, // PS2 Keyboard Data
-           PS2_KBCLK, // PS2 Keyboard Clock
-           PS2_MSDAT, // PS2 Mouse Data
-           PS2_MSCLK, // PS2 Mouse Clock
-           //////////////////// VGA ////////////////////////////
-           VGA_HS, // VGA H_SYNC
-           VGA_VS, // VGA V_SYNC
-           VGA_R, // VGA Red[3:0]
-           VGA_G, // VGA Green[3:0]
-           VGA_B, // VGA Blue[3:0]
            //////////////////// GPIO ////////////////////////////
            GPIO0_CLKIN, // GPIO Connection 0 Clock In Bus
            GPIO0_CLKOUT, // GPIO Connection 0 Clock Out Bus
@@ -128,11 +89,6 @@ output [ 6: 0 ] HEX3_D; // Seven Segment Digit 3
 output HEX3_DP; // Seven Segment Digit DP 3
 //////////////////////////// LED ////////////////////////////
 output [ 9: 0 ] LEDG; // LED Green[9:0]
-//////////////////////////// UART ////////////////////////////
-output UART_TXD; // UART Transmitter
-input UART_RXD; // UART Receiver
-output UART_CTS; // UART Clear To Send
-input UART_RTS; // UART Request To Send
 ////////////////////// / SDRAM Interface ////////////////////////
 inout [ 15: 0 ] DRAM_DQ; // SDRAM Data bus 16 Bits
 output [ 12: 0 ] DRAM_ADDR; // SDRAM Address bus 13 Bits
@@ -146,40 +102,6 @@ output DRAM_BA_0; // SDRAM Bank Address 0
 output DRAM_BA_1; // SDRAM Bank Address 1
 output DRAM_CLK; // SDRAM Clock
 output DRAM_CKE; // SDRAM Clock Enable
-//////////////////////// Flash Interface ////////////////////////
-inout [ 14: 0 ] FL_DQ; // FLASH Data bus 15 Bits
-inout FL_DQ15_AM1; // FLASH Data bus Bit 15 or Address A-1
-output [ 21: 0 ] FL_ADDR; // FLASH Address bus 22 Bits
-output FL_WE_N; // FLASH Write Enable
-output FL_RST_N; // FLASH Reset
-output FL_OE_N; // FLASH Output Enable
-output FL_CE_N; // FLASH Chip Enable
-output FL_WP_N; // FLASH Hardware Write Protect
-output FL_BYTE_N; // FLASH Selects 8/16-bit mode
-input FL_RY; // FLASH Ready/Busy
-//////////////////// LCD Module 16X2 ////////////////////////////
-inout [ 7: 0 ] LCD_DATA; // LCD Data bus 8 bits
-output LCD_BLON; // LCD Back Light ON/OFF
-output LCD_RW; // LCD Read/Write Select, 0 = Write, 1 = Read
-output LCD_EN; // LCD Enable
-output LCD_RS; // LCD Command/Data Select, 0 = Command, 1 = Data
-//////////////////// SD Card Interface ////////////////////////
-inout SD_DAT0; // SD Card Data 0
-inout SD_DAT3; // SD Card Data 3
-inout SD_CMD; // SD Card Command Signal
-output SD_CLK; // SD Card Clock
-input SD_WP_N; // SD Card Write Protect
-//////////////////////// PS2 ////////////////////////////////
-inout PS2_KBDAT; // PS2 Keyboard Data
-inout PS2_KBCLK; // PS2 Keyboard Clock
-inout PS2_MSDAT; // PS2 Mouse Data
-inout PS2_MSCLK; // PS2 Mouse Clock
-//////////////////////// VGA ////////////////////////////
-output VGA_HS; // VGA H_SYNC
-output VGA_VS; // VGA V_SYNC
-output [ 3: 0 ] VGA_R; // VGA Red[3:0]
-output [ 3: 0 ] VGA_G; // VGA Green[3:0]
-output [ 3: 0 ] VGA_B; // VGA Blue[3:0]
 //////////////////////// GPIO ////////////////////////////////
 input [ 1: 0 ] GPIO0_CLKIN; // GPIO Connection 0 Clock In Bus
 output [ 1: 0 ] GPIO0_CLKOUT; // GPIO Connection 0 Clock Out Bus
@@ -193,22 +115,17 @@ inout [ 31: 0 ] GPIO1_D; // GPIO Connection 1 Data Bus
 // =======================================================
 // All inout port turn to tri-state
 assign DRAM_DQ = 16'hzzzz;
-assign FL_DQ = 16'hzzzz;
-assign LCD_DATA = 8'hzz;
-assign SD_DAT0 = 1'hz;
-assign SD_DAT3 = 1'hz;
-assign SD_CMD = 1'hz;
-assign PS2_KBDAT = 1'hz;
-assign PS2_KBCLK = 1'hz;
-assign PS2_MSDAT = 1'hz;
-assign PS2_MSCLK = 1'hz;
 assign GPIO0_D = 32'hzzzzzzzz;
 assign GPIO1_D = 32'hzzzzzzzz;
+
+wire CLOCK_100, CLOCK_100_LEAD, CLOCK_9, CLOCK_20; // Clock wires
 
 
 // =======================================================
 // Structural coding
 // =======================================================
 
+// All those PLL'd clocks
+pll_all all_plls(.areset(1'b1),	.inclk0(CLOCK_50),	.c0(CLOCK_100),	.c1(CLOCK_100_LEAD),	.c2(CLOCK_9),	.c3(CLOCK_20),	.locked());
 
 endmodule
