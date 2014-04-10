@@ -1,0 +1,24 @@
+set_global_assignment -entity "highpass" -library "highpass" -name IP_TOOL_NAME "altera_fir_compiler_ii"
+set_global_assignment -entity "highpass" -library "highpass" -name IP_TOOL_VERSION "13.1.1"
+set_global_assignment -entity "highpass" -library "highpass" -name IP_TOOL_ENV "mwpim"
+set_global_assignment -library "highpass" -name MISC_FILE [file join $::quartus(qip_path) "highpass.cmp"]
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+
+set_global_assignment -library "highpass" -name VERILOG_FILE [file join $::quartus(qip_path) "highpass.v"]
+set_global_assignment -library "highpass" -name VERILOG_FILE [file join $::quartus(qip_path) "highpass/altera_avalon_sc_fifo.v"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_math_pkg_hpfir.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_lib_pkg_hpfir.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_avalon_streaming_controller_hpfir.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_avalon_streaming_sink_hpfir.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_avalon_streaming_source_hpfir.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_roundsat_hpfir.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/dspba_library_package.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/dspba_library.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/highpass_0002_rtl.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/highpass_0002_ast.vhd"]
+set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/highpass_0002.vhd"]
+set_global_assignment -library "highpass" -name SDC_FILE [file join $::quartus(qip_path) "highpass/highpass_0002.sdc"]
+
+set_global_assignment -entity "highpass_0002" -library "highpass" -name IP_TOOL_NAME "altera_fir_compiler_ii"
+set_global_assignment -entity "highpass_0002" -library "highpass" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "highpass_0002" -library "highpass" -name IP_TOOL_ENV "mwpim"

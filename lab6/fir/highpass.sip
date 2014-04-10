@@ -1,0 +1,25 @@
+set_global_assignment -entity "highpass" -library "lib_highpass" -name IP_TOOL_NAME "altera_fir_compiler_ii"
+set_global_assignment -entity "highpass" -library "lib_highpass" -name IP_TOOL_VERSION "13.1.1"
+set_global_assignment -entity "highpass" -library "lib_highpass" -name IP_TOOL_ENV "mwpim"
+set_global_assignment -library "lib_highpass" -name SPD_FILE [file join $::quartus(sip_path) "highpass.spd"]
+
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/altera_avalon_sc_fifo.v"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_math_pkg_hpfir.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_lib_pkg_hpfir.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_avalon_streaming_controller_hpfir.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_avalon_streaming_sink_hpfir.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_avalon_streaming_source_hpfir.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_roundsat_hpfir.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/dspba_library_package.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/dspba_library.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_rtl.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_ast.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_nativelink.tcl"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_msim.tcl"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_tb.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_mlab.m"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_model.m"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_coef_int.txt"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_input.txt"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_param.txt"]
