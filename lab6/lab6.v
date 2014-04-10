@@ -32,42 +32,42 @@
 module lab6
        (
            //////////////////// Clock Input ////////////////////
-           CLOCK_50, // 50 MHz
-           CLOCK_50_2, // 50 MHz
+           CLOCK_50,  // 50 MHz
+           CLOCK_50_2,  // 50 MHz
            //////////////////// Push Button ////////////////////
-           BUTTON, // Pushbutton[2:0]
+           BUTTON,  // Pushbutton[2:0]
            //////////////////// DPDT Switch ////////////////////
-           SW, // Toggle Switch[9:0]
+           SW,  // Toggle Switch[9:0]
            //////////////////// 7-SEG Display ////////////////////
-           HEX0_D, // Seven Segment Digit 0
-           HEX0_DP, // Seven Segment Digit DP 0
-           HEX1_D, // Seven Segment Digit 1
-           HEX1_DP, // Seven Segment Digit DP 1
-           HEX2_D, // Seven Segment Digit 2
-           HEX2_DP, // Seven Segment Digit DP 2
-           HEX3_D, // Seven Segment Digit 3
-           HEX3_DP, // Seven Segment Digit DP 3
+           HEX0_D,  // Seven Segment Digit 0
+           HEX0_DP,  // Seven Segment Digit DP 0
+           HEX1_D,  // Seven Segment Digit 1
+           HEX1_DP,  // Seven Segment Digit DP 1
+           HEX2_D,  // Seven Segment Digit 2
+           HEX2_DP,  // Seven Segment Digit DP 2
+           HEX3_D,  // Seven Segment Digit 3
+           HEX3_DP,  // Seven Segment Digit DP 3
            //////////////////////// LED ////////////////////////
-           LEDG, // LED Green[9:0]
+           LEDG,  // LED Green[9:0]
            //////////////////// / SDRAM Interface ////////////////
-           DRAM_DQ, // SDRAM Data bus 16 Bits
-           DRAM_ADDR, // SDRAM Address bus 13 Bits
-           DRAM_LDQM, // SDRAM Low-byte Data Mask
-           DRAM_UDQM, // SDRAM High-byte Data Mask
-           DRAM_WE_N, // SDRAM Write Enable
-           DRAM_CAS_N, // SDRAM Column Address Strobe
-           DRAM_RAS_N, // SDRAM Row Address Strobe
-           DRAM_CS_N, // SDRAM Chip Select
-           DRAM_BA_0, // SDRAM Bank Address 0
-           DRAM_BA_1, // SDRAM Bank Address 1
-           DRAM_CLK, // SDRAM Clock
-           DRAM_CKE, // SDRAM Clock Enable
+           DRAM_DQ,  // SDRAM Data bus 16 Bits
+           DRAM_ADDR,  // SDRAM Address bus 13 Bits
+           DRAM_LDQM,  // SDRAM Low-byte Data Mask
+           DRAM_UDQM,  // SDRAM High-byte Data Mask
+           DRAM_WE_N,  // SDRAM Write Enable
+           DRAM_CAS_N,  // SDRAM Column Address Strobe
+           DRAM_RAS_N,  // SDRAM Row Address Strobe
+           DRAM_CS_N,  // SDRAM Chip Select
+           DRAM_BA_0,  // SDRAM Bank Address 0
+           DRAM_BA_1,  // SDRAM Bank Address 1
+           DRAM_CLK,  // SDRAM Clock
+           DRAM_CKE,  // SDRAM Clock Enable
            //////////////////// GPIO ////////////////////////////
-           GPIO0_CLKIN, // GPIO Connection 0 Clock In Bus
-           GPIO0_CLKOUT, // GPIO Connection 0 Clock Out Bus
-           GPIO0_D, // GPIO Connection 0 Data Bus
-           GPIO1_CLKIN, // GPIO Connection 1 Clock In Bus
-           GPIO1_CLKOUT, // GPIO Connection 1 Clock Out Bus
+           GPIO0_CLKIN,  // GPIO Connection 0 Clock In Bus
+           GPIO0_CLKOUT,  // GPIO Connection 0 Clock Out Bus
+           GPIO0_D,  // GPIO Connection 0 Data Bus
+           GPIO1_CLKIN,  // GPIO Connection 1 Clock In Bus
+           GPIO1_CLKOUT,  // GPIO Connection 1 Clock Out Bus
            GPIO1_D // GPIO Connection 1 Data Bus
        );
 
@@ -118,7 +118,7 @@ assign DRAM_DQ = 16'hzzzz;
 assign GPIO0_D = 32'hzzzzzzzz;
 assign GPIO1_D = 32'hzzzzzzzz;
 
-wire CLOCK_100, CLOCK_100_LEAD, CLOCK_9, CLOCK_20; // Clock wires
+wire CLOCK_133, CLOCK_133_SLOW, CLOCK_9, CLOCK_20; // Clock wires
 
 
 // =======================================================
@@ -126,6 +126,6 @@ wire CLOCK_100, CLOCK_100_LEAD, CLOCK_9, CLOCK_20; // Clock wires
 // =======================================================
 
 // All those PLL'd clocks
-pll_all all_plls(.areset(1'b1),	.inclk0(CLOCK_50),	.c0(CLOCK_100),	.c1(CLOCK_100_LEAD),	.c2(CLOCK_9),	.c3(CLOCK_20),	.locked());
+pll_all all_plls( .areset( 1'b1 ), .inclk0( CLOCK_50 ), .c0( CLOCK_133 ), .c1( CLOCK_133_SLOW ), .c2( CLOCK_9 ), .c3( CLOCK_20 ), .locked() );
 
 endmodule

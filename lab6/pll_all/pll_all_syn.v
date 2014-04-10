@@ -33,7 +33,7 @@
 //applicable agreement for further details.
 
 
-//altpll bandwidth_type="AUTO" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=2 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=2 clk1_phase_shift="-3000" clk2_divide_by=50 clk2_duty_cycle=50 clk2_multiply_by=9 clk2_phase_shift="0" clk3_divide_by=5 clk3_duty_cycle=50 clk3_multiply_by=2 clk3_phase_shift="0" compensate_clock="CLK0" device_family="Cyclone III" inclk0_input_frequency=20000 intended_device_family="Cyclone III" lpm_hint="CBX_MODULE_PREFIX=pll_all" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_USED" port_clk3="PORT_USED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" self_reset_on_loss_lock="ON" width_clock=5 areset clk inclk locked
+//altpll bandwidth_type="AUTO" clk0_divide_by=3 clk0_duty_cycle=50 clk0_multiply_by=8 clk0_phase_shift="0" clk1_divide_by=3 clk1_duty_cycle=50 clk1_multiply_by=8 clk1_phase_shift="-3000" clk2_divide_by=11 clk2_duty_cycle=50 clk2_multiply_by=2 clk2_phase_shift="0" clk3_divide_by=5 clk3_duty_cycle=50 clk3_multiply_by=2 clk3_phase_shift="0" compensate_clock="CLK0" device_family="Cyclone III" inclk0_input_frequency=20000 intended_device_family="Cyclone III" lpm_hint="CBX_MODULE_PREFIX=pll_all" operation_mode="normal" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_USED" port_clk3="PORT_USED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_UNUSED" port_phasedone="PORT_UNUSED" port_scandata="PORT_UNUSED" port_scandataout="PORT_UNUSED" self_reset_on_loss_lock="ON" width_clock=5 areset clk inclk locked
 //VERSION_BEGIN 13.1 cbx_altclkbuf 2013:11:26:18:11:06:SJ cbx_altiobuf_bidir 2013:11:26:18:11:07:SJ cbx_altiobuf_in 2013:11:26:18:11:07:SJ cbx_altiobuf_out 2013:11:26:18:11:07:SJ cbx_altpll 2013:11:26:18:11:07:SJ cbx_cycloneii 2013:11:26:18:11:07:SJ cbx_lpm_add_sub 2013:11:26:18:11:07:SJ cbx_lpm_compare 2013:11:26:18:11:07:SJ cbx_lpm_counter 2013:11:26:18:11:07:SJ cbx_lpm_decode 2013:11:26:18:11:07:SJ cbx_lpm_mux 2013:11:26:18:11:07:SJ cbx_mgl 2013:11:26:18:17:01:SJ cbx_stratix 2013:11:26:18:11:07:SJ cbx_stratixii 2013:11:26:18:11:07:SJ cbx_stratixiii 2013:11:26:18:11:07:SJ cbx_stratixv 2013:11:26:18:11:07:SJ cbx_util_mgl 2013:11:26:18:11:07:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -109,17 +109,17 @@ module  pll_all_altpll
 	);
 	defparam
 		pll1.bandwidth_type = "auto",
-		pll1.clk0_divide_by = 1,
+		pll1.clk0_divide_by = 3,
 		pll1.clk0_duty_cycle = 50,
-		pll1.clk0_multiply_by = 2,
+		pll1.clk0_multiply_by = 8,
 		pll1.clk0_phase_shift = "0",
-		pll1.clk1_divide_by = 1,
+		pll1.clk1_divide_by = 3,
 		pll1.clk1_duty_cycle = 50,
-		pll1.clk1_multiply_by = 2,
+		pll1.clk1_multiply_by = 8,
 		pll1.clk1_phase_shift = "-3000",
-		pll1.clk2_divide_by = 50,
+		pll1.clk2_divide_by = 11,
 		pll1.clk2_duty_cycle = 50,
-		pll1.clk2_multiply_by = 9,
+		pll1.clk2_multiply_by = 2,
 		pll1.clk2_phase_shift = "0",
 		pll1.clk3_divide_by = 5,
 		pll1.clk3_duty_cycle = 50,
@@ -207,17 +207,17 @@ endmodule
 // Retrieval info: PRIVATE: CUR_DEDICATED_CLK STRING "c0"
 // Retrieval info: PRIVATE: CUR_FBIN_CLK STRING "c0"
 // Retrieval info: PRIVATE: DEVICE_SPEED_GRADE STRING "6"
-// Retrieval info: PRIVATE: DIV_FACTOR0 NUMERIC "1"
-// Retrieval info: PRIVATE: DIV_FACTOR1 NUMERIC "1"
-// Retrieval info: PRIVATE: DIV_FACTOR2 NUMERIC "50"
+// Retrieval info: PRIVATE: DIV_FACTOR0 NUMERIC "3"
+// Retrieval info: PRIVATE: DIV_FACTOR1 NUMERIC "3"
+// Retrieval info: PRIVATE: DIV_FACTOR2 NUMERIC "88"
 // Retrieval info: PRIVATE: DIV_FACTOR3 NUMERIC "1"
 // Retrieval info: PRIVATE: DUTY_CYCLE0 STRING "50.00000000"
 // Retrieval info: PRIVATE: DUTY_CYCLE1 STRING "50.00000000"
 // Retrieval info: PRIVATE: DUTY_CYCLE2 STRING "50.00000000"
 // Retrieval info: PRIVATE: DUTY_CYCLE3 STRING "50.00000000"
-// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE0 STRING "100.000000"
-// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE1 STRING "100.000000"
-// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE2 STRING "9.000000"
+// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE0 STRING "133.333328"
+// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE1 STRING "133.333328"
+// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE2 STRING "9.090909"
 // Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE3 STRING "20.000000"
 // Retrieval info: PRIVATE: EXPLICIT_SWITCHOVER_COUNTER STRING "0"
 // Retrieval info: PRIVATE: EXT_FEEDBACK_RADIO STRING "0"
@@ -247,9 +247,9 @@ endmodule
 // Retrieval info: PRIVATE: MIRROR_CLK1 STRING "0"
 // Retrieval info: PRIVATE: MIRROR_CLK2 STRING "0"
 // Retrieval info: PRIVATE: MIRROR_CLK3 STRING "0"
-// Retrieval info: PRIVATE: MULT_FACTOR0 NUMERIC "2"
-// Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "2"
-// Retrieval info: PRIVATE: MULT_FACTOR2 NUMERIC "9"
+// Retrieval info: PRIVATE: MULT_FACTOR0 NUMERIC "8"
+// Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "8"
+// Retrieval info: PRIVATE: MULT_FACTOR2 NUMERIC "16"
 // Retrieval info: PRIVATE: MULT_FACTOR3 NUMERIC "1"
 // Retrieval info: PRIVATE: NORMAL_MODE_RADIO STRING "1"
 // Retrieval info: PRIVATE: OUTPUT_FREQ0 STRING "133.00000000"
@@ -315,17 +315,17 @@ endmodule
 // Retrieval info: PRIVATE: ZERO_DELAY_RADIO STRING "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: BANDWIDTH_TYPE STRING "AUTO"
-// Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "1"
+// Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "3"
 // Retrieval info: CONSTANT: CLK0_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "2"
+// Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "8"
 // Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "0"
-// Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "1"
+// Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "3"
 // Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "2"
+// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "8"
 // Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "-3000"
-// Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "50"
+// Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "11"
 // Retrieval info: CONSTANT: CLK2_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "9"
+// Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "2"
 // Retrieval info: CONSTANT: CLK2_PHASE_SHIFT STRING "0"
 // Retrieval info: CONSTANT: CLK3_DIVIDE_BY NUMERIC "5"
 // Retrieval info: CONSTANT: CLK3_DUTY_CYCLE NUMERIC "50"
