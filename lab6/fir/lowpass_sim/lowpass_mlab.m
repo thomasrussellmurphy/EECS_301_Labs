@@ -14,7 +14,7 @@
 %Input Data Width: 12
 %Interpolation Factor: 1
 %Decimation Factor: 1
-%FIR Width (Full Calculation Width Before Output Width Adjust) :16
+%FIR Width (Full Calculation Width Before Output Width Adjust) :12
 %-----------------------------------------------------------------------------------------------------------
 %MegaWizard Scaled Coefficient Values
 
@@ -24,10 +24,10 @@
  DECI_FACTOR  =  1;
  MSB_RM  = 0;
  MSB_TYPE  = 0;
- LSB_RM  = 17;
+ LSB_RM  = 21;
  LSB_TYPE  = 0;
- FIR_WIDTH  = 16 + MSB_RM + LSB_RM;
- OUT_WIDTH  = 16 ;  %16
+ FIR_WIDTH  = 12 + MSB_RM + LSB_RM;
+ OUT_WIDTH  = 12 ;  %12
  DATA_WIDTH = 12;
  BANKCOUNT = 1;
  data_type = 1;
