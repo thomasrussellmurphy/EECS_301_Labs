@@ -1,6 +1,6 @@
-module video_position_sync( clk, disp_clk, en, valid_draw, h_pos, v_pos, disp_hsync, disp_vsync );
+module video_position_sync( disp_clk, en, valid_draw, h_pos, v_pos, disp_hsync, disp_vsync );
 
-input wire clk, disp_clk; // 50MHz, 9MHz
+input wire disp_clk; // 50MHz, 9MHz
 input wire en;
 
 output reg valid_draw;
