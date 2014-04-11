@@ -3,7 +3,7 @@ module character_display( clk, en, reset, buttons, switches, status_leds, disp_r
 input wire clk;
 input wire en, reset;
 input wire [ 2: 0 ] buttons;
-input wire [6:0] switches;
+input wire [ 6: 0 ] switches;
 
 output wire [ 9: 0 ] status_leds;
 output wire [ 7: 0 ] disp_red, disp_green, disp_blue;
@@ -27,7 +27,7 @@ vga_controller controller ( .clk( clk ), .disp_clk( disp_clk ), .en( en ), .red_
 
 // font generation circuit instantiation
 character_storage storage ( .clk( clk ), .video_on( valid_draw ), .pixel_x( horz_pos ), .pixel_y( vert_pos ),
-                              .red_out( red_int ), .green_out( green_int ), .blue_out( blue_int ), .reset(reset), .btn(buttons), .sw(switches) );
+                            .red_out( red_int ), .green_out( green_int ), .blue_out( blue_int ), .reset( reset ), .btn( buttons ), .sw( switches ) );
 
 
 endmodule
