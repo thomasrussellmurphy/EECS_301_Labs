@@ -27,8 +27,8 @@ module character_storage
    wire [11:0] addr_r, addr_w;
    wire [6:0] din, dout;
    // 80-by-30 tile map
-   localparam MAX_X = 80;
-   localparam MAX_Y = 30;
+   localparam MAX_X = 7'd80;
+   localparam MAX_Y = 7'd30;
    // cursor
    reg [6:0] cur_x_reg;
    wire [6:0] cur_x_next;
@@ -77,12 +77,12 @@ module character_storage
    assign font_bit = font_word[~bit_addr];
    // new cursor position
    assign cur_x_next =
-      (move_x_tick && (cur_x_reg==MAX_X-1)) ? 0 : // wrap
-      (move_x_tick) ? cur_x_reg + 1 :
+      (move_x_tick && (cur_x_reg==MAX_X-1'b1)) ? 1'b0 : // wrap
+      (move_x_tick) ? cur_x_reg + 1'b1 :
                       cur_x_reg;
    assign cur_y_next =
-      (move_y_tick && (cur_x_reg==MAX_Y-1)) ? 0 : // wrap
-      (move_y_tick) ? cur_y_reg + 1 :
+      (move_y_tick && (cur_x_reg==MAX_Y-1'b1)) ? 1'b0 : // wrap
+      (move_y_tick) ? cur_y_reg + 1'b1 :
                       cur_y_reg;
    // object signals
    // green over black and reversed video for cursor

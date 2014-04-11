@@ -107,7 +107,7 @@ assign { reset_sw, en_sw } = SW[ 1: 0 ];
 synchronizer en_sync( .clk( CLOCK_50 ), .ina( en_sw ), .outs( en_sw_s ) );
 synchronizer reset_sync( .clk( CLOCK_50 ), .ina( reset_sw ), .outs( reset_sw_s ) );
 
-character_display disp ( .clk( CLOCK_50 ), .en( en_sw_s ), .reset( reset_sw_s ), .buttons( BUTTON ),.switches(SW[ 9: 2 ]), .status_leds( LEDG ),
+character_display disp ( .clk( CLOCK_50 ), .en( en_sw_s ), .reset( reset_sw_s ), .buttons( BUTTON ),.switches(SW[ 8: 2 ]), .status_leds( LEDG ),
                          .disp_red( disp_red ), .disp_green( disp_green ), .disp_blue( disp_blue ),
                          .disp_clk( disp_clk ), .disp_en( disp_en ), .disp_vsync( disp_vsync ), .disp_hsync( disp_hsync ) );
 
