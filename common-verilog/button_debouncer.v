@@ -56,8 +56,8 @@ output	data_out;
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
-parameter	preset_val = 0;
-parameter counter_max = 100000;
+parameter	preset_val = 1'd0;
+parameter counter_max = 21'd100000;
 
 
 reg	data_out;
@@ -75,18 +75,18 @@ always	@( posedge clk or negedge rst_n ) begin
     if ( !rst_n ) begin
         data_out	<= preset_val;
         counter	<= counter_max;
-        data_in_0	<= 0;
-        data_in_1	<= 0;
-        data_in_2	<= 0;
-        data_in_3	<= 0;
+        data_in_0	<= 1'b0;
+        data_in_1	<= 1'b0;
+        data_in_2	<= 1'b0;
+        data_in_3	<= 1'b0;
     end
     else begin
-        if ( counter == 0 ) begin
+        if ( counter == 1'b0 ) begin
             data_out	<= data_in_3;
             counter	<= counter_max;
         end
         else begin
-            counter	<= counter - 1;
+            counter	<= counter - 1'b1;
         end
         data_in_0	<= data_in;
         data_in_1	<= data_in_0;
