@@ -111,7 +111,4 @@ character_display disp ( .clk( CLOCK_50 ), .en( en_sw_s ), .reset( reset_sw_s ),
                          .disp_red( disp_red ), .disp_green( disp_green ), .disp_blue( disp_blue ),
                          .disp_clk( disp_clk ), .disp_en( disp_en ), .disp_vsync( disp_vsync ), .disp_hsync( disp_hsync ) );
 
-
-
-
 endmodule

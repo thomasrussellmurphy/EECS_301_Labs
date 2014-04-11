@@ -1,4 +1,4 @@
-module font_test_gen
+module character_storage
        (
 			  input wire reset,
 			  input wire [2:0] btn,

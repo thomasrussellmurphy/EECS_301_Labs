@@ -10,11 +10,11 @@ output wire [ 7: 0 ] disp_red, disp_green, disp_blue;
 output wire disp_clk, disp_en, disp_vsync, disp_hsync;
 
 wire [ 9: 0 ] horz_pos, vert_pos; // 10-bit draw position
-reg [ 2: 0 ] h_disp_count; //Horizontal display counter
 reg clr;
 wire [ 7: 0 ] red_int, green_int, blue_int; // Internal 8-bit color values for the vga_controller
 
 assign disp_en = en;
+assign status_leds = vert_pos; // Just too see things scroll
 
 wire valid_draw;
 
@@ -26,17 +26,8 @@ vga_controller controller ( .clk( clk ), .disp_clk( disp_clk ), .en( en ), .red_
                             .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
 
 // font generation circuit instantiation
-font_test_gen font_gen_unit ( .clk( clk ), .video_on( valid_draw ), .pixel_x( horz_pos ), .pixel_y( vert_pos ),
+character_storage storage ( .clk( clk ), .video_on( valid_draw ), .pixel_x( horz_pos ), .pixel_y( vert_pos ),
                               .red_out( red_int ), .green_out( green_int ), .blue_out( blue_int ), .reset(reset), .btn(buttons), .sw(switches) );
 
-
-// Spare blocks for any logic we may want to do
-always @( * ) begin
-
-end
-
-always @( posedge disp_clk ) begin
-
-end
 
 endmodule
