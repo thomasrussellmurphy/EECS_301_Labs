@@ -3,6 +3,10 @@
 // Modified from XST 8.1i v_rams_11
 
 module xilinx_dual_port_ram_sync
+       #(
+           parameter ADDR_WIDTH = 6,
+           DATA_WIDTH = 8
+       )
        (
            input wire clk,
            input wire we,
@@ -11,16 +15,13 @@ module xilinx_dual_port_ram_sync
            output wire [ DATA_WIDTH - 1: 0 ] dout_a, dout_b
        );
 
-parameter ADDR_WIDTH = 6,
-          DATA_WIDTH = 8;
-
 // signal declaration
 reg [ DATA_WIDTH - 1: 0 ] ram [ 2 ** ADDR_WIDTH - 1: 0 ];
 reg [ ADDR_WIDTH - 1: 0 ] addr_a_reg, addr_b_reg;
 
 // body
 always @( posedge clk ) begin
-    if ( we )      // write operation
+    if ( we )            // write operation
     begin
         ram[ addr_a ] <= din_a;
     end

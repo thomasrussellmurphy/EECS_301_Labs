@@ -14,7 +14,7 @@ reg clr;
 wire [ 7: 0 ] red_int, green_int, blue_int; // Internal 8-bit color values for the vga_controller
 
 assign disp_en = en;
-assign status_leds = vert_pos; // Just too see things scroll
+assign status_leds = { switches, buttons }; // Just too see things scroll
 
 wire valid_draw;
 

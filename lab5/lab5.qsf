@@ -620,6 +620,8 @@ set_global_assignment -name PARTITION_COLOR 14622752 -section_id Top
 # -------------------
 
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name VERILOG_FILE V/button_conditioner.v
+set_global_assignment -name VERILOG_FILE V/edge_to_pulse.v
 set_global_assignment -name VERILOG_FILE V/character_storage.v
 set_global_assignment -name QIP_FILE pll9mhz.qip
 set_global_assignment -name SDC_FILE lab5.sdc
