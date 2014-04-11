@@ -126,14 +126,14 @@ wire pll_lock;
 assign LEDG[ 0 ] = pll_lock;
 
 // DAC Serial Connections
-wire cs_dac, dac_mosi;
-assign GPIO0_D[ 8 ] = cs_dac; // active low
+wire dac_cs_n, dac_mosi;
+assign GPIO0_D[ 8 ] = dac_cs_n; // active low
 assign GPIO0_D[ 7 ] = dac_mosi;
 assign GPIO0_D[ 6 ] = clk_20; // sclk
 
 // ADC Serial Connections
-wire cs_adc, adc_mosi, adc_miso;
-assign GPIO0_D[ 14 ] = cs_adc; // active low
+wire adc_cs_n, adc_mosi, adc_miso;
+assign GPIO0_D[ 14 ] = adc_cs_n; // active low
 assign GPIO0_D[ 12 ] = adc_mosi;
 assign GPIO0_D[ 11 ] = clk_20; // sclk
 
@@ -159,29 +159,40 @@ assign disp_clk = clk_9;
 // SDRAM Connections
 assign DRAM_CLK = clk_133_s;
 
+// ADC internal communications
+wire adc_data, adc_valid, adc_error;
+wire sample;
+
 // =======================================================
 // Structural coding
 // =======================================================
 
 // All those PLL'd clocks
-pll_all all_plls( .inclk0( CLOCK_50 ),
-                  .c0( clk_133 ), .c1( clk_133_s ), .c2( clk_9 ), .c3( clk_20 ), .c4( clk_50 ),
-                  .locked( pll_lock ) );
+pll_all all_plls ( .inclk0( CLOCK_50 ),
+                   .c0( clk_133 ), .c1( clk_133_s ), .c2( clk_9 ), .c3( clk_20 ), .c4( clk_50 ),
+                   .locked( pll_lock ) );
+
+sample_divider divider ( .clk( clk_50 ), .en( pll_lock ), .sample( sample ) );
+
+adc_serial adc ( .sclk( clk_20 ),
+                 .ast_source_data( adc_data ), .ast_source_valid( adc_valid ), .ast_source_error( adc_error ),
+                 .sample( sample ), .sdo( adc_mosi ), .sdi( adc_miso ), .cs( adc_cs_n ) );
 
 lowpass lowpass_filter ( .clk( clk_50 ), .reset_n( ~pll_lock ),
-                         .ast_sink_data(), .ast_sink_valid(), .ast_sink_error(),
-                         .ast_source_data(), .ast_source_valid(), .ast_source_error() );
+                         .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
+                         .ast_source_data(), .ast_source_valid( LEDG[ 9 ] ), .ast_source_error() );
 
 highpass highpass_filter ( .clk( clk_50 ), .reset_n( ~pll_lock ),
-                           .ast_sink_data(), .ast_sink_valid(), .ast_sink_error(),
-                           .ast_source_data(), .ast_source_valid(), .ast_source_error() );
+                           .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
+                           .ast_source_data(), .ast_source_valid( LEDG[ 8 ] ), .ast_source_error() );
 
 video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),
                                 .valid_draw(), .h_pos(), .v_pos(),
                                 .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
 
-fft audio_fft ( .clk( clk_133 ), .reset_n( ~pll_lock ),
-                .inverse(), .sink_valid(), .sink_sop(), .sink_eop(), .sink_real(), .sink_imag( 1'b0 ), .sink_error(), .sink_ready(),
-                .source_ready(), .source_error(), .source_sop(), .source_eop(), .source_valid(), .source_exp(), .source_real(), .source_imag() );
+// This can be dealt with later should it be used
+// fft audio_fft ( .clk( clk_133 ), .reset_n( ~pll_lock ),
+//                 .inverse(), .sink_valid(), .sink_sop(), .sink_eop(), .sink_real(), .sink_imag( 1'b0 ), .sink_error(), .sink_ready(),
+//                 .source_ready(), .source_error(), .source_sop(), .source_eop(), .source_valid(), .source_exp(), .source_real(), .source_imag() );
 
 endmodule
