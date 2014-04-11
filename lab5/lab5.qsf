@@ -635,5 +635,6 @@ set_global_assignment -name QIP_FILE pll/pll9mhz.qip
 set_global_assignment -name VERILOG_FILE V/character_display.v
 set_global_assignment -name VERILOG_FILE V/vga_controller.v
 set_global_assignment -name VERILOG_FILE V/font_test_gen.v
-set_global_assignment -name VHDL_FILE V/fontrom.vhd
+set_global_assignment -name VERILOG_FILE V/xilinx_dual_port_ram_sync.v
+set_global_assignment -name VERILOG_FILE V/fontrom.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
