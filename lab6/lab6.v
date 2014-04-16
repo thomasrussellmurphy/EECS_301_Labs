@@ -152,6 +152,7 @@ assign GPIO0_D[ 2 ] = motor_en;
 // Display Connections
 wire [ 7: 0 ] disp_red, disp_green, disp_blue;
 wire disp_clk, disp_en, disp_vsync, disp_hsync;
+wire [ 9: 0 ] h_pos, v_pos;
 
 assign GPIO1_D[ 27: 0 ] = { disp_vsync, disp_hsync, disp_en, disp_clk, disp_blue, disp_green, disp_red };
 assign disp_clk = clk_9;
@@ -172,13 +173,13 @@ pll_all all_plls ( .inclk0( CLOCK_50 ),
                    .c0( clk_133 ), .c1( clk_133_s ), .c2( clk_9 ), .c3( clk_20 ), .c4( clk_50 ),
                    .locked( pll_lock ) );
 
-sample_divider divider ( .clk( clk_50 ), .en( pll_lock ), .sample( sample ) );
+sample_divider divider ( .clk( clk_20 ), .en( pll_lock ), .sample( sample ) );
 
 adc_serial adc ( .sclk( clk_20 ),
                  .ast_source_data( adc_data ), .ast_source_valid( adc_valid ), .ast_source_error( adc_error ),
                  .sample( sample ), .sdo( adc_mosi ), .sdi( adc_miso ), .cs( adc_cs_n ) );
 
-lowpass lowpass_filter ( .clk( clk_50 ), .reset_n( ~pll_lock ),
+lowpass lowpass_filter ( .clk( clk_20 ), .reset_n( ~pll_lock ),
                          .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
                          .ast_source_data(), .ast_source_valid( LEDG[ 9 ] ), .ast_source_error() );
 
@@ -187,8 +188,13 @@ highpass highpass_filter ( .clk( clk_50 ), .reset_n( ~pll_lock ),
                            .ast_source_data(), .ast_source_valid( LEDG[ 8 ] ), .ast_source_error() );
 
 video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),
-                                .valid_draw(), .h_pos(), .v_pos(),
+                                .valid_draw(), .h_pos( h_pos ), .v_pos( v_pos ),
                                 .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
+
+assign disp_red = 8'h3e;
+assign disp_green = ~h_pos[ 7: 0 ];
+assign disp_blue = v_pos[ 7: 0 ];
+assign disp_en = pll_lock;
 
 // This can be dealt with later should it be used
 // fft audio_fft ( .clk( clk_133 ), .reset_n( ~pll_lock ),

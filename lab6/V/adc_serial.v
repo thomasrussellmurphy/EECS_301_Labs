@@ -34,7 +34,7 @@ parameter STARTUP0 = 4'h1;
 parameter STARTUP1 = 4'h2;
 parameter ACTIVE = 4'h3;
 
-reg [ 3: 0 ] startup; // keep track of our state
+reg [ 3: 0 ] startup, next_startup; // keep track of our state
 reg last_serial_data_valid;
 
 reg [ 15: 0 ] current_command;
@@ -46,34 +46,36 @@ wire serial_data_valid;
 
 initial begin
     startup <= INIT;
+    ast_source_valid <= 1'b0;
     ast_source_error <= 2'b0;
 end
 
 always @( * ) begin
     // Next-state conditions
     case ( startup )
-        INIT: begin
-            startup <= STARTUP0;
+        INIT: begin // Sequence of three empty commands, invalid conversions
+            next_startup <= STARTUP0;
             next_command <= STARTUPWORD;
         end
         STARTUP0: begin
-            startup <= STARTUP1;
+            next_startup <= STARTUP1;
             next_command <= STARTUPWORD;
         end
         STARTUP1: begin
-            startup <= ACTIVE;
+            next_startup <= ACTIVE;
             next_command <= STARTUPWORD;
         end
         ACTIVE: begin
-            startup <= ACTIVE;
+            next_startup <= ACTIVE;
             next_command <= NEXTCHAN1; // Sampling on channel 1 for audio
         end
         default: begin
-            startup <= INIT;
+            next_startup <= INIT;
+            next_command <= STARTUPWORD;
         end
     endcase
 
-    if ( ~last_serial_data_valid & serial_data_valid ) begin
+    if ( ~last_serial_data_valid && serial_data_valid && ( startup == ACTIVE ) ) begin
         next_ast_source_valid <= 1'b1;
     end
     else begin
@@ -83,6 +85,8 @@ end
 
 always @( posedge sclk ) begin
     last_serial_data_valid <= serial_data_valid;
+
+    startup <= next_startup;
 
     current_command <= next_command;
     ast_source_valid <= next_ast_source_valid;
