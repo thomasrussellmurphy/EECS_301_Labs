@@ -115,7 +115,7 @@ inout [ 31: 0 ] GPIO1_D; // GPIO Connection 1 Data Bus
 // =======================================================
 // All inout port turn to tri-state
 assign DRAM_DQ = 16'hzzzz;
-assign { GPIO0_D[ 31: 15 ], GPIO0_D[ 10: 9 ], GPIO0_D[ 3 ] } = 20'hz;
+assign { GPIO0_D[ 31: 15 ], GPIO0_D[ 3 ] } = 18'hz;
 assign GPIO1_D[ 31: 28 ] = 4'hz;
 
 // Clock wires
@@ -126,10 +126,16 @@ wire pll_lock;
 assign LEDG[ 0 ] = pll_lock;
 
 // DAC Serial Connections
-wire dac_cs_n, dac_mosi;
+wire dac_cs_n, dac_mosi, dac_ldac_n, dac_clr_n;
+assign GPIO0_D[ 10 ] = dac_clr_n;
+assign GPIO0_D[ 9 ] = dac_ldac_n;
 assign GPIO0_D[ 8 ] = dac_cs_n; // active low
 assign GPIO0_D[ 7 ] = dac_mosi;
 assign GPIO0_D[ 6 ] = clk_20; // sclk
+
+// DAC hold values
+assign dac_ldac_n = 1'b0;
+assign dac_clr_n = 1'b1;
 
 // ADC Serial Connections
 wire adc_cs_n, adc_mosi, adc_miso;
@@ -157,12 +163,30 @@ wire [ 9: 0 ] h_pos, v_pos;
 assign GPIO1_D[ 27: 0 ] = { disp_vsync, disp_hsync, disp_en, disp_clk, disp_blue, disp_green, disp_red };
 assign disp_clk = clk_9;
 
+// Display ouput config
+assign disp_red = 8'h3e;
+assign disp_green = ~h_pos[ 7: 0 ];
+assign disp_blue = v_pos[ 7: 0 ];
+assign disp_en = pll_lock;
+
 // SDRAM Connections
 assign DRAM_CLK = clk_133_s;
 
 // ADC internal communications
-wire adc_data, adc_valid, adc_error;
+wire [ 11: 0 ] adc_data;
+wire adc_valid;
+wire [ 1: 0 ] adc_error;
 wire sample;
+
+// Highpass output connections
+wire [ 11: 0 ] highpass_data;
+wire highpass_valid;
+wire [ 1: 0 ] highpass_error;
+
+// Lowpass ouptut connections
+wire [ 11: 0 ] lowpass_data;
+wire lowpass_valid;
+wire [ 1: 0 ] lowpass_error;
 
 // =======================================================
 // Structural coding
@@ -179,22 +203,21 @@ adc_serial adc ( .sclk( clk_20 ),
                  .ast_source_data( adc_data ), .ast_source_valid( adc_valid ), .ast_source_error( adc_error ),
                  .sample( sample ), .sdo( adc_mosi ), .sdi( adc_miso ), .cs( adc_cs_n ) );
 
-lowpass lowpass_filter ( .clk( clk_20 ), .reset_n( ~pll_lock ),
+lowpass lowpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                          .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
-                         .ast_source_data(), .ast_source_valid( LEDG[ 9 ] ), .ast_source_error() );
+                         .ast_source_data( lowpass_data ), .ast_source_valid( lowpass_valid ), .ast_source_error( lowpass_error ) );
 
-highpass highpass_filter ( .clk( clk_50 ), .reset_n( ~pll_lock ),
+highpass highpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                            .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
-                           .ast_source_data(), .ast_source_valid( LEDG[ 8 ] ), .ast_source_error() );
+                           .ast_source_data( highpass_data ), .ast_source_valid( highpass_valid ), .ast_source_error( highpass_error ) );
+
+dac_serial dac ( .sclk( clk_20 ),
+                 .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
+                 .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
 video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),
                                 .valid_draw(), .h_pos( h_pos ), .v_pos( v_pos ),
                                 .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
-
-assign disp_red = 8'h3e;
-assign disp_green = ~h_pos[ 7: 0 ];
-assign disp_blue = v_pos[ 7: 0 ];
-assign disp_en = pll_lock;
 
 // This can be dealt with later should it be used
 // fft audio_fft ( .clk( clk_133 ), .reset_n( ~pll_lock ),

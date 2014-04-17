@@ -13,6 +13,7 @@ set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quart
 set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/dspba_library_package.vhd"]
 set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/dspba_library.vhd"]
 set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/lowpass_rtl_u0_m0_wo0_cm0_lutmem.hex"]
+set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/lowpass_rtl_u0_m0_wo0_cm1_lutmem.hex"]
 set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/lowpass_rtl.vhd"]
 set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/lowpass_ast.vhd"]
 set_global_assignment -library "lib_lowpass" -name MISC_FILE [file join $::quartus(sip_path) "lowpass_sim/lowpass.vhd"]

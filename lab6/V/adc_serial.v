@@ -40,6 +40,7 @@ reg last_serial_data_valid;
 reg [ 15: 0 ] current_command;
 reg [ 15: 0 ] next_command;
 reg next_ast_source_valid;
+reg [ 11: 0 ] next_ast_source_data;
 
 wire [ 15: 0 ] result;
 wire serial_data_valid;
@@ -77,9 +78,11 @@ always @( * ) begin
 
     if ( ~last_serial_data_valid && serial_data_valid && ( startup == ACTIVE ) ) begin
         next_ast_source_valid <= 1'b1;
+        next_ast_source_data <= result[ 12: 1 ]; // These are where the audio bits are, bad spi_16i_16o something
     end
     else begin
         next_ast_source_valid <= 1'b0;
+        next_ast_source_data <= result[ 12: 1 ];
     end
 end
 
@@ -90,7 +93,7 @@ always @( posedge sclk ) begin
 
     current_command <= next_command;
     ast_source_valid <= next_ast_source_valid;
-    ast_source_data <= result[ 12: 1 ]; // These are where the audio bits are, bad spi_16i_16o something
+    ast_source_data <= next_ast_source_data;
 
     ast_source_error <= 2'b0;
 end

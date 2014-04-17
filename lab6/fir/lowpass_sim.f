@@ -8,6 +8,7 @@ lowpass_sim/auk_dspip_roundsat_hpfir.vhd
 lowpass_sim/dspba_library_package.vhd
 lowpass_sim/dspba_library.vhd
 lowpass_sim/lowpass_rtl_u0_m0_wo0_cm0_lutmem.hex
+lowpass_sim/lowpass_rtl_u0_m0_wo0_cm1_lutmem.hex
 lowpass_sim/lowpass_rtl.vhd
 lowpass_sim/lowpass_ast.vhd
 lowpass_sim/lowpass.vhd

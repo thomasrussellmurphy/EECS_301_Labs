@@ -16,7 +16,7 @@
 -- ---------------------------------------------------------------------------
 
 -- VHDL created from highpass_0002_rtl
--- VHDL created on Thu Apr 10 18:13:26 2014
+-- VHDL created on Wed Apr 16 16:44:41 2014
 
 
 library IEEE;

@@ -23,7 +23,7 @@
  INTER_FACTOR  = 1;
  DECI_FACTOR  =  1;
  MSB_RM  = 0;
- MSB_TYPE  = 0;
+ MSB_TYPE  = 1;
  LSB_RM  = 19;
  LSB_TYPE  = 0;
  FIR_WIDTH  = 12 + MSB_RM + LSB_RM;

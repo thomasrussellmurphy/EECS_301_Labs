@@ -15,6 +15,7 @@ set_global_assignment -library "lowpass" -name VHDL_FILE [file join $::quartus(q
 set_global_assignment -library "lowpass" -name VHDL_FILE [file join $::quartus(qip_path) "lowpass/dspba_library_package.vhd"]
 set_global_assignment -library "lowpass" -name VHDL_FILE [file join $::quartus(qip_path) "lowpass/dspba_library.vhd"]
 set_global_assignment -library "lowpass" -name SOURCE_FILE [file join $::quartus(qip_path) "lowpass/lowpass_0002_rtl_u0_m0_wo0_cm0_lutmem.hex"]
+set_global_assignment -library "lowpass" -name SOURCE_FILE [file join $::quartus(qip_path) "lowpass/lowpass_0002_rtl_u0_m0_wo0_cm1_lutmem.hex"]
 set_global_assignment -library "lowpass" -name VHDL_FILE [file join $::quartus(qip_path) "lowpass/lowpass_0002_rtl.vhd"]
 set_global_assignment -library "lowpass" -name VHDL_FILE [file join $::quartus(qip_path) "lowpass/lowpass_0002_ast.vhd"]
 set_global_assignment -library "lowpass" -name VHDL_FILE [file join $::quartus(qip_path) "lowpass/lowpass_0002.vhd"]

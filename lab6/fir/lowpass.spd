@@ -16,6 +16,7 @@
  <file path="lowpass_sim/dspba_library_package.vhd" type="VHDL" />
  <file path="lowpass_sim/dspba_library.vhd" type="VHDL" />
  <file path="lowpass_sim/lowpass_rtl_u0_m0_wo0_cm0_lutmem.hex" type="HEX" />
+ <file path="lowpass_sim/lowpass_rtl_u0_m0_wo0_cm1_lutmem.hex" type="HEX" />
  <file path="lowpass_sim/lowpass_rtl.vhd" type="VHDL" />
  <file path="lowpass_sim/lowpass_ast.vhd" type="VHDL" />
  <file path="lowpass_sim/lowpass.vhd" type="VHDL" />
