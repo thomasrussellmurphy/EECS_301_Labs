@@ -5,7 +5,7 @@
 <generic name="interpFactor" value="1" />
 <generic name="decimFactor" value="1" />
 <generic name="L_bandsFilter" value="All taps" />
-<generic name="clockRate" value="50" />
+<generic name="clockRate" value="20" />
 <generic name="clockSlack" value="0" />
 <generic name="speedGrade" value="Medium" />
 <generic name="coeffReload" value="false" />
@@ -17,7 +17,7 @@
 <generic name="dualMemDistRAMThreshold" value="1280" />
 <generic name="mRAMThreshold" value="1000000" />
 <generic name="hardMultiplierThreshold" value="-1" />
-<generic name="inputRate" value=".05" />
+<generic name="inputRate" value="0.05" />
 <generic name="inputChannelNum" value="1" />
 <generic name="inputType" value="Signed Binary" />
 <generic name="inputBitWidth" value="12" />
@@ -28,10 +28,10 @@
 <generic name="coeffBitWidth" value="12" />
 <generic name="coeffFracBitWidth" value="0" />
 <generic name="outType" value="Signed Binary" />
-<generic name="outMSBRound" value="Truncation" />
-<generic name="outMsbBitRem" value="0" />
+<generic name="outMSBRound" value="Saturating" />
+<generic name="outMsbBitRem" value="5" />
 <generic name="outLSBRound" value="Truncation" />
-<generic name="outLsbBitRem" value="21" />
+<generic name="outLsbBitRem" value="16" />
 <generic name="resoureEstimation" value="1000,1200,10" />
 <generic name="bankCount" value="1" />
 <generic name="bankDisplay" value="0" />

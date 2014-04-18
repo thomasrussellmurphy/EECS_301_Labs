@@ -16,7 +16,7 @@
 -- ---------------------------------------------------------------------------
 
 -- VHDL created from bandpass_0002_rtl
--- VHDL created on Fri Apr 18 11:39:30 2014
+-- VHDL created on Fri Apr 18 14:06:50 2014
 
 
 library IEEE;

@@ -24,9 +24,9 @@ entity lowpass_ast is
   INWIDTH             : integer := 12;
   FULL_WIDTH          : integer := 33;
   BANKINWIDTH         : integer := 0;
-  REM_LSB_BIT_g       : integer := 21;
+  REM_LSB_BIT_g       : integer := 17;
   REM_LSB_TYPE_g      : string := "Truncation";
-  REM_MSB_BIT_g       : integer := 0;
+  REM_MSB_BIT_g       : integer := 4;
   REM_MSB_TYPE_g      : string := "Saturating";
   PHYSCHANIN          : integer := 1;
   PHYSCHANOUT         : integer := 1;

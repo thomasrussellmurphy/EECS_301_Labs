@@ -24,9 +24,9 @@ entity highpass_0002_ast is
   INWIDTH             : integer := 12;
   FULL_WIDTH          : integer := 31;
   BANKINWIDTH         : integer := 0;
-  REM_LSB_BIT_g       : integer := 19;
+  REM_LSB_BIT_g       : integer := 9;
   REM_LSB_TYPE_g      : string := "Truncation";
-  REM_MSB_BIT_g       : integer := 0;
+  REM_MSB_BIT_g       : integer := 10;
   REM_MSB_TYPE_g      : string := "Saturating";
   PHYSCHANIN          : integer := 1;
   PHYSCHANOUT         : integer := 1;

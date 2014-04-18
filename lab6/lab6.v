@@ -137,6 +137,11 @@ assign GPIO0_D[ 6 ] = clk_20; // sclk
 assign dac_ldac_n = 1'b0;
 assign dac_clr_n = 1'b1;
 
+// DAC signal wires
+wire [ 11: 0 ] dac_sink_data;
+wire dac_sink_valid;
+wire [ 1: 0 ] dac_sink_error;
+
 // ADC Serial Connections
 wire adc_cs_n, adc_mosi, adc_miso;
 assign GPIO0_D[ 14 ] = adc_cs_n; // active low
@@ -189,7 +194,7 @@ wire lowpass_valid;
 wire [ 1: 0 ] lowpass_error;
 
 // Bandpass ouptut connections
-wire [ 23: 0 ] bandpass_data; // all possible data output for monitoring
+wire [ 11: 0 ] bandpass_data; // all possible data output for monitoring
 wire bandpass_valid;
 wire [ 1: 0 ] bandpass_error;
 
@@ -220,8 +225,16 @@ bandpass bandpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                            .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
                            .ast_source_data( bandpass_data ), .ast_source_valid( bandpass_valid ), .ast_source_error( bandpass_error ) );
 
+
+avalon_io12_4_switcher filter_switcher( .clk ( clk_20 ), .select ( SW[ 1: 0 ] ),
+                                        .sink_data_0 ( adc_data ), .sink_valid_0 ( adc_valid ), .sink_error_0 ( adc_error ),
+                                        .sink_data_1 ( lowpass_data ), .sink_valid_1 ( lowpass_valid ), .sink_error_1 ( lowpass_error ),
+                                        .sink_data_2 ( bandpass_data ), .sink_valid_2 ( bandpass_valid ), .sink_error_2 ( bandpass_error ),
+                                        .sink_data_3 ( highpass_data ), .sink_valid_3 ( highpass_valid ), .sink_error_3 ( highpass_error ),
+                                        .source_data ( dac_sink_data ), .source_valid ( dac_sink_valid ), .source_error ( dac_sink_error ) );
+
 dac_serial dac ( .sclk( clk_20 ),
-                 .ast_sink_data( { bandpass_data[ 23: 12 ] } ), .ast_sink_valid( bandpass_valid ), .ast_sink_error( bandpass_error ),
+                 .ast_sink_data( { dac_sink_data } ), .ast_sink_valid( dac_sink_valid ), .ast_sink_error( dac_sink_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
 video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),
