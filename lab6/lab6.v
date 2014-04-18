@@ -164,7 +164,7 @@ assign GPIO1_D[ 27: 0 ] = { disp_vsync, disp_hsync, disp_en, disp_clk, disp_blue
 assign disp_clk = clk_9;
 
 // Display ouput config
-assign disp_red = 8'h3e + h_pos[ 8: 1 ] - v_pos[ 6: 0 ];
+assign disp_red = 8'hce + h_pos[ 8: 1 ] - v_pos[ 6: 0 ];
 assign disp_green = ~h_pos[ 7: 0 ];
 assign disp_blue = v_pos[ 7: 0 ];
 assign disp_en = pll_lock;
@@ -189,7 +189,7 @@ wire lowpass_valid;
 wire [ 1: 0 ] lowpass_error;
 
 // Bandpass ouptut connections
-wire [ 30: 0 ] bandpass_data; // all possible data output for monitoring
+wire [ 23: 0 ] bandpass_data; // all possible data output for monitoring
 wire bandpass_valid;
 wire [ 1: 0 ] bandpass_error;
 
@@ -221,7 +221,7 @@ bandpass bandpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                            .ast_source_data( bandpass_data ), .ast_source_valid( bandpass_valid ), .ast_source_error( bandpass_error ) );
 
 dac_serial dac ( .sclk( clk_20 ),
-                 .ast_sink_data( { bandpass_data[ 30 ], bandpass_data[ 28: 18 ] } ), .ast_sink_valid( bandpass_valid ), .ast_sink_error( bandpass_error ),
+                 .ast_sink_data( { bandpass_data[ 23: 12 ] } ), .ast_sink_valid( bandpass_valid ), .ast_sink_error( bandpass_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
 video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),

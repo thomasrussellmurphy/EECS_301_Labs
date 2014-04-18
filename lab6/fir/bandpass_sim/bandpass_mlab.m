@@ -14,7 +14,7 @@
 %Input Data Width: 12
 %Interpolation Factor: 1
 %Decimation Factor: 1
-%FIR Width (Full Calculation Width Before Output Width Adjust) :31
+%FIR Width (Full Calculation Width Before Output Width Adjust) :24
 %-----------------------------------------------------------------------------------------------------------
 %MegaWizard Scaled Coefficient Values
 
@@ -22,12 +22,12 @@
  coef_matrix_in= [100,127,149,118,31,-92,-210,-276,-265,-182,-66,29,66,38,-23,-70,-64,0,93,163,174,123,48,1,17,93,183,227,191,85,-32,-95,-68,25,116,123,12,-178,-356,-422,-338,-160,-16,-37,-274,-643,-950,-976,-592,157,1050,1771,2047,1771,1050,157,-592,-976,-950,-643,-274,-37,-16,-160,-338,-422,-356,-178,12,123,116,25,-68,-95,-32,85,191,227,183,93,17,1,48,123,174,163,93,0,-64,-70,-23,38,66,29,-66,-182,-265,-276,-210,-92,31,118,149,127,100];
  INTER_FACTOR  = 1;
  DECI_FACTOR  =  1;
- MSB_RM  = 0;
+ MSB_RM  = 7;
  MSB_TYPE  = 1;
  LSB_RM  = 0;
  LSB_TYPE  = 0;
- FIR_WIDTH  = 31 + MSB_RM + LSB_RM;
- OUT_WIDTH  = 31 ;  %31
+ FIR_WIDTH  = 24 + MSB_RM + LSB_RM;
+ OUT_WIDTH  = 24 ;  %24
  DATA_WIDTH = 12;
  BANKCOUNT = 1;
  data_type = 1;

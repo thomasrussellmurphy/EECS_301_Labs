@@ -26,7 +26,7 @@ entity bandpass_0002_ast is
   BANKINWIDTH         : integer := 0;
   REM_LSB_BIT_g       : integer := 0;
   REM_LSB_TYPE_g      : string := "Truncation";
-  REM_MSB_BIT_g       : integer := 0;
+  REM_MSB_BIT_g       : integer := 7;
   REM_MSB_TYPE_g      : string := "Saturating";
   PHYSCHANIN          : integer := 1;
   PHYSCHANOUT         : integer := 1;
