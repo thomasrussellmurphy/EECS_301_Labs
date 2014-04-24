@@ -1,9 +1,9 @@
-module video_position_sync( disp_clk, en, valid_draw, h_pos, v_pos, disp_hsync, disp_vsync );
+module video_position_sync( disp_clk, en, valid_draw, v_blank, h_pos, v_pos, disp_hsync, disp_vsync );
 
 input wire disp_clk; // 50MHz, 9MHz
 input wire en;
 
-output reg valid_draw;
+output reg valid_draw, v_blank;
 output reg [ 9: 0 ] h_pos, v_pos;
 output reg disp_hsync, disp_vsync;
 
@@ -32,10 +32,12 @@ parameter VERT_MAX_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH + VERT_PIXELS + VER
 
 reg [ 9: 0 ] h_count, v_count; // Counters for progression through real and non-display positions
 reg [ 9: 0 ] next_h_count, next_v_count;
-wire h_valid, v_valid, next_valid_draw;
+wire h_valid, v_valid, next_valid_draw, next_v_blank;
 
 assign h_valid = ( h_count > HORZ_MIN_VALID_COUNT ) && ( h_count < HORZ_MAX_VALID_COUNT );
 assign v_valid = ( v_count > VERT_MIN_VALID_COUNT ) && ( v_count < VERT_MAX_VALID_COUNT );
+
+assign next_v_blank = ~v_valid;
 assign next_valid_draw = h_valid && v_valid;
 
 reg next_hsync, next_vsync;
@@ -82,6 +84,8 @@ end
 always @( posedge disp_clk ) begin
     if ( en ) begin
         valid_draw <= next_valid_draw;
+        v_blank <= next_v_blank;
+
         h_count <= next_h_count;
         v_count <= next_v_count;
 
@@ -93,6 +97,8 @@ always @( posedge disp_clk ) begin
     end
     else begin // Disable state turns everything off
         valid_draw <= 1'b0;
+        v_blank <= 1'b0;
+
         h_count <= 1'b0;
         v_count <= 1'b0;
 

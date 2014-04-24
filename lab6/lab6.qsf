@@ -43,7 +43,6 @@ set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009
 set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
 set_global_assignment -name SMART_RECOMPILE ON
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
-set_global_assignment -name VERILOG_FILE fft/fft.v
 set_global_assignment -name VERILOG_FILE V/video_position_sync.v
 set_global_assignment -name VERILOG_FILE V/spi_32i_0o.v
 set_global_assignment -name VERILOG_FILE V/spi_16i_16o.v
@@ -931,5 +930,8 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_CRC_HIWORD=6
 
 # end ENTITY(lowpass_0002)
 # ------------------------
-set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp
+set_global_assignment -name VERILOG_FILE V/sample_analysis.v
+set_global_assignment -name VERILOG_FILE V/column_framebuffer.v
+set_global_assignment -name VERILOG_FILE V/daul_waterfall.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp

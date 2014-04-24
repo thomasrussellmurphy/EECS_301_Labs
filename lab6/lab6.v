@@ -163,6 +163,7 @@ assign GPIO0_D[ 2 ] = motor_en;
 // Display Connections
 wire [ 7: 0 ] disp_red, disp_green, disp_blue;
 wire disp_clk, disp_en, disp_vsync, disp_hsync;
+wire valid_draw, v_blank;
 wire [ 9: 0 ] h_pos, v_pos;
 
 assign GPIO1_D[ 27: 0 ] = { disp_vsync, disp_hsync, disp_en, disp_clk, disp_blue, disp_green, disp_red };
@@ -238,11 +239,11 @@ dac_serial dac ( .sclk( clk_20 ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
 video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),
-                                .valid_draw(), .h_pos( h_pos ), .v_pos( v_pos ),
+                                .valid_draw( valid_draw ), .v_blank( v_blank ), .h_pos( h_pos ), .v_pos( v_pos ),
                                 .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
 
 // This can be dealt with later should it be used
-// fft audio_fft ( .clk( clk_133 ), .reset_n( ~pll_lock ),
+// fft audio_fft ( .clk( clk_133 ), .reset_n( pll_lock ),
 //                 .inverse(), .sink_valid(), .sink_sop(), .sink_eop(), .sink_real(), .sink_imag( 1'b0 ), .sink_error(), .sink_ready(),
 //                 .source_ready(), .source_error(), .source_sop(), .source_eop(), .source_valid(), .source_exp(), .source_real(), .source_imag() );
 
