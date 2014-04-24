@@ -14,6 +14,7 @@ set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(
 set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/auk_dspip_roundsat_hpfir.vhd"]
 set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/dspba_library_package.vhd"]
 set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/dspba_library.vhd"]
+set_global_assignment -library "highpass" -name SOURCE_FILE [file join $::quartus(qip_path) "highpass/highpass_0002_rtl_u0_m0_wo0_cm0_lutmem.hex"]
 set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/highpass_0002_rtl.vhd"]
 set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/highpass_0002_ast.vhd"]
 set_global_assignment -library "highpass" -name VHDL_FILE [file join $::quartus(qip_path) "highpass/highpass_0002.vhd"]

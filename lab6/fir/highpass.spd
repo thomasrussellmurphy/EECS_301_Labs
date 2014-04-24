@@ -15,6 +15,7 @@
  <file path="highpass_sim/auk_dspip_roundsat_hpfir.vhd" type="VHDL" />
  <file path="highpass_sim/dspba_library_package.vhd" type="VHDL" />
  <file path="highpass_sim/dspba_library.vhd" type="VHDL" />
+ <file path="highpass_sim/highpass_rtl_u0_m0_wo0_cm0_lutmem.hex" type="HEX" />
  <file path="highpass_sim/highpass_rtl.vhd" type="VHDL" />
  <file path="highpass_sim/highpass_ast.vhd" type="VHDL" />
  <file path="highpass_sim/highpass.vhd" type="VHDL" />

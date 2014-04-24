@@ -22,11 +22,11 @@ use work.auk_dspip_math_pkg_hpfir.all;
 entity highpass_0002_ast is
   generic (
   INWIDTH             : integer := 12;
-  FULL_WIDTH          : integer := 31;
+  FULL_WIDTH          : integer := 39;
   BANKINWIDTH         : integer := 0;
-  REM_LSB_BIT_g       : integer := 9;
+  REM_LSB_BIT_g       : integer := 13;
   REM_LSB_TYPE_g      : string := "Truncation";
-  REM_MSB_BIT_g       : integer := 10;
+  REM_MSB_BIT_g       : integer := 14;
   REM_MSB_TYPE_g      : string := "Saturating";
   PHYSCHANIN          : integer := 1;
   PHYSCHANOUT         : integer := 1;
@@ -102,7 +102,7 @@ component highpass_0002_rtl is
     xIn_0              : in std_logic_vector(12 - 1 downto 0);
     xOut_v             : out std_logic_vector(0 downto 0);
     xOut_c             : out std_logic_vector(7 downto 0);
-    xOut_0             : out std_logic_vector(31 - 1 downto 0);
+    xOut_0             : out std_logic_vector(39 - 1 downto 0);
     clk                : in std_logic;
     areset             : in std_logic
 );
@@ -177,7 +177,7 @@ hpfircore: highpass_0002_rtl
      xIn_0     => data_in((0 + 12) * 0 + 12 - 1 downto (0 + 12) * 0),
      xOut_v    => core_out_valid,
      xOut_c    => core_out_channel,
-     xOut_0   => core_out(31 * 0 + 31 - 1 downto 31 * 0),
+     xOut_0   => core_out(39 * 0 + 39 - 1 downto 39 * 0),
      clk       => clk,
      areset    => reset_fir
    );

@@ -7,6 +7,7 @@ highpass_sim/auk_dspip_avalon_streaming_source_hpfir.vhd
 highpass_sim/auk_dspip_roundsat_hpfir.vhd
 highpass_sim/dspba_library_package.vhd
 highpass_sim/dspba_library.vhd
+highpass_sim/highpass_rtl_u0_m0_wo0_cm0_lutmem.hex
 highpass_sim/highpass_rtl.vhd
 highpass_sim/highpass_ast.vhd
 highpass_sim/highpass.vhd

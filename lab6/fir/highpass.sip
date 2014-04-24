@@ -12,6 +12,7 @@ set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quar
 set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/auk_dspip_roundsat_hpfir.vhd"]
 set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/dspba_library_package.vhd"]
 set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/dspba_library.vhd"]
+set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_rtl_u0_m0_wo0_cm0_lutmem.hex"]
 set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_rtl.vhd"]
 set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass_ast.vhd"]
 set_global_assignment -library "lib_highpass" -name MISC_FILE [file join $::quartus(sip_path) "highpass_sim/highpass.vhd"]

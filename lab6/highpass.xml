@@ -29,9 +29,9 @@
 <generic name="coeffFracBitWidth" value="0" />
 <generic name="outType" value="Signed Binary" />
 <generic name="outMSBRound" value="Saturating" />
-<generic name="outMsbBitRem" value="8" />
+<generic name="outMsbBitRem" value="10" />
 <generic name="outLSBRound" value="Truncation" />
-<generic name="outLsbBitRem" value="11" />
+<generic name="outLsbBitRem" value="9" />
 <generic name="resoureEstimation" value="1000,1200,10" />
 <generic name="bankCount" value="1" />
 <generic name="bankDisplay" value="0" />

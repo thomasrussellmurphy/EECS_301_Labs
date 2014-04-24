@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1.1 166 win32 2014.04.18.14:44:43
+# ACDS 13.1.1 166 win32 2014.04.24.18:06:56
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -71,6 +71,9 @@ mkdir -p ./libraries/cycloneiii/
 
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
+if [ $SKIP_FILE_COPY -eq 0 ]; then
+  cp -f $QSYS_SIMDIR/highpass_rtl_u0_m0_wo0_cm0_lutmem.hex ./
+fi
 
 # ----------------------------------------
 # compile device library files

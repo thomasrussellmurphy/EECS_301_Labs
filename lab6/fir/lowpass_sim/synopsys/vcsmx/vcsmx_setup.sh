@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1.1 166 win32 2014.04.18.14:15:45
+# ACDS 13.1.1 166 win32 2014.04.24.18:04:37
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
