@@ -18,7 +18,7 @@ reg [ 11: 0 ] counter;
 
 assign disp_red = 8'hce + h_pos[ 8: 1 ] - v_pos[ 6: 0 ] + counter [ 7: 0 ];
 assign disp_green = ~h_pos[ 7: 0 ] - counter [ 9: 2 ];
-assign disp_blue = v_pos[ 7: 0 ] + counter [ 11: 4 ];
+assign disp_blue = v_pos[ 7: 0 ] + ~counter [ 11: 4 ];
 
 column_framebuffer high_buffer ( .clk_data( clk_data ), .clk_disp( clk_disp ),
                                  .sink_valid( high_sink_valid ), .sink_data( high_sink_data ),
