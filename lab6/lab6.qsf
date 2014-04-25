@@ -43,29 +43,6 @@ set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:06:14  MARCH 06, 2009
 set_global_assignment -name FLOW_ENABLE_RTL_VIEWER ON
 set_global_assignment -name SMART_RECOMPILE ON
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
-set_global_assignment -name VERILOG_FILE V/video_position_sync.v
-set_global_assignment -name VERILOG_FILE V/spi_32i_0o.v
-set_global_assignment -name VERILOG_FILE V/spi_16i_16o.v
-set_global_assignment -name VERILOG_FILE V/dac_serial.v
-set_global_assignment -name VERILOG_FILE V/adc_serial.v
-set_global_assignment -name VERILOG_FILE pll_all/pll_all.v
-set_global_assignment -name VERILOG_FILE lab6.v
-set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/LEDG_Driver.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/button_debouncer.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer8.v"
-set_global_assignment -name VERILOG_FILE "../common-verilog/seg7hexdriver.v"
-set_global_assignment -name QIP_FILE pll_all/pll_all.qip
-set_global_assignment -name QIP_FILE fft/fft.qip
-set_global_assignment -name QIP_FILE fir/lowpass.qip
-set_global_assignment -name QIP_FILE fir/highpass.qip
-set_global_assignment -name VERILOG_FILE V/sample_divider.v
-set_global_assignment -name SIGNALTAP_FILE stp1.stp
-set_global_assignment -name QIP_FILE fir/bandpass.qip
-set_global_assignment -name SIP_FILE fir/bandpass.sip
-set_global_assignment -name VERILOG_FILE V/avalon_io12_4_switcher.v
 
 # Pin & Location Assignments
 # ==========================
@@ -930,8 +907,32 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 
 # end ENTITY(lowpass_0002)
 # ------------------------
+set_global_assignment -name VERILOG_FILE V/dual_waterfall.v
+set_global_assignment -name VERILOG_FILE V/video_position_sync.v
+set_global_assignment -name VERILOG_FILE V/spi_32i_0o.v
+set_global_assignment -name VERILOG_FILE V/spi_16i_16o.v
+set_global_assignment -name VERILOG_FILE V/dac_serial.v
+set_global_assignment -name VERILOG_FILE V/adc_serial.v
+set_global_assignment -name VERILOG_FILE pll_all/pll_all.v
+set_global_assignment -name VERILOG_FILE lab6.v
+set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT_4.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/SEG7_LUT.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/LEDG_Driver.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/button_debouncer.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/synchronizer8.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/seg7hexdriver.v"
+set_global_assignment -name VERILOG_FILE "../common-verilog/edge_to_pulse.v"
+set_global_assignment -name QIP_FILE pll_all/pll_all.qip
+set_global_assignment -name QIP_FILE fft/fft.qip
+set_global_assignment -name QIP_FILE fir/lowpass.qip
+set_global_assignment -name QIP_FILE fir/highpass.qip
+set_global_assignment -name VERILOG_FILE V/sample_divider.v
+set_global_assignment -name SIGNALTAP_FILE stp1.stp
+set_global_assignment -name QIP_FILE fir/bandpass.qip
+set_global_assignment -name SIP_FILE fir/bandpass.sip
+set_global_assignment -name VERILOG_FILE V/avalon_io12_4_switcher.v
 set_global_assignment -name VERILOG_FILE V/sample_analysis.v
 set_global_assignment -name VERILOG_FILE V/column_framebuffer.v
-set_global_assignment -name VERILOG_FILE V/daul_waterfall.v
 set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

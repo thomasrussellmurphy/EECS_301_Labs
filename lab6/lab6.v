@@ -199,6 +199,10 @@ wire [ 11: 0 ] bandpass_data; // all possible data output for monitoring
 wire bandpass_valid;
 wire [ 1: 0 ] bandpass_error;
 
+// Signal visualization connections
+wire [ 15: 0 ] low_analysis_source_data, high_analysis_source_data;
+wire low_analysis_source_valid, high_analysis_source_valid;
+
 // =======================================================
 // Structural coding
 // =======================================================
@@ -227,20 +231,35 @@ bandpass bandpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                            .ast_source_data( bandpass_data ), .ast_source_valid( bandpass_valid ), .ast_source_error( bandpass_error ) );
 
 
-avalon_io12_4_switcher filter_switcher( .clk ( clk_20 ), .select ( SW[ 1: 0 ] ),
-                                        .sink_data_0 ( adc_data ), .sink_valid_0 ( adc_valid ), .sink_error_0 ( adc_error ),
-                                        .sink_data_1 ( lowpass_data ), .sink_valid_1 ( lowpass_valid ), .sink_error_1 ( lowpass_error ),
-                                        .sink_data_2 ( bandpass_data ), .sink_valid_2 ( bandpass_valid ), .sink_error_2 ( bandpass_error ),
-                                        .sink_data_3 ( highpass_data ), .sink_valid_3 ( highpass_valid ), .sink_error_3 ( highpass_error ),
-                                        .source_data ( dac_sink_data ), .source_valid ( dac_sink_valid ), .source_error ( dac_sink_error ) );
+avalon_io12_4_switcher filter_switcher ( .clk ( clk_20 ), .select ( SW[ 1: 0 ] ),
+                       .sink_data_0 ( adc_data ), .sink_valid_0 ( adc_valid ), .sink_error_0 ( adc_error ),
+                       .sink_data_1 ( lowpass_data ), .sink_valid_1 ( lowpass_valid ), .sink_error_1 ( lowpass_error ),
+                       .sink_data_2 ( bandpass_data ), .sink_valid_2 ( bandpass_valid ), .sink_error_2 ( bandpass_error ),
+                       .sink_data_3 ( highpass_data ), .sink_valid_3 ( highpass_valid ), .sink_error_3 ( highpass_error ),
+                       .source_data ( dac_sink_data ), .source_valid ( dac_sink_valid ), .source_error ( dac_sink_error ) );
 
 dac_serial dac ( .sclk( clk_20 ),
                  .ast_sink_data( { dac_sink_data } ), .ast_sink_valid( dac_sink_valid ), .ast_sink_error( dac_sink_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
-video_position_sync video_sync( .disp_clk( clk_9 ), .en( pll_lock ),
-                                .valid_draw( valid_draw ), .v_blank( v_blank ), .h_pos( h_pos ), .v_pos( v_pos ),
-                                .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
+
+sample_analysis high_analysis ( .clk( clk_20 ),
+                                .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ), .end_cycle( v_blank ),
+                                .source_valid( high_analysis_source_valid ), .source_data( high_analysis_source_data ) );
+
+sample_analysis low_analysis ( .clk( clk_20 ),
+                               .ast_sink_data( lowpass_data ), .ast_sink_valid( lowpass_valid ), .ast_sink_error( lowpass_error ), .end_cycle( v_blank ),
+                               .source_valid( low_analysis_source_valid ), .source_data( low_analysis_source_data ) );
+
+dual_waterfall waterfall ( .clk_data( clk_20 ), .clk_disp( clk_9 ),
+                           .h_pos( h_pos ), .v_pos( v_pos ), .valid_draw(),
+                           .low_sink_valid( low_analysis_source_valid ), .low_sink_data( low_analysis_source_data ),
+                           .high_sink_valid( high_analysis_source_valid ), .high_sink_data( high_analysis_source_data ),
+                           .disp_red(), .disp_green(), .disp_blue() );
+
+video_position_sync video_sync ( .disp_clk( clk_9 ), .en( pll_lock ),
+                                 .valid_draw( valid_draw ), .v_blank( v_blank ), .h_pos( h_pos ), .v_pos( v_pos ),
+                                 .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
 
 // This can be dealt with later should it be used
 // fft audio_fft ( .clk( clk_133 ), .reset_n( pll_lock ),
