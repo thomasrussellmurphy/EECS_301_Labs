@@ -170,9 +170,6 @@ assign GPIO1_D[ 27: 0 ] = { disp_vsync, disp_hsync, disp_en, disp_clk, disp_blue
 assign disp_clk = clk_9;
 
 // Display ouput config
-assign disp_red = 8'hce + h_pos[ 8: 1 ] - v_pos[ 6: 0 ];
-assign disp_green = ~h_pos[ 7: 0 ];
-assign disp_blue = v_pos[ 7: 0 ];
 assign disp_en = pll_lock;
 
 // SDRAM Connections
@@ -252,10 +249,10 @@ sample_analysis low_analysis ( .clk( clk_20 ),
                                .source_valid( low_analysis_source_valid ), .source_data( low_analysis_source_data ) );
 
 dual_waterfall waterfall ( .clk_data( clk_20 ), .clk_disp( clk_9 ),
-                           .h_pos( h_pos ), .v_pos( v_pos ), .valid_draw(),
+                           .h_pos( h_pos ), .v_pos( v_pos ), .valid_draw( valid_draw ), .end_cycle( v_blank ),
                            .low_sink_valid( low_analysis_source_valid ), .low_sink_data( low_analysis_source_data ),
                            .high_sink_valid( high_analysis_source_valid ), .high_sink_data( high_analysis_source_data ),
-                           .disp_red(), .disp_green(), .disp_blue() );
+                           .disp_red( disp_red ), .disp_green( disp_green ), .disp_blue( disp_blue ) );
 
 video_position_sync video_sync ( .disp_clk( clk_9 ), .en( pll_lock ),
                                  .valid_draw( valid_draw ), .v_blank( v_blank ), .h_pos( h_pos ), .v_pos( v_pos ),
