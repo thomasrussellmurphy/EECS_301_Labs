@@ -132,6 +132,9 @@ assign rst_i = 1'b0;
 
 pll_sdram pll ( .areset( 1'b0 ), .inclk0( CLOCK_50 ), .c0( CLOCK_133 ), .c1( CLOCK_133_NEG ), .locked( pll_locked ) );
 
+// Module credit:
+// http://whoyouvotefor.info/altera_sdram.shtml
+
 sdram_controller sdram_controller_inst
                  (
                      .clk_i( CLOCK_133 ),
