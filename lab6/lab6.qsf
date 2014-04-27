@@ -934,5 +934,6 @@ set_global_assignment -name SIP_FILE fir/bandpass.sip
 set_global_assignment -name VERILOG_FILE V/avalon_io12_4_switcher.v
 set_global_assignment -name VERILOG_FILE V/sample_analysis.v
 set_global_assignment -name VERILOG_FILE V/column_framebuffer.v
+set_global_assignment -name VERILOG_FILE V/motor_serial.v
 set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
