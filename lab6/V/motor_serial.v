@@ -8,35 +8,45 @@ output reg outh; // active high
 output wire outl; // active low
 
 //Internal variables
-reg [ 14: 0 ] count; // 15 bits gives about 32.768 Hz
+reg [ 9 : 0 ] count; // 20MHz/512 gives us a frequency of 39kHz
 reg [ 11: 0 ] goal;
+reg [ 11: 0 ] unsign_it; //converts sample into unsigned data
 
 
 assign outl = ~outh;
 
-always @( posedge sclk ) begin
+always @( posedge sclk ) 
+begin
+count <= count + 1;
+outh <= 1'b1;
 
-    if ( ast_sink_valid ) begin
-        count <= count + 1'b1;
-
-        if ( count == 1'b0 ) begin
-            goal <= ast_sink_data;
-        end  // Only update the goal at zero count to avoid glitches
-
-        if ( count <= goal ) begin
-            outh <= 1;
-        end
-
-        if ( count >= 20_000 )  // For 20 Mhz clk
-        begin
-            count = 0;
-        end
-
-        else begin
-            outh <= 0;
-        end
-    end
+	if (ast_sink_valid)
+	begin
+		unsign_it <= ast_sink_data + 12'b100000000000;
+		count <= 0;
+	end
+		
+		if ( count == 1'b0 )
+			begin
+			goal <= unsign_it;
+			end  // Only update the goal at zero count to avoid glitches
+			
+		if ( count < goal )
+			begin
+			outh <= 1;
+			end
+    
+		else 
+			begin
+        outh <= 0;
+			end
+			
+		if (count >= 512) 
+			begin
+			count <= 0;
+			end
 end
+	
 endmodule
 
 

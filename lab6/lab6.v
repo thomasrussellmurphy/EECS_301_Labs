@@ -239,9 +239,7 @@ dac_serial dac ( .sclk( clk_20 ),
                  .ast_sink_data( { dac_sink_data } ), .ast_sink_valid( dac_sink_valid ), .ast_sink_error( dac_sink_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
-// Motor module??
-assign motor_en = 1'b0;
-assign motor_phase = 1'b0;
+motor_serial motor( .sclk(clk_20),.ast_sink_data(lowpass_data), .ast_sink_valid(lowpass_valid), .ast_sink_error(lowpass_error), .outh(motor_en), .outl());
 
 sample_analysis high_analysis ( .clk( clk_20 ),
                                 .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ), .end_cycle( v_blank ),
