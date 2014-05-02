@@ -12,24 +12,62 @@ input wire valid_draw, end_cycle;
 input wire low_sink_valid, high_sink_valid;
 input wire [ 15: 0 ] low_sink_data, high_sink_data;
 
-output wire [ 7: 0 ] disp_red, disp_green, disp_blue;
+output reg [ 7: 0 ] disp_red, disp_green, disp_blue;
 
 reg [ 11: 0 ] counter;
 
-assign disp_red = 8'hce + h_pos[ 8: 1 ] - v_pos[ 6: 0 ] + counter [ 7: 0 ];
-assign disp_green = ~h_pos[ 7: 0 ] - counter [ 9: 2 ];
-assign disp_blue = v_pos[ 7: 0 ] + ~counter [ 11: 4 ];
+parameter BACKGROUND_RED = 8'h00;
+parameter BACKGROUND_GREEN = 8'hf5;
+parameter BACKGROUND_BLUE = 8'h00;
+
+parameter COLUMN_ONE = 10'd96;
+parameter COLUMN_TWO = 10'd192;
+parameter COLUMN_THREE = 10'd288;
+parameter COLUMN_FOUR = 10'd384;
+
+wire [ 15: 0 ] high_data, low_data;
 
 column_framebuffer high_buffer ( .clk_data( clk_data ), .clk_disp( clk_disp ),
                                  .sink_valid( high_sink_valid ), .sink_data( high_sink_data ),
-                                 .v_pos( v_pos ), .source_enable(), .source_data() );
+                                 .v_pos( v_pos ), .source_enable( 1'b1 ), .source_data( high_data ) );
 
 column_framebuffer low_buffer ( .clk_data( clk_data ), .clk_disp( clk_disp ),
                                 .sink_valid( low_sink_valid ), .sink_data( low_sink_data ),
-                                .v_pos( v_pos ), .source_enable(), .source_data() );
+                                .v_pos( v_pos ), .source_enable( 1'b1 ), .source_data( low_data ) );
 
 always @( posedge end_cycle ) begin
     counter <= counter + 1'b1;
+end
+
+always @( posedge clk_disp ) begin
+    if ( valid_draw ) begin
+        if ( h_pos < COLUMN_ONE ) begin
+            disp_red <= BACKGROUND_RED;
+            disp_green <= BACKGROUND_GREEN;
+            disp_blue <= BACKGROUND_BLUE;
+        end
+        else if ( h_pos < COLUMN_TWO ) begin
+            { disp_red, disp_green, disp_blue } <= { high_data[ 15: 8 ], 8'h00, high_data[ 7: 0 ] };
+        end
+        else if ( h_pos < COLUMN_THREE ) begin
+            disp_red <= BACKGROUND_RED;
+            disp_green <= BACKGROUND_GREEN;
+            disp_blue <= BACKGROUND_BLUE;
+        end
+        else if ( h_pos < COLUMN_FOUR ) begin
+            { disp_red, disp_green, disp_blue } <= { low_data[ 15: 8 ], 8'h00, low_data[ 7: 0 ] };
+        end
+        else begin
+            disp_red <= BACKGROUND_RED;
+            disp_green <= BACKGROUND_GREEN;
+            disp_blue <= BACKGROUND_BLUE;
+        end
+    end
+    else begin
+        disp_red <= 8'h00;
+        disp_green <= 8'h00;
+        disp_blue <= 8'h00;
+    end
 end
 
 endmodule

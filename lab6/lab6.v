@@ -49,19 +49,6 @@ module lab6
            HEX3_DP, // Seven Segment Digit DP 3
            //////////////////////// LED ////////////////////////
            LEDG, // LED Green[9:0]
-           //////////////////// / SDRAM Interface ////////////////
-           DRAM_DQ, // SDRAM Data bus 16 Bits
-           DRAM_ADDR, // SDRAM Address bus 13 Bits
-           DRAM_LDQM, // SDRAM Low-byte Data Mask
-           DRAM_UDQM, // SDRAM High-byte Data Mask
-           DRAM_WE_N, // SDRAM Write Enable
-           DRAM_CAS_N, // SDRAM Column Address Strobe
-           DRAM_RAS_N, // SDRAM Row Address Strobe
-           DRAM_CS_N, // SDRAM Chip Select
-           DRAM_BA_0, // SDRAM Bank Address 0
-           DRAM_BA_1, // SDRAM Bank Address 1
-           DRAM_CLK, // SDRAM Clock
-           DRAM_CKE, // SDRAM Clock Enable
            //////////////////// GPIO ////////////////////////////
            GPIO0_CLKIN, // GPIO Connection 0 Clock In Bus
            GPIO0_CLKOUT, // GPIO Connection 0 Clock Out Bus
@@ -89,19 +76,6 @@ output [ 6: 0 ] HEX3_D; // Seven Segment Digit 3
 output HEX3_DP; // Seven Segment Digit DP 3
 //////////////////////////// LED ////////////////////////////
 output [ 9: 0 ] LEDG; // LED Green[9:0]
-////////////////////// / SDRAM Interface ////////////////////////
-inout [ 15: 0 ] DRAM_DQ; // SDRAM Data bus 16 Bits
-output [ 12: 0 ] DRAM_ADDR; // SDRAM Address bus 13 Bits
-output DRAM_LDQM; // SDRAM Low-byte Data Mask
-output DRAM_UDQM; // SDRAM High-byte Data Mask
-output DRAM_WE_N; // SDRAM Write Enable
-output DRAM_CAS_N; // SDRAM Column Address Strobe
-output DRAM_RAS_N; // SDRAM Row Address Strobe
-output DRAM_CS_N; // SDRAM Chip Select
-output DRAM_BA_0; // SDRAM Bank Address 0
-output DRAM_BA_1; // SDRAM Bank Address 1
-output DRAM_CLK; // SDRAM Clock
-output DRAM_CKE; // SDRAM Clock Enable
 //////////////////////// GPIO ////////////////////////////////
 input [ 1: 0 ] GPIO0_CLKIN; // GPIO Connection 0 Clock In Bus
 output [ 1: 0 ] GPIO0_CLKOUT; // GPIO Connection 0 Clock Out Bus
@@ -114,12 +88,11 @@ inout [ 31: 0 ] GPIO1_D; // GPIO Connection 1 Data Bus
 // REG/WIRE declarations
 // =======================================================
 // All inout port turn to tri-state
-assign DRAM_DQ = 16'hzzzz;
 assign { GPIO0_D[ 31: 15 ], GPIO0_D[ 3 ] } = 18'hz;
 assign GPIO1_D[ 31: 28 ] = 4'hz;
 
 // Clock wires
-wire clk_133, clk_133_s, clk_9, clk_20, clk_50;
+wire clk_9, clk_20, clk_50;
 
 // Status lights
 wire pll_lock;
@@ -137,11 +110,6 @@ assign GPIO0_D[ 6 ] = clk_20; // sclk
 assign dac_ldac_n = 1'b0;
 assign dac_clr_n = 1'b1;
 
-// DAC signal wires
-wire [ 11: 0 ] dac_sink_data;
-wire dac_sink_valid;
-wire [ 1: 0 ] dac_sink_error;
-
 // ADC Serial Connections
 wire adc_cs_n, adc_mosi, adc_miso;
 assign GPIO0_D[ 14 ] = adc_cs_n; // active low
@@ -150,15 +118,19 @@ assign GPIO0_D[ 11 ] = clk_20; // sclk
 
 assign adc_miso = GPIO0_D[ 13 ];
 
-// Encoder Connections
+// Encoder Connections, unused
 wire A, B;
 assign A = GPIO0_D [ 5 ];
 assign B = GPIO0_D [ 4 ];
+assign LEDG[ 2: 1 ] = { A, B };
 
 // Motor Connections
 wire motor_en, motor_phase;
 assign GPIO0_D[ 1: 0 ] = { motor_phase, ~motor_phase };
 assign GPIO0_D[ 2 ] = motor_en;
+
+// Motor config
+assign motor_en = pll_lock && SW[ 0 ];
 
 // Display Connections
 wire [ 7: 0 ] disp_red, disp_green, disp_blue;
@@ -171,9 +143,6 @@ assign disp_clk = clk_9;
 
 // Display ouput config
 assign disp_en = pll_lock;
-
-// SDRAM Connections
-assign DRAM_CLK = clk_133_s;
 
 // ADC internal communications
 wire [ 11: 0 ] adc_data;
@@ -206,7 +175,7 @@ wire low_analysis_source_valid, high_analysis_source_valid;
 
 // All those PLL'd clocks
 pll_all all_plls ( .inclk0( CLOCK_50 ),
-                   .c0( clk_133 ), .c1( clk_133_s ), .c2( clk_9 ), .c3( clk_20 ), .c4( clk_50 ),
+                   .c0( clk_50 ), .c1( clk_9 ), .c2( clk_20 ),
                    .locked( pll_lock ) );
 
 sample_divider divider ( .clk( clk_20 ), .en( pll_lock ), .sample( sample ) );
@@ -223,23 +192,13 @@ highpass highpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                            .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
                            .ast_source_data( highpass_data ), .ast_source_valid( highpass_valid ), .ast_source_error( highpass_error ) );
 
-bandpass bandpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
-                           .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
-                           .ast_source_data( bandpass_data ), .ast_source_valid( bandpass_valid ), .ast_source_error( bandpass_error ) );
-
-
-avalon_io12_4_switcher filter_switcher ( .clk ( clk_20 ), .select ( SW[ 1: 0 ] ),
-                       .sink_data_0 ( adc_data ), .sink_valid_0 ( adc_valid ), .sink_error_0 ( adc_error ),
-                       .sink_data_1 ( lowpass_data ), .sink_valid_1 ( lowpass_valid ), .sink_error_1 ( lowpass_error ),
-                       .sink_data_2 ( bandpass_data ), .sink_valid_2 ( bandpass_valid ), .sink_error_2 ( bandpass_error ),
-                       .sink_data_3 ( highpass_data ), .sink_valid_3 ( highpass_valid ), .sink_error_3 ( highpass_error ),
-                       .source_data ( dac_sink_data ), .source_valid ( dac_sink_valid ), .source_error ( dac_sink_error ) );
-
 dac_serial dac ( .sclk( clk_20 ),
-                 .ast_sink_data( { dac_sink_data } ), .ast_sink_valid( dac_sink_valid ), .ast_sink_error( dac_sink_error ),
+                 .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
-motor_serial motor( .sclk(clk_20),.ast_sink_data(lowpass_data), .ast_sink_valid(lowpass_valid), .ast_sink_error(lowpass_error), .outh(motor_en), .outl());
+motor_serial motor( .sclk( clk_20 ),
+                    .ast_sink_data( lowpass_data ), .ast_sink_valid( lowpass_valid ), .ast_sink_error( lowpass_error ),
+                    .outh( motor_phase ), .outl() );
 
 sample_analysis high_analysis ( .clk( clk_20 ),
                                 .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ), .end_cycle( v_blank ),
