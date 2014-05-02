@@ -20,7 +20,6 @@ always @( posedge sclk ) begin
 
     if ( ast_sink_valid ) begin
         unsign_it <= ast_sink_data + 12'b100000000000;
-        count <= 0;
     end
 
     if ( count == 1'b0 ) begin
