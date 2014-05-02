@@ -17,8 +17,9 @@ output reg [ 7: 0 ] disp_red, disp_green, disp_blue;
 reg [ 11: 0 ] counter;
 
 parameter BACKGROUND_RED = 8'h00;
-parameter BACKGROUND_GREEN = 8'hf5;
+parameter BACKGROUND_GREEN = 8'h0c;
 parameter BACKGROUND_BLUE = 8'h00;
+parameter BACKGROUND = { BACKGROUND_RED, BACKGROUND_GREEN, BACKGROUND_BLUE };
 
 parameter COLUMN_ONE = 10'd96;
 parameter COLUMN_TWO = 10'd192;
@@ -42,31 +43,23 @@ end
 always @( posedge clk_disp ) begin
     if ( valid_draw ) begin
         if ( h_pos < COLUMN_ONE ) begin
-            disp_red <= BACKGROUND_RED;
-            disp_green <= BACKGROUND_GREEN;
-            disp_blue <= BACKGROUND_BLUE;
+            { disp_red, disp_green, disp_blue } <= BACKGROUND;
         end
         else if ( h_pos < COLUMN_TWO ) begin
-            { disp_red, disp_green, disp_blue } <= { high_data[ 15: 8 ], 8'h00, high_data[ 7: 0 ] };
-        end
-        else if ( h_pos < COLUMN_THREE ) begin
-            disp_red <= BACKGROUND_RED;
-            disp_green <= BACKGROUND_GREEN;
-            disp_blue <= BACKGROUND_BLUE;
-        end
-        else if ( h_pos < COLUMN_FOUR ) begin
             { disp_red, disp_green, disp_blue } <= { low_data[ 15: 8 ], 8'h00, low_data[ 7: 0 ] };
         end
+        else if ( h_pos < COLUMN_THREE ) begin
+            { disp_red, disp_green, disp_blue } <= BACKGROUND;
+        end
+        else if ( h_pos < COLUMN_FOUR ) begin
+            { disp_red, disp_green, disp_blue } <= { high_data[ 15: 8 ], 8'h00, high_data[ 7: 0 ] };
+        end
         else begin
-            disp_red <= BACKGROUND_RED;
-            disp_green <= BACKGROUND_GREEN;
-            disp_blue <= BACKGROUND_BLUE;
+            { disp_red, disp_green, disp_blue } <= BACKGROUND;
         end
     end
     else begin
-        disp_red <= 8'h00;
-        disp_green <= 8'h00;
-        disp_blue <= 8'h00;
+        { disp_red, disp_green, disp_blue } <= 24'h000000; // zero out when invalid
     end
 end
 

@@ -196,7 +196,7 @@ dac_serial dac ( .sclk( clk_20 ),
                  .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
 
-motor_serial motor( .sclk( clk_20 ),
+motor_serial motor( .clk( clk_50 ),
                     .ast_sink_data( lowpass_data ), .ast_sink_valid( lowpass_valid ), .ast_sink_error( lowpass_error ),
                     .outh( motor_phase ), .outl() );
 
