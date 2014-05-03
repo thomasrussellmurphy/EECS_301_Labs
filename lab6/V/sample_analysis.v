@@ -13,17 +13,21 @@ output reg source_valid;
 output reg [ 15: 0 ] source_data;
 
 // Internal Variables
+reg [ 23: 0 ] peak_sample;   // The biggest sample so far
+
 wire end_cycle_pulse;
 wire [ 23: 0 ] padded_sample;  // Current sample padded with zeros
-reg [ 23: 0 ] peak_sample;   // The biggest sample so far
-reg [ 23: 0 ] divided_peak_sample;
+wire [ 23: 0 ] divided_peak_sample;
 
 edge_to_pulse pulse ( .clk( clk ), .in( end_cycle ), .out( end_cycle_pulse ) );
 
 parameter PADDING = 12'h000;
 
-// Convert to unsigned continuously
+// Convert to unsigned continuously for processing
 assign padded_sample = { ast_sink_data + 12'b100000000000, PADDING };
+
+// Constantly have divided version of peak sample available
+assign divided_peak_sample = peak_sample >> 6;
 
 always @( posedge clk ) begin
 
@@ -38,20 +42,21 @@ always @( posedge clk ) begin
         source_data <= source_data;
     end
 
+    // Accepting and processing input data
     if ( ast_sink_valid ) begin
-        divided_peak_sample <= peak_sample >> 12;
         // Compare current sample with biggest sample so far
         if ( padded_sample > peak_sample ) begin
+            // Gain new peak sample
             peak_sample <= padded_sample;
         end
         else begin
-            // Divide the peak_sample by this constant and subtract it from current peak sample
+            // Decay the current peak value
             peak_sample <= peak_sample - divided_peak_sample;
         end
     end
     else begin
+        // In all other cases, just stay the same
         peak_sample <= peak_sample;
-        divided_peak_sample <= divided_peak_sample;
     end
 end
 

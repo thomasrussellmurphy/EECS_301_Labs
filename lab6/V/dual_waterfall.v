@@ -16,11 +16,13 @@ output reg [ 7: 0 ] disp_red, disp_green, disp_blue;
 
 reg [ 11: 0 ] counter;
 
+// Configurable background color
 parameter BACKGROUND_RED = 8'h00;
 parameter BACKGROUND_GREEN = 8'h0c;
 parameter BACKGROUND_BLUE = 8'h00;
 parameter BACKGROUND = { BACKGROUND_RED, BACKGROUND_GREEN, BACKGROUND_BLUE };
 
+// Positions of the ends of each column
 parameter COLUMN_ONE = 10'd96;
 parameter COLUMN_TWO = 10'd192;
 parameter COLUMN_THREE = 10'd288;
@@ -28,6 +30,7 @@ parameter COLUMN_FOUR = 10'd384;
 
 wire [ 15: 0 ] high_data, low_data;
 
+// Store incoming processed data
 column_framebuffer high_buffer ( .clk_data( clk_data ), .clk_disp( clk_disp ),
                                  .sink_valid( high_sink_valid ), .sink_data( high_sink_data ),
                                  .v_pos( v_pos ), .source_enable( 1'b1 ), .source_data( high_data ) );
@@ -42,6 +45,7 @@ end
 
 always @( posedge clk_disp ) begin
     if ( valid_draw ) begin
+        // Mux between the five columns with compact data assignments
         if ( h_pos < COLUMN_ONE ) begin
             { disp_red, disp_green, disp_blue } <= BACKGROUND;
         end
@@ -59,7 +63,8 @@ always @( posedge clk_disp ) begin
         end
     end
     else begin
-        { disp_red, disp_green, disp_blue } <= 24'h000000; // zero out when invalid
+        // Blanking in invalid region
+        { disp_red, disp_green, disp_blue } <= 24'h000000;
     end
 end
 

@@ -16,6 +16,7 @@ output reg [ 11: 0 ] source_data;
 output reg source_valid;
 output reg [ 1: 0 ] source_error;
 
+// Mux between the four input Avalon data sinks
 always @( posedge clk ) begin
     case ( select )
         2'b00 : begin

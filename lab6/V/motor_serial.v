@@ -12,20 +12,22 @@ reg [ 9: 0 ] count; // 50MHz/1024 gives us a frequency of 48.8kHz
 reg [ 9: 0 ] goal;
 reg [ 11: 0 ] unsign_it; // converts sample into unsigned data
 
-
-assign outl = ~outh;
+assign outl = ~outh; // Locked anti-phase output
 
 always @( posedge clk ) begin
     count <= count + 1'b1;
 
+    // Load data on every new sample
     if ( ast_sink_valid ) begin
         unsign_it <= ast_sink_data + 12'b100000000000;
     end
 
+    // Only update the goal at zero count to avoid glitches
     if ( count == 1'b0 ) begin
         goal <= unsign_it[ 11: 2 ]; // truncate lsb to fit sample
-    end  // Only update the goal at zero count to avoid glitches
+    end
 
+    // Create PWM based on position relative to the goal
     if ( count < goal ) begin
         outh <= 1;
     end

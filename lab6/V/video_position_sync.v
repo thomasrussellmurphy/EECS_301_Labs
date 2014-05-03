@@ -3,7 +3,7 @@ module video_position_sync( disp_clk, en, valid_draw, v_blank, h_pos, v_pos, dis
 input wire disp_clk; // 50MHz, 9MHz
 input wire en;
 
-output reg valid_draw, v_blank;
+output reg valid_draw, v_blank; // expose important internal states
 output reg [ 9: 0 ] h_pos, v_pos;
 output reg disp_hsync, disp_vsync;
 
@@ -30,17 +30,19 @@ parameter VERT_MAX_COUNT = VERT_LOW_WIDTH + VERT_FRONT_PORCH + VERT_PIXELS + VER
 // HSync pattern: 525 clock cycles period; 41 low, 2 front porch, 480 data, 2 back porch
 // VSync pattern: 286 lines period; 10 low, 2 front porch, 272 data, 2 pack porch
 
+// Internal variables and states for excitation logic
 reg [ 9: 0 ] h_count, v_count; // Counters for progression through real and non-display positions
 reg [ 9: 0 ] next_h_count, next_v_count;
+reg next_hsync, next_vsync;
+
 wire h_valid, v_valid, next_valid_draw, next_v_blank;
 
+// Are the counter states within the valid display bounds?
 assign h_valid = ( h_count > HORZ_MIN_VALID_COUNT ) && ( h_count < HORZ_MAX_VALID_COUNT );
 assign v_valid = ( v_count > VERT_MIN_VALID_COUNT ) && ( v_count < VERT_MAX_VALID_COUNT );
 
 assign next_v_blank = ~v_valid;
 assign next_valid_draw = h_valid && v_valid;
-
-reg next_hsync, next_vsync;
 
 // Excitation logic
 always @( * ) begin

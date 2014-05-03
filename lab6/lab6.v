@@ -87,16 +87,17 @@ inout [ 31: 0 ] GPIO1_D; // GPIO Connection 1 Data Bus
 // =======================================================
 // REG/WIRE declarations
 // =======================================================
-// All inout port turn to tri-state
+// All unused inout port turn to tri-state
 assign { GPIO0_D[ 31: 15 ], GPIO0_D[ 3 ] } = 18'hz;
 assign GPIO1_D[ 31: 28 ] = 4'hz;
 
-// Clock wires
-wire clk_9, clk_20, clk_50;
+// Clock wires from PLL
+wire clk_50, clk_9, clk_20;
 
-// Status lights
+// Status lights and PLL lock
 wire pll_lock;
 assign LEDG[ 0 ] = pll_lock;
+assign LEDG[ 2: 1 ] = { A, B };
 
 // DAC Serial Connections
 wire dac_cs_n, dac_mosi, dac_ldac_n, dac_clr_n;
@@ -106,7 +107,7 @@ assign GPIO0_D[ 8 ] = dac_cs_n; // active low
 assign GPIO0_D[ 7 ] = dac_mosi;
 assign GPIO0_D[ 6 ] = clk_20; // sclk
 
-// DAC hold values
+// DAC hold values, not really necessary, but safe
 assign dac_ldac_n = 1'b0;
 assign dac_clr_n = 1'b1;
 
@@ -118,18 +119,17 @@ assign GPIO0_D[ 11 ] = clk_20; // sclk
 
 assign adc_miso = GPIO0_D[ 13 ];
 
-// Encoder Connections, unused
+// Encoder Connections, status-only
 wire A, B;
 assign A = GPIO0_D [ 5 ];
 assign B = GPIO0_D [ 4 ];
-assign LEDG[ 2: 1 ] = { A, B };
 
 // Motor Connections
 wire motor_en, motor_phase;
 assign GPIO0_D[ 1: 0 ] = { motor_phase, ~motor_phase };
 assign GPIO0_D[ 2 ] = motor_en;
 
-// Motor config
+// Motor config, allow override of motor enable
 assign motor_en = pll_lock && SW[ 0 ];
 
 // Display Connections
@@ -138,6 +138,7 @@ wire disp_clk, disp_en, disp_vsync, disp_hsync;
 wire valid_draw, v_blank;
 wire [ 9: 0 ] h_pos, v_pos;
 
+// The display is nicely lined up on GPIO1_D!
 assign GPIO1_D[ 27: 0 ] = { disp_vsync, disp_hsync, disp_en, disp_clk, disp_blue, disp_green, disp_red };
 assign disp_clk = clk_9;
 
@@ -160,11 +161,6 @@ wire [ 11: 0 ] lowpass_data;
 wire lowpass_valid;
 wire [ 1: 0 ] lowpass_error;
 
-// Bandpass ouptut connections
-wire [ 11: 0 ] bandpass_data; // all possible data output for monitoring
-wire bandpass_valid;
-wire [ 1: 0 ] bandpass_error;
-
 // Signal visualization connections
 wire [ 15: 0 ] low_analysis_source_data, high_analysis_source_data;
 wire low_analysis_source_valid, high_analysis_source_valid;
@@ -178,12 +174,15 @@ pll_all all_plls ( .inclk0( CLOCK_50 ),
                    .c0( clk_50 ), .c1( clk_9 ), .c2( clk_20 ),
                    .locked( pll_lock ) );
 
+// Controller of the 50kHz sample clock, makes things happen
 sample_divider divider ( .clk( clk_20 ), .en( pll_lock ), .sample( sample ) );
 
+// Our mono-channel audio ADC
 adc_serial adc ( .sclk( clk_20 ),
                  .ast_source_data( adc_data ), .ast_source_valid( adc_valid ), .ast_source_error( adc_error ),
                  .sample( sample ), .sdo( adc_mosi ), .sdi( adc_miso ), .cs( adc_cs_n ) );
 
+// The pair of filters
 lowpass lowpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                          .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
                          .ast_source_data( lowpass_data ), .ast_source_valid( lowpass_valid ), .ast_source_error( lowpass_error ) );
@@ -192,6 +191,7 @@ highpass highpass_filter ( .clk( clk_20 ), .reset_n( pll_lock ),
                            .ast_sink_data( adc_data ), .ast_sink_valid( adc_valid ), .ast_sink_error( adc_error ),
                            .ast_source_data( highpass_data ), .ast_source_valid( highpass_valid ), .ast_source_error( highpass_error ) );
 
+// The two output methods for the filtered signal
 dac_serial dac ( .sclk( clk_20 ),
                  .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ),
                  .sdo( dac_mosi ), .cs( dac_cs_n ) );
@@ -200,6 +200,7 @@ motor_serial motor( .clk( clk_50 ),
                     .ast_sink_data( lowpass_data ), .ast_sink_valid( lowpass_valid ), .ast_sink_error( lowpass_error ),
                     .outh( motor_phase ), .outl() );
 
+// Branch off to do the video chain, create frame-synced 'analyzed' samples
 sample_analysis high_analysis ( .clk( clk_20 ),
                                 .ast_sink_data( highpass_data ), .ast_sink_valid( highpass_valid ), .ast_sink_error( highpass_error ), .end_cycle( v_blank ),
                                 .source_valid( high_analysis_source_valid ), .source_data( high_analysis_source_data ) );
@@ -208,19 +209,16 @@ sample_analysis low_analysis ( .clk( clk_20 ),
                                .ast_sink_data( lowpass_data ), .ast_sink_valid( lowpass_valid ), .ast_sink_error( lowpass_error ), .end_cycle( v_blank ),
                                .source_valid( low_analysis_source_valid ), .source_data( low_analysis_source_data ) );
 
+// Send those samples over to storage and output
 dual_waterfall waterfall ( .clk_data( clk_20 ), .clk_disp( clk_9 ),
                            .h_pos( h_pos ), .v_pos( v_pos ), .valid_draw( valid_draw ), .end_cycle( v_blank ),
                            .low_sink_valid( low_analysis_source_valid ), .low_sink_data( low_analysis_source_data ),
                            .high_sink_valid( high_analysis_source_valid ), .high_sink_data( high_analysis_source_data ),
                            .disp_red( disp_red ), .disp_green( disp_green ), .disp_blue( disp_blue ) );
 
+// Control the video side of the world
 video_position_sync video_sync ( .disp_clk( clk_9 ), .en( pll_lock ),
                                  .valid_draw( valid_draw ), .v_blank( v_blank ), .h_pos( h_pos ), .v_pos( v_pos ),
                                  .disp_hsync( disp_hsync ), .disp_vsync( disp_vsync ) );
-
-// This can be dealt with later should it be used
-// fft audio_fft ( .clk( clk_133 ), .reset_n( pll_lock ),
-//                 .inverse(), .sink_valid(), .sink_sop(), .sink_eop(), .sink_real(), .sink_imag( 1'b0 ), .sink_error(), .sink_ready(),
-//                 .source_ready(), .source_error(), .source_sop(), .source_eop(), .source_valid(), .source_exp(), .source_real(), .source_imag() );
 
 endmodule

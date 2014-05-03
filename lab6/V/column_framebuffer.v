@@ -16,8 +16,11 @@ output reg [ 15: 0 ] source_data; // RAM's read-data
 reg [ 9: 0 ] top_pixel; // virtual zero-index for
 reg [ 15: 0 ] ram [ 1023: 0 ]; // 16-bit data, 10-bit address RAM
 
+// This will synthesize a two-clock RAM with undefined read-on-write behavior
+
 // Write-side behavior
 always @( posedge clk_data ) begin
+    // When a new sample arrives for the buffer, make in the new 'top' of the buffer
     if ( sink_valid ) begin
         ram[ top_pixel - 1'b1 ] <= sink_data;
         top_pixel <= top_pixel - 1'b1;
@@ -29,6 +32,7 @@ end
 
 // Read-side behavior
 always @( posedge clk_disp ) begin
+    // Read out the desired vertical position in the buffer
     if ( source_enable ) begin
         source_data <= ram[ top_pixel + v_pos ];
     end
