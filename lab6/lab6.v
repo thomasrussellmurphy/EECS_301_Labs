@@ -104,8 +104,8 @@ assign A = GPIO0_D [ 5 ];
 assign B = GPIO0_D [ 4 ];
 
 // Motor Connections
-wire motor_en, motor_phase;
-assign GPIO0_D[ 1: 0 ] = { motor_phase, ~motor_phase };
+wire motor_en, motor_phase, motor_antiphase;
+assign GPIO0_D[ 1: 0 ] = { motor_phase, motor_antiphase };
 assign GPIO0_D[ 2 ] = motor_en;
 
 // Motor config, allow override of motor enable
@@ -177,7 +177,7 @@ dac_serial dac ( .sclk( clk_20 ),
 
 motor_serial motor( .clk( clk_50 ),
                     .ast_sink_data( lowpass_data ), .ast_sink_valid( lowpass_valid ), .ast_sink_error( lowpass_error ),
-                    .outh( motor_phase ), .outl() );
+                    .outh( motor_phase ), .outl( motor_antiphase ) );
 
 // Branch off to do the video chain, create frame-synced 'analyzed' samples
 sample_analysis high_analysis ( .clk( clk_20 ),

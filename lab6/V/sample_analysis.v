@@ -23,11 +23,11 @@ edge_to_pulse pulse ( .clk( clk ), .in( end_cycle ), .out( end_cycle_pulse ) );
 
 parameter PADDING = 12'h000;
 
-// Convert to unsigned continuously for processing
-assign padded_sample = { ast_sink_data + 12'b100000000000, PADDING };
+// Drop sign bit to 'rectify' the signal and pad for math
+assign padded_sample = { ast_sink_data[ 10: 0 ], 1'b0, PADDING };
 
 // Constantly have divided version of peak sample available
-assign divided_peak_sample = peak_sample >> 6;
+assign divided_peak_sample = peak_sample >> 8;
 
 always @( posedge clk ) begin
 

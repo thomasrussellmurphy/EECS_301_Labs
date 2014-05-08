@@ -50,13 +50,13 @@ always @( posedge clk_disp ) begin
             { disp_red, disp_green, disp_blue } <= BACKGROUND;
         end
         else if ( h_pos < COLUMN_TWO ) begin
-            { disp_red, disp_green, disp_blue } <= { low_data[ 15: 8 ], 8'h00, low_data[ 7: 0 ] };
+            { disp_red, disp_green, disp_blue } <= { low_data[ 15: 8 ], 2'h0, low_data[ 9: 4 ], 2'h0, low_data[ 5: 0 ] };
         end
         else if ( h_pos < COLUMN_THREE ) begin
             { disp_red, disp_green, disp_blue } <= BACKGROUND;
         end
         else if ( h_pos < COLUMN_FOUR ) begin
-            { disp_red, disp_green, disp_blue } <= { high_data[ 15: 8 ], 8'h00, high_data[ 7: 0 ] };
+            { disp_red, disp_green, disp_blue } <= { high_data[ 15: 8 ], 2'h0, high_data[ 9: 4 ], 2'h0, high_data[ 5: 0 ] };
         end
         else begin
             { disp_red, disp_green, disp_blue } <= BACKGROUND;
